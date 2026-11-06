@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Login único da escola</title>
+  <link rel="stylesheet" th:href="@{/estilo.css}">
+</head>
+<body>
+<header><h1>Login único da escola <small>· provedor de identidade</small></h1></header>
+<main>
+  <div class="cartao">
+    <h2>Entre com a sua conta da escola</h2>
+    <p class="dica">Esta é a ÚNICA tela de senha. As aplicações (Notas, Biblioteca) nunca veem a sua senha.</p>
+    <!-- th:action acrescenta sozinho o token CSRF escondido no formulário -->
+    <form th:action="@{/sso/login}" method="post">
+      <label for="username">Usuário</label>
+      <input id="username" name="username" autocomplete="username" autofocus required>
+      <label for="password">Senha</label>
+      <input id="password" name="password" type="password" autocomplete="current-password" required>
+      <p class="erro" th:if="${param.erro}">Usuário ou senha inválidos.</p>
+      <p><button type="submit">Entrar</button></p>
+    </form>
+  </div>
+  <p class="dica">Demonstração: <code>ana</code> (aluna), <code>carlos</code> (professor) ou <code>marta</code> (bibliotecária).
+    Senha de todos: <code>Escola@2026</code>.</p>
+</main>
+</body>
+</html>

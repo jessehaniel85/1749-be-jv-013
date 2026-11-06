@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sair de todos os sistemas</title>
+  <link rel="stylesheet" th:href="@{/estilo.css}">
+</head>
+<body>
+<header><h1>Login único da escola <small>· provedor de identidade</small></h1></header>
+<main>
+  <div class="cartao">
+    <h2>Sair de todos os sistemas?</h2>
+    <p>O provedor vai encerrar a sua sessão e avisar cada sistema em que você entrou (logout único).</p>
+    <!-- POST com token CSRF: abrir um link não basta para deslogar alguém -->
+    <form th:action="@{/sso/sair}" method="post">
+      <input type="hidden" name="app" th:value="${app}">
+      <p class="acoes">
+        <button type="submit">Sim, sair de tudo</button>
+        <a class="botao secundario" th:href="@{/}">Cancelar</a>
+      </p>
+    </form>
+  </div>
+</main>
+</body>
+</html>

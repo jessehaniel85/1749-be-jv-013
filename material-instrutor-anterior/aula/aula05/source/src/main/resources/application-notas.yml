@@ -1,0 +1,21 @@
+# Perfil "notas": a aplicação NOTAS (porta 8081).
+server:
+  port: 8081
+  servlet:
+    session:
+      cookie:
+        name: NOTAS_SESSAO
+
+sso:
+  cliente:
+    id: notas
+    nome: Notas
+    cor: "#1d4ed8"
+    segredo: ${SSO_SEGREDO_NOTAS:segredo-de-demonstracao-notas-0001}
+    # Endereço do provedor para o NAVEGADOR (redirecionamentos) e o "iss" esperado na asserção.
+    idp-url-publica: http://idp.localhost:9000
+    # Endereço do provedor para chamadas SERVIDOR A SERVIDOR (troca do código, chave pública).
+    idp-url-interna: http://localhost:9000
+    menu:
+      - { rotulo: "Minhas notas", caminho: "/minhas-notas" }
+      - { rotulo: "Lançar notas (só professor)", caminho: "/lancar-notas" }

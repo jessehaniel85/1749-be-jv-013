@@ -1,0 +1,1387 @@
+Transcrição automática — Aula 3 · turma 1749 · BE-JV-013 Fundamentos de segurança para aplicações · Qua 04/11/2026
+Fonte: gravação do Teams (início da gravação às 15h00, horário de Brasília; duração 2h29). Marcas [hh:mm:ss] = posição no vídeo.
+Instrutor: Hagamenon Nicolau de Oliveira (conta Teams "Educacional 07").
+Gerada com Whisper (modelo small, pt) em 05/11/2026. Erra nomes próprios e termos técnicos; trechos de silêncio foram pulados.
+Resumo correspondente: ../passagem-de-turma.md. Documento de coordenação — não vai para os alunos.
+
+[00:00:00] Aula de Java, Spring Security.
+[00:01:00] Ulра do quadro de
+[00:01:07] quase度 levanta de
+[00:01:08] quase budgeting
+[00:01:08] quase gente e
+[00:01:11] chip
+[00:01:15] crisp
+[00:01:15] fresh
+[00:01:25] pro
+[00:03:57] Então podemos começar, acho que a maioria do pessoal já está.
+[00:04:21] Então pessoal, boa tarde, voltando aqui para nossa aula de segurança e então só recapitulando
+[00:04:30] que nós vimos nas últimas aulas, nós vimos alguns tipos de ataques, né, falamos na aula
+[00:04:36] passada sobre que são criptografia, hash, falamos de par de chaves, né, chave simétrica,
+[00:04:50] chave semétrica, eu expliquei que chave semétrica é você usa duas chaves, uma mesma chave
+[00:04:57] para cifrar e decifrar e o chave a semétrica são duas chaves, é só deixando claro que
+[00:05:06] eu não sei se ficou muito claro quando disse, mas então quando você tem parte chaves,
+[00:05:12] você tem a chave pública, a chave privada, a chave privada é de conhecimento meu, é
+[00:05:16] só meu, é só minha, e a chave pública eu entrego. Então se eu quero que alguma coisa
+[00:05:22] seja secreta e só lida por mim, eu entregue a minha chave pública para essa pessoa, essa
+[00:05:29] pessoa é incrível, tem informação e me envia. Eu somente com a minha chave privada
+[00:05:35] eu consigo abrir esse texto e ler. Pronto, isso é isso inclusive que funciona com os
+[00:05:42] navegadores, TLS, quando você tem um HTTPS, você tem a chave pública no
+[00:05:47] navegador, você consegue ver isso, que quando a informação transita com o
+[00:05:52] servidor, no servidor você tem a chave privada, você configura ali no servidor
+[00:05:57] a chave privada, então por isso, somente aquele navegador consegue ler aquela
+[00:06:01] informação. E se você tem certificados autocinados,
+[00:06:05] certificados autocinados são seguros, você consegue trabalhar cuidando que
+[00:06:09] questão é a cadeia, como ele não tem uma cadeia reconhecida, não é uma web trust e por isso ele
+[00:06:17] fica com aquele selo vermelho que ele não pode confiar no certificado auto assinado, mas você mesmo
+[00:06:23] pode gerar o certificado auto assinado na sua máquina e configurar uma canta TPS, mas aí como eu
+[00:06:28] disse você vai ver lá que ele vai ter ali o símbolo vermelho dizendo que ele não reconhece,
+[00:06:33] que ele é um cadeado vermelho, que ele não reconhece,
+[00:06:36] aí ele você avança por sua conta.
+[00:06:38] Aí você clica lá em avançar e ignora o alerta do navegador
+[00:06:42] e navega no site.
+[00:06:43] Eu tenho pronto, a gente viu tudo isso na última aula,
+[00:06:48] só que ficou faltando uma coisa importante que a gente ainda
+[00:06:51] precisa, que nós precisamos discutir hoje, que é,
+[00:06:53] que são dois assuntos que a gente deve ver hoje,
+[00:06:55] que é o Kuki e o JWT.
+[00:06:59] Então, são duas formas de nós trabalharmos com autenticação
+[00:07:03] a sua aplicação, não só a autenticação, mas trabalharmos com gestão de informação no
+[00:07:09] ambiente web, especialmente o QQ. O QQ é uma forma de você organizar a sua aplicação. Lembrando,
+[00:07:19] vamos falar primeiro de QQ e eu defino como isso funciona dentro da nossa estrutura. Primeiro,
+[00:07:27] eu queria perguntar para vocês, vocês sabem o que é um QQ? O que ele é, como ele funciona,
+[00:07:32] Já trabalharam, já viram, já viram o navegador, já analisaram os cooks,
+[00:07:37] e o que isso interage.
+[00:07:39] Inclusive, de uns anos pra cá, de uns 10 anos pra cá, até menos talvez,
+[00:07:46] teve toda uma questão ali de...
+[00:07:49] Eu não tenho certeza se foi da LGPD ou se foi do Marco Civil do Internet.
+[00:07:53] E privacidade, né, o problema, né?
+[00:07:56] Isso, que eu ia falar que você tem toda uma gestão de cooks.
+[00:08:01] o que você quer que mantém, o que você quer que tira,
+[00:08:04] hoje você consegue ter essa gestão na maioria dos sites.
+[00:08:07] Quando você entra no site pela primeira vez,
+[00:08:10] ele tem uma gestão de cookies que você pode selecionar
+[00:08:13] os cookies que você pode manter.
+[00:08:16] Isso é relativamente recente.
+[00:08:18] Eu só não me lembro se é do Marco Civil ou se isso é da LGPD.
+[00:08:22] Já não me recordo disso.
+[00:08:24] Mas, enfim, a questão é que...
+[00:08:29] Vamos falar um pouco disso.
+[00:08:30] O que vocês entendem por Cooks?
+[00:08:34] O que vocês veem? O que vocês entendem?
+[00:08:36] O que vocês entendem? Qual é o impacto que isso tem
+[00:08:40] para nós que navegamos o dia todo na internet?
+[00:08:44] Podem me dizer?
+[00:08:46] Diz lá, Matheus.
+[00:08:48] Os Cooks são dados...
+[00:08:53] Não sei exatamente a definição,
+[00:08:54] estou me arriscando um pouco aqui,
+[00:08:55] mas são dados auxiliares que ajudam
+[00:08:59] a aplicação a identificar o usuário e a partir disso,
+[00:09:04] como em vender, às vezes vender informações,
+[00:09:08] suspeito, vender dados para mexer e tudo mais.
+[00:09:12] E é isso.
+[00:09:14] É isso, estamos chegando em algum lugar, exatamente.
+[00:09:18] Mas ele não deve identificar um usuário, tá?
+[00:09:25] Eu não posso, por exemplo, isso não deveria acontecer, eu consigo olhar para um cookie
+[00:09:32] e eu falar que ele é o Matheus, né?
+[00:09:35] Ele pertence a Matheus, isso não deveria acontecer.
+[00:09:38] Mas pronto, vamos avançar e a gente vai entender isso melhor com o tempo.
+[00:09:41] É, que mais?
+[00:09:42] Que mais pode dizer de cookies aqui?
+[00:09:44] Que mais pode participar com o nosco?
+[00:09:47] Obrigado pela, pelo ponto, acho que é nesse rumo mesmo, mas eu quero mais informações,
+[00:09:53] eu quero mais.
+[00:09:54] E pode errar, tá pessoal? Eu quero que vocês participem.
+[00:09:57] Deixa eu arriscar também, junto com o Matiz.
+[00:10:00] O CUL que eu entendo que é um pequeno arquivo salvo no local, na instância do Brouse, local do usuário,
+[00:10:12] e pode armazenar qualquer tipo de informação. Armazenar qualquer tipo de informação.
+[00:10:18] Não é limitado a nada, né?
+[00:10:21] Não é, é limitado ao tamanho.
+[00:10:23] Eles têm 4k bytes.
+[00:10:25] Ok.
+[00:10:26] Ele é pequenininho e cabe um contexto muito pequeno de informação, mas é como você
+[00:10:32] disse que você pode guardar o que você quiser.
+[00:10:36] Quem foi que levantou a mão não vi?
+[00:10:38] Diego.
+[00:10:39] É complementar na resposta do colega.
+[00:10:42] Diego.
+[00:10:43] Diga lá.
+[00:10:44] É complementar na resposta do colega.
+[00:10:48] o que seria tipo um armazenamento informações e logo cedir, mas tipo assim mais vinculados
+[00:10:53] a preferências do usuário?
+[00:10:55] Isso.
+[00:10:56] A navegações, padrões.
+[00:10:58] Também, também, eu posso ter forma de manter em aplicações mais antigas.
+[00:11:05] Eu vou mostrar pra vocês.
+[00:11:09] Nós tínhamos como autentica...
+[00:11:11] Trabalhamos o QQ interadia com a autenticação.
+[00:11:15] Em versões mais antigas.
+[00:11:18] Vamos ver isso que eu mais calma, mas vocês vão perceber isso.
+[00:11:25] Eu usava o cook para manter o usuário autêntico.
+[00:11:28] Eu nem diria que é versões mais antigas, talvez um legado ou monolíticos, quando a
+[00:11:33] gente está falando de estado da aplicação, quando a gente mantém estado, então eu
+[00:11:38] mantenho a partir dessa autêntica, eu posso manter usando o cook, autênticação do
+[00:11:44] usuário.
+[00:11:45] Não é tão usado, não é tão boda, vamos chamar assim,
+[00:11:53] porque nós temos o JWT, o Alt2, de outras formas de autenticação,
+[00:11:57] onde a gente vai perceber que acaba sendo mais...
+[00:12:03] Eu vou dizer mais seguras, mas eu diria que são...
+[00:12:07] Ateniar certos padrões que nós temos hoje no mercado, né?
+[00:12:11] Eu diria que falar de padrões é mais interessante do que dizer seguro.
+[00:12:15] Mas pronto, é isso. Mas que mais? É isso. Então, o QoOx são arquivos texto.
+[00:12:20] Vamos avançando aqui na definição. Vocês vão interagindo comigo, tá?
+[00:12:23] Não deixe eu falar sozinhos, senão eu vou falar tanta coisa aqui e eu não vejo vocês participando.
+[00:12:28] Então, pronto, vamos entender isso. Então, são pequenos arquivos de texto.
+[00:12:32] Até que a pouco eu partilho a tela e mostro um pouco de código com vocês,
+[00:12:35] não sei se vocês mais, só essa primeira parte da definição, né, é que eles são criados
+[00:12:41] pelos sites armazenados no navegador, ok? Ele tem um tamanho muito limitado, que eu
+[00:12:47] falei o que eu comecei a falar, então eles são, eles são limitados, um dia, assim,
+[00:12:53] por isso ele tem 4k bytes, então não servem para muita coisa, eu não posso por ler muito
+[00:12:59] informação e não é essa o objetivo.
+[00:13:03] O que eu tive é de fato é que eu salve como o colega falou das preferências do usuário,
+[00:13:08] eu salve aquilo que conforme ele interage com determinado site, eu consigo colocar aquele
+[00:13:16] cook no navegador dele, porque?
+[00:13:21] E quando ele interagir com o ambiente de publicidade, seja a AdSense, seja a palavra-chave, seja
+[00:13:31] qualquer, até o próprio YouTube, que pronta é AdSense também, é uma forma de AdSense,
+[00:13:38] ele consegue ter ali, fazer anúncios mais voltados para o usuário ali, como ele trabalha.
+[00:13:46] Mas é muito importante que o Kuki, como eu falei, é qualquer coisa.
+[00:13:50] A gente usa o cook para salvar essas preferências para a gente poder trabalhar depois 400 para o nosso site.
+[00:13:56] Vamos... exemplo.
+[00:13:58] Caixa, eu quero que se a pessoa...
+[00:14:02] Ela... não sei, está visitando sites de empréstimo.
+[00:14:09] Ela conheça a minha aplicação de empréstimo, por exemplo.
+[00:14:14] Então, eu quero que quando identificar ali determinadas cook,
+[00:14:16] Se eu quero começar a mostrar, eu configurei alguma ferramenta de AdSense, ferramentas de
+[00:14:21] cliques, ferramentas de postagem, de publicações, de Merchan, para que determinados anúncios
+[00:14:31] cheguem até essa pessoa vindo da caixa.
+[00:14:33] Mais ou menos essa ideia.
+[00:14:34] Ok, mas pronto, aqui são duas coisas diferentes.
+[00:14:37] Não vamos confundir as coisas.
+[00:14:38] Uma coisa é a gente usar os cook express a parte dos Merchan e etc. de anúncios, de
+[00:14:44] AdSense, etc.
+[00:14:45] Aqui eu quero saber de me atter mais a como o que é um cookie e mais na parte de segurança
+[00:14:52] do cookie, tá bem?
+[00:14:54] Então continuando.
+[00:14:55] Então o cookie tem três partes, ele é composto por três partes, ele tem o nome, que é o
+[00:15:03] que você identifica, ele tem o valor, o valor que você sete, porque ele é meio que fosse
+[00:15:07] um chave-valor e o atributo, né, que, ou os atributos, né, ele pode ter vários, um
+[00:15:14] exemplo, seria a data de inspiração. Se você coloca, se você não sete uma data de
+[00:15:18] inspiração, ele vai ser um cookie que vai durar enquanto aquela e enquanto a liste
+[00:15:22] estiver no navegador. Mas, inclusive, eu já vi que tem tipos de cookies, de coragem a
+[00:15:27] gente chega lá e pronto, isso é definido até pela questão da data, da pela
+[00:15:33] inspiração do cookie. Pronto, ele pode ser primário, lembrando disso, o que é um
+[00:15:41] o cook primário. Ele é do navegador que nosso, ele é nosso. Nós colocamos ele lá
+[00:15:48] para fazermos hoje alguma coisa. Se a gente quer passar alguma informação para o cliente,
+[00:15:52] queremos salvar uma uma uma referência do usuário, queremos passar alguma informação
+[00:15:57] do de, não sei, queremos setar com o texto de segurança, viu? O cook é muito usado para
+[00:16:04] com o texto de segurança com o navegador, vou mostrar isso para vocês. E até proteções
+[00:16:09] que a gente vai ter. Ele pode ser de sessão, ou seja, existe uma sessão no navegador,
+[00:16:18] ele existe, o cook está lá. Quando o navegador é fechado, o cook deixa de existir. Isso,
+[00:16:26] pronto, isso é muito comum quando nós temos, porque é muito questão também de até de,
+[00:16:33] É pronto, aí de novo, depende muito da inspiração,
+[00:16:36] e é que depende que ele pode ter menos tempo
+[00:16:41] e ele inspirar mesmo,
+[00:16:42] tendo numa mesma sessão do navegador.
+[00:16:44] E permanente, o Cuckoo permanente, que ele não inspira nunca.
+[00:16:48] E ele vai estar ali sempre no navegador.
+[00:16:50] Se você não for lá e mandar limpar
+[00:16:54] e ter aquela opção que a gente deve conhecer bem,
+[00:16:57] quer limpar os Cooks, limpar o histórico,
+[00:16:59] limpar todo o navegador,
+[00:17:01] os Cooks vão permanecer ali.
+[00:17:03] E é, inclusive, interessante que de tempos em tempos eu vá ali e limpe esses coques
+[00:17:07] para evitar uma série de...
+[00:17:09] de... que estes ataques, etc.
+[00:17:12] E fica entre a espécie de faciço com alguma...
+[00:17:16] alguma...
+[00:17:18] periocidade, né? É importante que façamos isso.
+[00:17:22] Mas deixa eu partilhar a minha tela.
+[00:17:24] Eu tenho um código aqui, né?
+[00:17:27] Nesse Cook Controller.
+[00:17:30] É só para vocês perceberem uma coisa, eu vou pôr aqui esse código para correr.
+[00:17:34] Eu vou subir esse código para vocês, eu vou deixar disponível o código da aula 1 que a gente viu,
+[00:17:39] embora ele seja aqui, aquele canteville dos cooks.
+[00:17:44] E aqui eu já vou mostrar algumas coisas para vocês, que é interessante para a gente entender o que é um cook,
+[00:17:49] ver isso na massa.
+[00:17:51] Então, eu subi aqui nossa aplicação, tenho aqui...
+[00:17:56] Vou tirar isso aqui, aqui logo no post.
+[00:18:03] Aqui vai ser boas vindas, eu quero, se não me engano, deixa eu ter certeza.
+[00:18:10] Boas vindas pronto.
+[00:18:12] Esse aqui boas vindas, então eu queria um, se a gente olhar aqui no código, serve aqui
+[00:18:17] comigo, pessoal, não se percam.
+[00:18:19] Eu estou criando aqui, eu procuro um cookie user ID.
+[00:18:24] Se ele não existir, eu vou criar um default value,
+[00:18:28] esse default user ID.
+[00:18:30] E você está no user ID, qualquer.
+[00:18:33] Se a gente vir aqui agora,
+[00:18:37] no inspect application,
+[00:18:41] e vir aqui no cookie, pronto.
+[00:18:44] Não era isso que eu queria, não é isso,
+[00:18:46] a gente vai ver isso depois.
+[00:18:49] Vamos ver Refresh.
+[00:18:57] Deixa eu limpar aqui e mandar de novo.
+[00:19:12] O que que ele vai fazer?
+[00:19:14] Vamos.
+[00:19:15] Deixa eu tentar dar um pouquinho.
+[00:19:19] Ok, pronto. Ele não tem, pronto, é isso. Ele não tem. O que ele define um valor?
+[00:19:30] Aqui, então, nós vamos tentar usar esse boas vindas de estrito. Vamos abrir aqui.
+[00:19:38] Ele vai dar um erro, eu vou explicar para vocês, pronto, porque ele dá um erro,
+[00:19:47] porque eu estou esperando encontrar esse user ID, porque aqui você tem um default,
+[00:19:52] default, que não existe o meu cookie. Aqui eu exijo esse cookie. Então aqui é até uma função
+[00:20:00] do Spring que ele é muito usado quando eu exijo que ali na request no HTTP eu seto um cookie
+[00:20:08] indeterminado. Agora vamos criar aqui um login teste. Vamos entender o que eu estou fazendo aqui.
+[00:20:16] Aqui eu estou setando. Vamos definir aqui algumas questões e aqui é onde eu começo a falar um
+[00:20:24] pouquinho de segurança, tá pessoal? Preste atenção aqui. Então eu estou fazendo um login,
+[00:20:29] vamos pensar aqui que eu estou fazendo um login e aqui eu estou setando então um cookie onde
+[00:20:35] o meu user ID vai ser 42.
+[00:20:38] Importante.
+[00:20:39] Eu estou setando aqui que HTTP only.
+[00:20:42] Eu até escrevi aqui o JavaScript da página,
+[00:20:45] não lê esse cook.
+[00:20:46] Ele não fica visível.
+[00:20:48] Eu não consigo pelo JavaScript ler esse cook.
+[00:20:53] Então, por isso, ele bloqueia o roubo pelo XSS,
+[00:21:00] que é aquilo que a gente viu na Nonsault 1.
+[00:21:03] E, pronto, existe essa comunicação com o servidor.
+[00:21:06] Tem esse HTTP, ele só é no HTTP.
+[00:21:09] E o Sikiri, também deixei aqui,
+[00:21:14] que ele existe...
+[00:21:17] Que ele só é em... Ah, não, desculpem lá, pessoal.
+[00:21:20] Falei errado, não é?
+[00:21:22] O HTTP, olha eu disse em cima aqui.
+[00:21:24] Da página, não, o Leocook, foi o que eu falei.
+[00:21:26] Ele evita o... Ah, ok, falei certo, falei certo.
+[00:21:29] Desculpem lá, achei que eu tinha lido isso.
+[00:21:30] E aqui o HTTP, aqui o security, sim, ok, ele exige HTTPS.
+[00:21:37] Ele só envia dentro HTTPS, como a gente não está usando HTTPS, pronto,
+[00:21:42] ele acaba não trabalhando.
+[00:21:47] E aqui o street, isso aqui é muito importante também,
+[00:21:50] termo de segurança para evitar o aquilo que a gente viu na nossa aula 1
+[00:21:57] sobre o ataque do cross-site, que é você pensa que você injeta ali um cookie e você
+[00:22:08] manda para o e-mail para pessoa, um pichinho.
+[00:22:13] Aí a pessoa clica nesse e-mail, ela vai ser direcionada para o site contendo o cookie
+[00:22:19] que eu estou enviando.
+[00:22:20] Aí eu posso fazer uma...
+[00:22:22] Que eu posso fazer uma...
+[00:22:25] Uma ação...
+[00:22:27] Como eu capturei o Google que está no navegador...
+[00:22:30] Eu consigo me passar autenticado pela pessoa,
+[00:22:33] eu consigo me passar pela pessoa...
+[00:22:35] E faço uma operação ali...
+[00:22:38] Altera um e-mail...
+[00:22:40] Altera alguma coisa importante...
+[00:22:43] Vindo de um outro site, vindo do e-mail, de um ataque, etc.
+[00:22:46] Esse same site, Street, é mais uma segurança.
+[00:22:49] que eu digo, olha, não tem como. Eu só aceito o Cooks vindo do próprio site.
+[00:22:55] E também aqui eu, quais são os caminhos, né? Aqui eu estou dizendo que é de todo o site.
+[00:23:00] Pronto, aqui eu digo qual é a duração, é que eu estou dizendo que é uma hora, esse Cook vale uma hora.
+[00:23:04] Então, vamos correr aqui o login teste, vamos ver aqui o que acontece.
+[00:23:12] Vamos deixar esse aqui aberto.
+[00:23:19] Então o cookie criado, a gente vai vir aqui, aqui o nosso id 42, ponto importantíssimo.
+[00:23:31] Aqui nós estamos fazendo um teste, esse aqui é um laboratório, então nós podemos fazer
+[00:23:34] coisa errada, mas isso nunca pode acontecer.
+[00:23:38] Eu não posso identificar um usuário no meu cookie, no meu id diretamente do meu cookie.
+[00:23:43] Eu tento ter aqui uma questão, eu vou mostrar pra vocês daqui a pouco o outro cookie, porque
+[00:23:47] porque pronto, seu altera aqui 42% para 55% e eu vou ser agora o usuário 55%
+[00:23:54] eu vou me passar pelo meu usuário 55%
+[00:23:56] então tem que tomar muito cuidado com isso
+[00:23:58] isso não pode acontecer, a gente não pode ter esse tipo de...
+[00:24:01] de nós não podemos...
+[00:24:03] e como eu disse lá, o que é que é...
+[00:24:05] quando eu disse, quando a gente falou mais cedo
+[00:24:07] o nosso... o nosso cookie, ele não pode identificar diretamente um usuário, tá?
+[00:24:13] isso é muito importante, tá bem?
+[00:24:15] Ah, ok, isso eu vim aqui agora nessa página, aqui eu fiz o meu cookie, eu fiz uma autenticação,
+[00:24:25] eu simulei uma autenticação, entende comigo.
+[00:24:28] Então aqui esse estava o estrito, esse dava um erro.
+[00:24:31] Agora se eu vim aqui e correr, ele já diz que aquele usuário é o 42.
+[00:24:35] Então observem, eu estou em hábias diferentes trabalhando com o meu cookie, ali passando
+[00:24:42] informação de um lado por outro para o meu cliente.
+[00:24:44] A informação está no meu servidor, mas eu estou transitando com ela pelo Cook
+[00:24:48] com o meu cliente servidor.
+[00:24:52] E aqui, o meu usuário é default.
+[00:24:54] Agora que existe um ID, ele também controlar o nosso usuário 42.
+[00:24:59] OK? Então, só para vocês perceberem o que eu fiz.
+[00:25:02] Mas aqui eu tenho um...
+[00:25:06] em teste legível.
+[00:25:08] Eu não achei que não era isso que eu queria, eu quero ser de baixo.
+[00:25:11] mas o que é que esse teste legível, vamos ver aqui, teste legível, o que ele faz,
+[00:25:18] aí aqui o papo, aqui eu já seto falso, né, dizendo que eu quero que mostra,
+[00:25:27] ah, esse teste legível, não foi um concorrido, deixa eu ver aqui, não, é só estreita,
+[00:25:33] Vamos ver aqui o caos.
+[00:25:37] Cooke legível criado.
+[00:25:41] Ok, é só porque eu queria...
+[00:25:43] Mas ele já estava legível, né?
+[00:25:44] Eu deixei um alejamento, tchê.
+[00:25:46] Só dei outro nome aqui para ele.
+[00:25:49] Ok, aqui tem as informações, né? Quando ele expira.
+[00:25:52] Deixa eu abrir aqui.
+[00:25:58] Ok.
+[00:26:00] Aqui, pronto, nós estamos aqui no horário de Portugal,
+[00:26:03] por isso que está sete e meia da tarde, seis e meia,
+[00:26:06] e ele está aqui para esperar sete e meia. Pronto.
+[00:26:09] Então, a ideia, como eu queria, para ele durar uma hora,
+[00:26:13] então é isso que nós queríamos.
+[00:26:16] Agora aqui eu queria mostrar para vocês uma coisa.
+[00:26:18] Esse aqui é um código. De novo, vamos lá.
+[00:26:23] Quando nós estamos trabalhando com os legados,
+[00:26:26] com os monolíticos que nós temos,
+[00:26:27] porque nós trabalhamos com sessão da aplicação.
+[00:26:30] Nós temos vários tipos de sessão.
+[00:26:34] Vocês estão cientes disso?
+[00:26:36] Vocês conseguem perceber a diferença? Vamos lá.
+[00:26:41] Ah, alguém levantou a mão. Que levantou a mão?
+[00:26:47] Vinicius, diga lá Vinicius. O que você tem para nos ajudar a acrescentar?
+[00:26:52] É, botar a recuperação.
+[00:26:54] Eu não sei se você demorou muito, eu não tinha visto sua mão.
+[00:26:56] Eu já disse, me interrompam, me interrompam,
+[00:26:59] abra o microfone e fala, professor,
+[00:27:02] oh, Nicolau, né?
+[00:27:04] Aí eu vejo, porque muitas vezes eu estou olhando aqui para a tela
+[00:27:07] e não estou olhando para a tela do Teams.
+[00:27:12] Ok? Então, mas diga lá, por favor.
+[00:27:15] É, naquela parte ali do que você deixou o trollho HTTPS, né?
+[00:27:22] a IDTP, aí você falou que podia bloquear XSS.
+[00:27:27] Nesse caso, o usuário tentaria fazer o quê?
+[00:27:32] Modificar o puque dele mesmo?
+[00:27:34] Para ter alguma cessa, alguma coisa?
+[00:27:36] Ah, o XSS? Vamos lembrar o que é o XSS.
+[00:27:40] O XSS é onde já está um código, que é um código JavaScript, HTML,
+[00:27:48] que vai fazer qualquer coisa.
+[00:27:50] O código não é meu, o código não pertence ao site.
+[00:27:54] E eu estou ali, por exemplo, eu tenho um blog e eu tenho ali uma zona de comentários.
+[00:28:00] Aí eu quero criar uma...
+[00:28:03] Eu faço um XSS que vai injetar um código e vai fazer...
+[00:28:09] Toda vai se cumprir naquela página de comentários e eu vou fazer uma requissão get para um outro site.
+[00:28:15] Vou fazer uma requissão para o outro site.
+[00:28:16] Pronto, eu estou a pensar aqui qualquer coisa.
+[00:28:19] Isso é um XSS, né?
+[00:28:21] Eu estou em...
+[00:28:22] E se quando eu injetar esse comentário, ele insere esse comentário na página e ele
+[00:28:30] não interpreta como texto, mas como código JavaScript, é onde nós temos o XSS.
+[00:28:36] Então lembrados disso, certo?
+[00:28:38] Então vamos lá.
+[00:28:40] Agora, o que que o HTTP Onley, ele impede que eu consiga capturar esse cookie para me passar por ele.
+[00:28:52] Porque pensa que eu crio um XSS aonde eu quero...
+[00:29:01] Não sei, pensa que quando o administrador da página entrar no comentário, provavelmente
+[00:29:10] ele vai estar logado, certo?
+[00:29:13] Ele logou na página, ele está ali administrando o blog dele, aí eu fui naquela página do
+[00:29:17] comentário.
+[00:29:18] Neste momento, ele captura o Cook e me envia.
+[00:29:21] Vamos dizer que ele manda por e-mail?
+[00:29:23] Não, ele manda por uma requição get, não sei.
+[00:29:28] pode ser uma manda para um tem um outro portal em outro lugar que eu consigo
+[00:29:33] capturar esse esse esse cookie e o cookie se for um cookie de
+[00:29:38] autenticação seu seu vejo ali percebe com o cookie de autenticação eu
+[00:29:42] poderia provavelmente me passar pela pessoa né ou eu posso injetar o meu
+[00:29:47] próprio cookie eu posso é fazer com que as pessoas que sejam navegar no site e
+[00:29:52] isso é até outra questão eu quero que anúncios meus sejam vistos mas não
+[00:29:58] de uma forma orgânica, mas eu quero que seja uma coisa maliciosa. Então, as pessoas entram
+[00:30:02] no meu site, entram no blog da pessoa e quero que outros cookies ou outros anúncios apareçam.
+[00:30:10] Pense aqui, me vejam lá se vocês conseguem me entender o que eu quero dizer. Eu estou
+[00:30:16] entrando no site de carro, e eu quero saber de carro, quero comprar um carro. Mas, para
+[00:30:24] por algum motivo eu tenho uma imobiliária,
+[00:30:27] não sei, estou pensando em imobiliária,
+[00:30:28] que eu quero, vou injetar um cookie de imobiliária ali no meio
+[00:30:31] para apreciar anúncios dessa imobiliária.
+[00:30:33] Pronto, um exemplo, o que eu estou querendo dizer.
+[00:30:36] Então, é nesse sentido que eu impesso aqui
+[00:30:38] para o meu data xss e eu consigo injetar cookies
+[00:30:41] no navegador do meu cliente que vai entrar no meu site.
+[00:30:46] Um exemplo, entendeu?
+[00:30:48] C, C.
+[00:30:50] Ok, boa, boa.
+[00:30:54] Vamos chover.
+[00:30:58] E aqui eu acabo dizendo que esse documento ponto cookie,
+[00:31:01] que a gente tá falando sobre isso,
+[00:31:03] se ele tiver HTTP-on, eu pusi depois HTTP e false, né?
+[00:31:07] Então provavelmente nós não conseguimos ler isso.
+[00:31:09] Mas se eu venho aqui no meu console,
+[00:31:12] chama documento.
+[00:31:24] Eu consigo capturar, também que ele não capturou aquele do Zeride, né?
+[00:31:33] Ele só mostrou para mim esse Zeride legível, que foi o que eu citei.
+[00:31:37] Pronto, ótimo, você conhece a lente tese que a gente acabou fazendo.
+[00:31:41] Como aqui eu citei...
+[00:31:43] Eu só fiz um site aqui.
+[00:31:54] Aqui isso mesmo.
+[00:31:55] Os herdes legíveis, eu coloquei HTTP Only.
+[00:31:58] Então eu consegui ler um documento.cook.
+[00:32:05] Agora esse aqui, como eu coloquei HTTP Only True, eu já não consigo ler.
+[00:32:10] perceber uma diferença, eu não consigo usar o documento.cuk e ver aquele
+[00:32:15] cuk ali que tá meio oculto. Apesar de que se eu vim aqui na minha application eu
+[00:32:21] consigo ver ele aqui, mas com o JavaScript eu não consigo capturar ele.
+[00:32:25] Então é uma certa proteção que eu tenho na minha aplicação quando eu quero que o
+[00:32:30] cuk seja só na nossa aplicação. Inclusive eu queria ver uma coisa aqui que você conseguiu mostrar pra vocês
+[00:32:40] aqui nobones, operator pra لو few,
+[00:32:46] chloridealtra,
+[00:32:53] posterman
+[00:33:03] pra você ver que aice ono fetal está sozinho.
+[00:33:10] o navegador percebe, então você consegue ver quando o set cookie, que é o que nós usamos aqui,
+[00:33:17] se a gente olhar aqui, quando ele dá aqui, esse aqui, é a chave que nós usamos, o set cookie.
+[00:33:25] Então nós conseguimos aqui o set cookie ver o que a gente colocou e é transitado pelo navegador,
+[00:33:34] pelo HTTP, a gente consegue vê-lo ali, ok? Só usa a ID legível 42, óbvio, porque o outro eu deixei
+[00:33:43] mais seguro. E eu observe aqui, eu queria mostrar aqui pra vocês, se vocês vão observar, se vocês
+[00:33:48] entarem num site que tem toda uma configuração feita de autenticação e etc, vocês vão ver
+[00:33:56] aqui que está cheio de cookies, cheio de headers, melhor dizendo, que ele senta algumas configurações.
+[00:34:05] Mas pronto, vamos voltar aqui, onde nós estávamos. Deixa eu ver. Ah, eu tinha uma pergunta.
+[00:34:15] Eu vou falar uma frase e eu queria que vocês me ajudassem. Quando alguém diz, sua sessão
+[00:34:21] Fecheu o navegador e encerrei a sessão.
+[00:34:25] O servidor guarda a sessão.
+[00:34:28] São frases diferentes.
+[00:34:30] Veja lá, vamos de novo.
+[00:34:31] Quando a sua sessão inspirou.
+[00:34:34] Fecheu o navegador e encerrei a sessão.
+[00:34:38] O servidor guarda a sessão.
+[00:34:41] Pergunta, é a mesma coisa?
+[00:34:44] Estou falando da mesma coisa, pessoal.
+[00:34:45] O que vocês acham?
+[00:34:48] Me ajudei aqui.
+[00:34:51] Não, coisas diferentes.
+[00:34:53] Ok, ok, são coisas diferentes.
+[00:34:56] Podem dar palpites, que é cada um deles?
+[00:35:00] Você cria uma sessão, normalmente a sessão tem um tempo de vida.
+[00:35:04] Então, o fim do tempo, ela inspira.
+[00:35:10] Durante esse tempo, o servidor guarda essa sessão.
+[00:35:15] Talvez registrada em memória, né?
+[00:35:18] e a memória.
+[00:35:20] Que mais? Vamos dizer, vamos dizendo que eu daqui a pouco desmistifico isso.
+[00:35:26] E mais, mais vocês podem dizer, guarda a sessão, que temos guarda em memória.
+[00:35:36] Que mais vocês podem dizer?
+[00:35:38] Guarda pelo, pelo um tempo configurado, pré-configurado, o tempo de vida da sessão,
+[00:35:46] expirando esse tempo, a sessão fica inválida, se tem que de alguma forma recriar essa sessão,
+[00:35:55] depende da aplicação, como a aplicação é mantida. Se a cada requisição renova esse tempo de vida ou não,
+[00:36:03] isso é muito comum, por exemplo, no aplicativo da própria caixa previdência, acho que também no
+[00:36:13] o salão de caixa, você é autentica e ele fala, sua sessão vai inspirar em 30 minutos,
+[00:36:18] em 20 minutos.
+[00:36:20] Acabou esse tempo, você não faz mais nada, você é jogado para fora, você tem que
+[00:36:24] recomendar o processo.
+[00:36:25] Ok, ok.
+[00:36:27] Boa, você falou algumas coisas muito importantes, vamos trabalhar com elas.
+[00:36:32] Eu só queria falar que existem três, eu falei três coisas aqui, vamos lá.
+[00:36:36] Sua sessão inspirou, fechou o navegador e encerrei a sessão, o servidor guarda a sessão.
+[00:36:41] Vamos ver isso.
+[00:36:42] eu diria que são visões diferentes, são coisas diferentes.
+[00:36:47] A gente acaba chamando tudo de sessão, meio que um jargão nosso.
+[00:36:51] É meu quando a gente fala que memória RAM e HD é memória também,
+[00:36:54] não sei se vocês já passaram por isso,
+[00:36:56] vocês tentam desmitificar o que é memória, o que é memória HD, memória RAM.
+[00:37:00] Mas são coisas diferentes, mas acaba que muitas vezes a gente está falando da mesma coisa,
+[00:37:04] está falando o mesmo nome.
+[00:37:08] Vamos lá, nós temos sessão do navegador.
+[00:37:11] O que é isso? É o período que o navegador, janela ou aba, fica aberto.
+[00:37:17] O que eu quero dizer com isso? Os cooks, nós temos cooks lá,
+[00:37:20] vamos a gente pegar os cooks e vamos setar ali o maxage,
+[00:37:24] foi o que eu mostrei para vocês.
+[00:37:26] Então, aí são os cooks da sessão.
+[00:37:30] Então, nós estamos ali no Session Histórias,
+[00:37:33] que eu mostrei para vocês aqui.
+[00:37:35] Aqui no Session Storage que eu mostrei.
+[00:37:42] Aqui no Session Storage, então esse que é do navegador, tá bem?
+[00:37:53] O Session Storage da aba, eles valem durante aquele período, que valem esse período aqui,
+[00:37:59] que a gente configurou, que a gente colocetou o Max-Age.
+[00:38:03] Então, quem controla o navegador?
+[00:38:06] Então, até fechar o navegador, a aba,
+[00:38:09] ou quando ele tiver esse cuco que estiver valendo,
+[00:38:12] nós temos uma sessão do navegador.
+[00:38:15] Guarda isso.
+[00:38:17] Então, nós temos sessão do servidor,
+[00:38:20] coisa completamente diferente,
+[00:38:23] que é uma pensa...
+[00:38:26] É como se fosse uma ficha, uma memória.
+[00:38:29] Pronto, aquilo que a gente falou de memória,
+[00:38:31] Pode até usar algum tipo de heads no lado do servidor ou algum tipo de memória dependendo
+[00:38:39] da aplicação que você está usando.
+[00:38:41] Do servidor, os dados do ar, e não vão ter os dados do usuário, eles ficam salvos no
+[00:38:50] servidor.
+[00:38:51] Percebe essa diferença?
+[00:38:54] Uma coisa é o que eu estou mantendo do lado do cliente.
+[00:38:58] outra coisa é que eu estou salvando no servidor veja lá
+[00:39:01] olha que eu tenho eu se eu não me engano aqui no cuck controller
+[00:39:06] é aqui esse aqui isso aqui é uma sessão do servidor olha só
+[00:39:12] aqui eu estou mostrando aqui esse próximo que eu log in teste ss1id
+[00:39:17] observe esse código que me acompanha pessoal pessoal se eu tiver mostrando o código
+[00:39:21] pra vocês tá muito complexo vocês querem uma dúvida não tá muito claro me interrompam
+[00:39:26] interrompam, não deixe passar com dúvidas que eu posso ajudar vocês.
+[00:39:31] Mas olha só, olha esse método, esse método aqui, login test.cind,
+[00:39:36] ele é como seria mais ou menos um teste real,
+[00:39:40] até agora a gente só estava testando o Qoops.
+[00:39:44] Mas aqui é como se fosse uma análise real de como nós trabalharemos Qoops com a sessão do servidor.
+[00:39:52] A gente manteria uma sessão no servidor.
+[00:39:54] Olha só, presta atenção aqui.
+[00:39:56] Nós estamos aqui recebendo um usuário Ana, ok?
+[00:40:01] Um dado qualquer na request.
+[00:40:03] Aqui eu vou...
+[00:40:06] Eu só vou validar que eu estou validando se é uma string, se é um valor.
+[00:40:12] Só isso que eu estou validando se é um número, se é uma string valida, se é um valor que não tem problema.
+[00:40:22] Aqui, pronto.
+[00:40:23] Lembra da comentei com vocês que a gente não pode meter diretamente quando eu fiz aqui em cima
+[00:40:28] o ID direto do usuário, igual eu fiz aqui, aqui, aqui, aqui, aqui.
+[00:40:34] Isso aqui nós não podemos ter isso aqui.
+[00:40:36] Então eu tenho que criar uma espécie de chave
+[00:40:39] aonde eu vou manter na seção do servidor e eu vou identificar o servidor.
+[00:40:44] E a gente vai pôs isso no Cooke para o navegador ter isso,
+[00:40:48] ao cliente ter isso,
+[00:40:50] E o cliente vai passando essa informação para a gente ver que o cliente continua logado.
+[00:40:54] Vamos com calma.
+[00:40:56] Isso é como funcionava antes, tá?
+[00:40:59] Aquilo que eu estou explicando para vocês.
+[00:41:01] Se vocês pegarem sistemas legados, sistemas que trabalham com login em cookies,
+[00:41:09] vai ser algo parecido com o que vocês vão ver.
+[00:41:11] E provavelmente vocês se não mexeram e alguns de vocês vão trabalhar com sistema legado.
+[00:41:15] Isso é muito provável, não tem como não ser.
+[00:41:17] Então olha só, o que eu faço aqui?
+[00:41:19] Preste atenção, eu queria então aqui uma chave,
+[00:41:22] esse aleatório é só random, que ele não interessa,
+[00:41:25] estou dizendo que eu quero que a chave é aleatória.
+[00:41:27] E aqui eu queria um session ID, ok?
+[00:41:30] E esse session ID é o número qualquer.
+[00:41:34] É ele que eu vou salvar,
+[00:41:37] eu vou vincular a minha sessão no servidor,
+[00:41:40] eu estou dizendo o seguinte,
+[00:41:42] eu estou querendo um ID, um RG, um CPF,
+[00:41:49] para a minha sessão, para aquele usuário.
+[00:41:52] Eu estou vinculando ele no meu usuário,
+[00:41:56] na minha sessão no servidor.
+[00:41:58] Eu vou salvar no meu servidor,
+[00:42:00] esses sessions aqui, o que esses sessions?
+[00:42:03] Sessions é só algo que vai ficar na memória,
+[00:42:06] enquanto que eu vou ali buscar
+[00:42:09] e para manter a sessão do usuário válida.
+[00:42:11] Porque pensa comigo, eu quero que o usuário vai lá,
+[00:42:13] coloca login em senha,
+[00:42:16] ele vai concluir o login, fez a MET de login, MET de username, MET de password,
+[00:42:23] e eu coloquei a sessão da pessoa no servidor.
+[00:42:27] Então, é o segundo sessão que eu estou falando.
+[00:42:30] É o que eu estou dizendo aqui, eu estou criando um session ID
+[00:42:33] e vinculando o meu usuário, Kiana.
+[00:42:36] Você se entender o que eu estou fazendo aqui?
+[00:42:39] Então, digam lá se isso aqui não está claro para vocês.
+[00:42:44] Eu só estou... E o que eu vou fazer com o ss1d?
+[00:42:48] Eu vou enviar como ss1d.
+[00:42:52] Só que eu não identifico o meu usuário
+[00:42:56] como com o id, com o id dele.
+[00:42:59] Perceberam?
+[00:43:00] Eu criei uma sessão para criar id. E olha só.
+[00:43:03] Isso é sessão do servidor.
+[00:43:06] Aqui, eu estou criando uma sessão pro navegador.
+[00:43:11] perceber a diferença, são coisas distintas. Uma coisa é quando eu estou setando no meu servidor
+[00:43:18] um valor, um dado ali que vai ficar mantido ali para um determinado momento. E isso pode ser uma hora,
+[00:43:24] pode ser 30 minutos, depende de como eu vou manter isso, o meu TLL, como eu vou manter
+[00:43:30] essa informação da minha memória. Pode ser 15 minutos, 20 minutos, uma hora. O importante
+[00:43:38] é que vocês entendam essa diferença,
+[00:43:40] o que é uma seção de navegador,
+[00:43:42] o que é uma seção de servidor.
+[00:43:43] Ok?
+[00:43:44] Uma seção de servidor,
+[00:43:46] quem mantém o servidor?
+[00:43:48] Ok?
+[00:43:49] Então, até o logout,
+[00:43:51] ou até o momento que eu configurar a minha memória,
+[00:43:53] para esquecer aquele valor.
+[00:43:55] Qual que é a questão aqui que é problemática?
+[00:43:59] É que se eu obter esse valor,
+[00:44:01] eu posso fingir que eu sou outra pessoa.
+[00:44:04] e por isso que ambiente, por exemplo, que não usa JWT, que nós vamos chegar lá no JWT,
+[00:44:11] por isso aqui nós temos uma certa fragilidade. É que tem formas de eu manter isso um pouco mais seguro,
+[00:44:17] manter isso menos tempo, eu tenho uma certa assinatura, talvez é que isso valida 10, 15 minutos,
+[00:44:28] eu não posso deixar que isso demore mais tempo, aí eu vou renovando esse S1ID.
+[00:44:35] Aqui você tem fragilidades, é o que nós chamamos de trade-off.
+[00:44:40] Aqui você tem fragilidades, se a pessoa roubar esse S1ID, ela pode se passar para outra pessoa.
+[00:44:46] Pronto.
+[00:44:47] E temos a sessão do usuário.
+[00:44:50] Perceba uma diferença?
+[00:44:52] Temos três tipos de sessão para a gente definir o que é cada um deles.
+[00:44:55] A sessão do usuário é o estado de logado do usuário.
+[00:44:58] Então, o usuário, fila, colocou login sem a, completou login.
+[00:45:02] E nós colocamos aqui, por exemplo, esse session ID aqui, aqui, eu não defini,
+[00:45:08] mas vamos dizer que esse session ID aqui dura 15 minutos.
+[00:45:11] Nós temos então a sessão do servidor que vai durar 15 minutos,
+[00:45:14] então, o usuário, a sessão do usuário dura 15 minutos.
+[00:45:18] Aqui nesse caso acaba sendo semelhante, ok?
+[00:45:23] Então, essa pessoa continua autenticada dentro daquele espaço de tempo,
+[00:45:27] dentro daquela definição de quanto tempo a pessoa está logada
+[00:45:32] e é o resultado de um login.
+[00:45:35] Isso é a sessão do usuário.
+[00:45:38] Quem controla essa sessão?
+[00:45:40] A aplicação, a regra de negócio,
+[00:45:43] como isso está configurado, propriedades, etc.
+[00:45:46] Então, vamos lá, nós temos três tipos de sessão.
+[00:45:50] A sessão do navegador,
+[00:45:52] que é aqui como a gente sete os Coox,
+[00:45:54] é a sessão do servidor,
+[00:45:56] que é aqui como a gente configura
+[00:45:58] as informações no servidor,
+[00:46:00] da memória do servidor,
+[00:46:02] que é o que vocês até comentaram,
+[00:46:04] vocês falaram muito bem quando vocês falaram
+[00:46:06] que tem ali memória,
+[00:46:08] que você sete a informação no servidor,
+[00:46:10] mas é muito bom, isso tá muito detalhado,
+[00:46:12] entendido, o que é cada tipo de sessão.
+[00:46:14] E sessão do usuário,
+[00:46:16] que é o tempo que o usuário pode ficar logado.
+[00:46:18] Pessoal, ok?
+[00:46:20] Ok? Tem uma questão até aqui, certo?
+[00:46:23] Podemos avançar, né? Não tem nenhuma...
+[00:46:27] Aí, vamos fazer aqui esse teste.
+[00:46:29] Vamos passar esse login session ID.
+[00:46:40] Nessa sessão, Ana criada.
+[00:46:43] Se a gente for vir aqui...
+[00:46:45] Agora, nós temos aqui...
+[00:46:47] E isso aqui sim, é o que geralmente a gente vê nas aplicações que são ali monolíticas,
+[00:46:54] que são mais novas, né?
+[00:46:57] Desculpa, são mais antigas.
+[00:46:59] É isso que a gente vê, a gente tem lá um sessão ID que tem uma string qualquer, que
+[00:47:04] é essa string, esse texto, ele identifica ali algumas informações do utilizador.
+[00:47:10] É muito comum também, aqui, voltando aqui para a sessão do usuário, aqui.
+[00:47:17] Aqui, a gente só tem setado o Session ID e o usuário.
+[00:47:23] Mas vamos dizer que nós temos ali uma Informalizer,
+[00:47:29] que com várias abas que eu vou passando várias informações do utilizador, do cadastro,
+[00:47:39] do formulário. Aí eu posso fazer com que essas informações vão sendo salvas na sessão
+[00:47:45] dele. Isso aqui não é um navegador, viu? Espero que você tenha entendido isso. Isso
+[00:47:50] é no servidor. A gente identifica isso por meio da chave que a gente mandou para o navegador,
+[00:47:56] para o cliente, no caso. Mas a nossa sessão aí disso é que eu estou salvando no meu
+[00:48:01] cliente. Desculpa, desculpa. Eu estou salvando no meu servidor. Aí eu posso salvar aqui
+[00:48:06] usuário, dados dele, as informações que ele vai prestando no FormWizard.
+[00:48:11] Só me mostrando para vocês, por que isso aqui existe isso aqui?
+[00:48:15] Mas pronto, não é algo muito recente, não é o padrão que a gente tem visto.
+[00:48:21] Isso que não é Rest, Rest.
+[00:48:23] Vocês devem lembrar que nós temos o contexto de A-Paze, Rest.
+[00:48:28] Que, principalmente, a Paze, Rest Full, que tem ali uma série de conceitos.
+[00:48:32] e um dos conceitos que nós temos do restful é stateless, ou seja, sem estado.
+[00:48:40] Cada requisição que nós temos da nossa pay rest, ela deve ter tudo que a gente precisa.
+[00:48:47] Nós não podemos manter com estados armazenados entre uma request e outra.
+[00:48:54] E é isso aqui que nós não deveríamos ter.
+[00:48:58] Isso aqui é success, ou estado, estou mantendo o estado da minha aplicação.
+[00:49:04] A nossa, isso aqui não é uma pay rest, ok?
+[00:49:08] Não é uma pay, desculpa, não é uma pay rest full.
+[00:49:11] Pode ser chamada de pay rest, porque, enfim, tem algo a
+[00:49:17] pode atender algum outro tipo de
+[00:49:20] dos das das normativas ali, das boas práticas do rest.
+[00:49:26] mas que é a da arquitetura, porque o REST é um prato arquitetural,
+[00:49:30] mas, no final das contas, ele não é um RESTful porque nós temos estado.
+[00:49:35] Então, por isso que não é considerado hoje um padrão muito usado dentro da estrutura.
+[00:49:43] A gente não temos visto muito em aplicações novas, a gente trabalhar com mantecoques e a sessão
+[00:49:52] dessa forma que a gente viu aqui agora.
+[00:49:54] Pronto. Aqui, eu tenho aqui o desafio controller para vocês, que é um probleminha aqui que vocês podem resolver.
+[00:50:04] Eu vou deixar aqui depois para vocês darem uma olhada e ver como é que...
+[00:50:08] E aqui tem até a solução dele. A minha sugestão é que vocês leiam aqui o desafio que eu vou subir lá e tentam resolver sem ler a solução.
+[00:50:17] Depois aqui tem a solução de como isso pode ser resolvido. Deixa até bem comentado e depois se vocês tiverem dúvidas,
+[00:50:23] Vamo perguntar que a gente trabalha com ela.
+[00:50:26] E aqui nós temos a sessão Controller.
+[00:50:28] Aqui na sessão Controller é código também.
+[00:50:31] Aqui eu já deixo bem claro como funciona mesmo.
+[00:50:35] Aqui, por exemplo, aqui nós temos o login.
+[00:50:39] Aqui então eu vou validar aqui, eu entro com o username e o password do usuário.
+[00:50:44] Ele vai informar o login e o password.
+[00:50:47] Eu tenho até isso aqui aqui.
+[00:50:48] Se vocês observarem aqui, olha só, essa request aqui.
+[00:50:52] Eu tenho aqui a Ana e a password dela.
+[00:50:57] Ponto importante, vamos lá, deixa eu mostrar aqui uma coisa para vocês.
+[00:51:01] Esse usuário demo, ele é que tem um array que tem alguns usuários salvos na memória.
+[00:51:08] Pensa que você quer como se fosse a base de dados, você quer só um código tético, vocês entenderem.
+[00:51:13] Na memória, a senha é mantida o hash, por mais que eu tenha que ela em texto claro,
+[00:51:21] mas vocês observem que na memória nós temos o hash.
+[00:51:24] Lembre-se lá que a gente viu na aula passada.
+[00:51:26] O hash é um caminho único.
+[00:51:29] Eu pego a minha senha,
+[00:51:32] gero o hash dela,
+[00:51:34] e vou comparar os hash.
+[00:51:38] E, embora exista possibilidade de existir conflitos,
+[00:51:43] é muito pouco provável, ainda mais usando o char 256.
+[00:51:47] Então, aqui eu gero o meu hash
+[00:51:50] E aqui o que eu faço, vamos lá, estou para mostrar para vocês.
+[00:51:53] Aqui então,
+[00:51:56] esse autenticar, eu simplesmente comparo, vocês virem aqui,
+[00:52:00] eu vejo o seu usuário estar ali,
+[00:52:02] se eu acho, vejo o meu usuário pelo username,
+[00:52:06] e eu faço o match com a senha.
+[00:52:09] Só isso, está bem?
+[00:52:11] Eu vejo, o meu usuário existe?
+[00:52:13] Ana, existe? Existe.
+[00:52:15] Agora faz match aí da senha.
+[00:52:17] Fala lá, veja a mim, pode dizer.
+[00:52:20] É só um detalhe que eu vi sobre o Xixá 256, é que como ele é rápido, ele não é exatamente o ideal.
+[00:52:32] Via que o ideal seriam algoritmos mais lentos, tipo argum2d, becrypt, certo?
+[00:52:42] Sim, sim, sim, eu já... pode ser, pode ser, sim, sim.
+[00:52:45] Ok, não pode. Aqui é só um exemplo, sim, mas sem outras formas assim.
+[00:52:51] O Becrypto, inclusive, é o que nós mais vemos aí nos códigos de forma geral.
+[00:52:56] Boa, boa pedida. Aqui no hash, né? É só uma função hash, mas a função aqui é tudo
+[00:53:04] feita por mim mesmos. Percebe? Eu quis fazer isso aqui mesmo só para mostrar para vocês
+[00:53:08] como funciona e como seria. E no Spring, quando a gente for fazer... Isso aqui é um Spring,
+[00:53:15] Esse é um projeto Spring que eu fiz aqui mais ou menos em cima, Spring Boot.
+[00:53:22] Mas eu quis fazer aqui bem mesmo o manual para vocês poderem perceber como eu faço
+[00:53:26] uma função hash e depois vocês podem dar uma olhada e ler isso aqui com mais calma.
+[00:53:31] Eu posso, deslaca aqui.
+[00:53:36] Aqui eu deixo até aqui algumas informações etc.
+[00:53:42] Como é que você acaba gerando.
+[00:53:44] mais pronto. É isso. É uma função minha, esse hash 256 também.
+[00:53:48] Existem sim formas muito mais prontas e que não vamos implementar isso.
+[00:53:57] Não vamos fazer o nosso próprio xad 256, nosso próprio vcrypt, porque isso já está pronto.
+[00:54:03] E quando a gente for ver ali na próxima aula, for implementar mesmo um JWT,
+[00:54:09] Vocês vão ver que eu vou fazer ele de uma forma muito mais elegante,
+[00:54:12] muito mais que usar as funções do próprio spring.
+[00:54:16] Eu não vou usar nada, é o que eu estou fazendo aqui.
+[00:54:18] Aqui é mesmo.
+[00:54:19] Para vocês se perceberem,
+[00:54:22] pronto, vocês terem uma ideia de como isso pode ser feito.
+[00:54:25] Mas não é, eu concordo com você, não é o ideal.
+[00:54:30] Pronto, então aqui eu faço a autenticação.
+[00:54:34] E aqui o que eu faço é setar o atributo.
+[00:54:36] De novo, foi aquilo que a gente viu da outra vez.
+[00:54:38] Mas aqui eu estou acertando até uma chave simples, eu estou acertando aqui o usuário,
+[00:54:42] mas o que é a gente criar de fato aquilo e devolver para o nosso usuário para ele poder
+[00:54:48] passar essa informação sempre.
+[00:54:50] E está ali em uma...
+[00:54:53] E até como eu falo, está numa...
+[00:55:01] Isso está a forma de comunicar o cliente ao servidor.
+[00:55:03] E aqui eu tenho outras funções, né?
+[00:55:06] Aqui eu posso correr aqui para vocês mostrar.
+[00:55:09] Se eu vir aqui...
+[00:55:14] Pronto, aqui ele diz que respondeu 200, responde 200.
+[00:55:18] E aqui o que é interessante, a gente pode vir aqui no...
+[00:55:23] no sessão controller.
+[00:55:25] Só para a gente ver aqui.
+[00:55:29] Colocar aqui um breakpoint.
+[00:55:31] Correr aqui.
+[00:55:33] Eu não consigo correr aqui.
+[00:55:43] Ok.
+[00:55:45] Eu não conguei para fazer debug.
+[00:55:50] Eu quero mostrar para vocês aqui um debug.
+[00:55:52] E até é muito importante vocês aprenderem a fazer debug.
+[00:55:54] Porque pronto, vocês vão fazer isso muito.
+[00:55:59] Mas olha só, é só para vocês verem aqui o que que eu fiz.
+[00:56:01] aí não era que eu queria colocar.
+[00:56:03] Ah, tá, tem dois sitios.
+[00:56:09] Ok, não tem problema.
+[00:56:10] Aqui o usuário, alguma coisa que eu quero mostrar pra vocês,
+[00:56:13] é que o nosso usuário, ele está na memória, o hash.
+[00:56:17] Hash da senha.
+[00:56:18] Ele, que eu falei pra vocês várias vezes, nós como aplicação,
+[00:56:23] nunca conhecemos a senha em texto claro.
+[00:56:26] Nunca. A senha está salva, a senha está trafegando.
+[00:56:31] Eu dificilmente vou trafegar a senha para falar a verdade.
+[00:56:35] Eu vou na base de dados e consulto e pronto.
+[00:56:38] Mas se eu tiver aqui, porque é muita informação,
+[00:56:41] eu quero colocar a senha na memória, não me choca.
+[00:56:43] Mas ela precisa ser a senha sempre incriptada.
+[00:56:46] Nunca, nunca em texto claro.
+[00:56:49] Eu não posso saber qual é a senha do meu usuário.
+[00:56:51] Nunca.
+[00:56:52] regra básica e só passando para vocês, para isso ficar bem claro.
+[00:56:56] Então pronto, passando por aqui.
+[00:57:01] E aqui é a nossa sessão, como expliquei para vocês.
+[00:57:05] Aqui eu estou usando a gata tpsession, que já é uma coisa mais oficial.
+[00:57:10] É aqui que eu vou manter esse atributo.
+[00:57:14] E aqui é a sessão do servidor.
+[00:57:17] E enquanto a minha sessão estiver válida,
+[00:57:21] é que eu posso configurar a minha sessão para durar uma hora, 30 minutos.
+[00:57:25] Enquanto a sessão estiver válida, o usuário está logado.
+[00:57:28] Se eu fazer outras sequestes, deixe-me voltar aqui.
+[00:57:32] Se eu venho aqui fazer outras sequestes, pronto.
+[00:57:38] Eu tenho aqui...
+[00:57:41] Isso é 410.
+[00:57:47] E que eu mexe aqui que partiu, deixa eu ver, exceção perfil, vamos lá.
+[00:57:58] Ver aqui, exceção, trolla, exceção, perfil.
+[00:58:03] Exceção perfil, é, deveria funcionar.
+[00:58:09] Mas vamos lá, vamos ver.
+[00:58:13] Aqui, usuário.
+[00:58:16] Como eles vão ver aqui, o...
+[00:58:27] Ah, ele que não foi salvo.
+[00:58:29] Eu devo ter salvo, será que é isso?
+[00:58:32] Bom, ele viu nulo.
+[00:58:34] Aí que acho que eu não corre essa primeira, então eu corre de novo.
+[00:58:37] Vamos ver se corre tudo bem. Ok, aqui na sessão.
+[00:58:45] Pronto, a tributo tem um. O usuário anda, certo.
+[00:58:52] Então se eu vim aqui agora, no perfil, você vim aqui na sessão.
+[00:59:00] e aqui os vários anos ok, agora vai funcionar certo aí ele conseguiu recuperar os meus dados
+[00:59:10] do perfil da questão salvo a gente vou vir aqui cadê
+[00:59:20] aqui então agora ele deu 200 ele não deu 401 né e aqui seu vinho fazer log out
+[00:59:26] E para vocês perceberem aqui, eu queria que vocês entendessem esse código, aqui eu faço
+[00:59:32] sessão invalidate.
+[00:59:33] Essa para vocês perceberem como um código legado, como um código antigo, ele trabalha
+[00:59:41] com cookies e trabalha com sessão.
+[00:59:45] E lembrando, eu falei com os tipos diferentes de sessão.
+[00:59:48] Acho que para ficar claro para vocês aqui o que eu queria mostrar.
+[00:59:54] Eu venho aqui se eu lembro mais de alguma coisa.
+[00:59:59] E sempre é importante, né?
+[01:00:01] Vou repetir para isso.
+[01:00:04] Está muito claro para vocês.
+[01:00:05] Nunca coloque a identidade do usuário no Qoq.
+[01:00:08] Ele não pode ser identificado.
+[01:00:10] Ok?
+[01:00:10] Se não, com um dado sensível, um dado seja o nome.
+[01:00:14] Pronto, isso aí vai ferir diretamente a LGPD.
+[01:00:17] E apagar Qoq, se não apagar a sessão.
+[01:00:20] Pronto, né?
+[01:00:21] é que quando você apaga os cooks, você não necessariamente apagou a sessão,
+[01:00:27] embora quando você apaga o cook, você não consegue chegar até a sessão no servidor.
+[01:00:31] Mas é importante você ter esse entendimento que é apagar cook, você ainda pode ter uma sessão ativa.
+[01:00:37] O que isso quer dizer? Quer dizer que se a pessoa tiver ali o seu cook, ela pode continuar trabalhando,
+[01:00:42] pode continuar mantendo seu login, tá? Então você limpar o cook, não quer dizer que a sua conta está segura.
+[01:00:49] Se alguém capturou seu cookie, vamos dizendo assim, ok?
+[01:00:53] E...
+[01:00:56] Importante isso.
+[01:00:58] Nesse contexto que a gente está dizendo, roubar cookie é roubar a sessão.
+[01:01:03] Isso é importante vocês entenderem, tá bem?
+[01:01:07] Deixa eu ler mais alguma coisa aqui que eu não falei. Pronto.
+[01:01:10] Isso era tudo que a gente ia falar de cookie, porque eu até maior do que eu pretendia.
+[01:01:16] mas é só mais pra gente ter um overview de tudo o que é QoC como isso funciona
+[01:01:20] e vocês podem ver aí no futuro próximo. Mas também falamos de sessão que é válido.
+[01:01:25] Agora vamos mudar um pouco o tema, eu quero falar com vocês de JWT.
+[01:01:29] Ok?
+[01:01:31] Vocês podem me dizer aqui pra gente debater, pra gente falar o que é um JWT?
+[01:01:38] Ok?
+[01:01:41] Gaysson Abitok, quem é isso?
+[01:01:43] E isso? E o que isso quer dizer, por favor?
+[01:01:46] Ele é um Tolkien no formato de e-sons, ele tá, em, não sei se ele tá
+[01:01:50] encryptado no formato de e-sons, alguma coisa assim, quer dizer, quando você
+[01:01:53] decryptografa ele, ele vira um e-sons com várias informações ali, né?
+[01:01:57] Exatamente, exatamente. Mas o, o que é ele? Por que que eu uso
+[01:02:03] JWT?
+[01:02:06] Exatamente, exatamente. A gente usa para...
+[01:02:10] para... assim, pelo que eu já vi, né?
+[01:02:13] Ele sendo utilizado para enviar informações de autenticação.
+[01:02:18] Para entre aplicações.
+[01:02:21] OK. Boa. Estamos vendo o caminho até aqui.
+[01:02:26] E...
+[01:02:29] Eu vou provocar vocês, tá?
+[01:02:32] Continue respondendo. Eu vou ver até onde vocês vão conseguir responder.
+[01:02:36] Primeira pergunta, seu robo o JWT de alguém, eu consigo me passar pela pessoa?
+[01:02:43] Talvez dependendo do nível de informação que está disponível ali, né?
+[01:02:49] Pioricamente, por um tempo, sim.
+[01:02:53] Boa, é isso, é isso, sim. Se eu pego o JWT da pessoa, eu vou conseguir passar pela pessoa.
+[01:03:02] Pronto. Então até que um dos testes que a gente faz muito é com Postman.
+[01:03:07] A gente tem muito costume.
+[01:03:08] Um dos testes que nós costumamos fazer muito,
+[01:03:11] enquanto a gente está testando a aplicação,
+[01:03:13] aí nós pegamos o JWT, ele faz o login,
+[01:03:17] vai lá e faz o primeiro procedimento do Postman, que é o login.
+[01:03:21] Ele vai gerar para a gente o JWT.
+[01:03:24] E com JWT nós conseguimos fazer várias requets
+[01:03:28] ele enquanto WT está vado.
+[01:03:31] Pronto, mas vamos com calma.
+[01:03:33] Agora dúvida.
+[01:03:36] Eu posso forjar o WTE?
+[01:03:44] Talvez você conheça os parâmetros que são passados neles atributos,
+[01:03:48] mas a princípio eu acho que não.
+[01:03:51] Não, não são os atributos.
+[01:03:54] Tem uma coisinha aí que você foi quase, quase,
+[01:03:57] Você foi no rumo, foi quase, a bola foi na trávia.
+[01:04:03] Tem uma coisinha que se eu roubar, eu consigo forjar um JWT.
+[01:04:11] O secret.
+[01:04:12] Isso, isso, isso.
+[01:04:15] Exatamente, o secret, a chave, perfeito.
+[01:04:18] É aqui, é aqui tá a chave, é o ponto. Vamos lá.
+[01:04:21] Mas calma, eu fui provocando vocês aqui para saber
+[01:04:24] onde nós estávamos indo.
+[01:04:25] JWT é muito conhecido, é a forma de autenticação do momento,
+[01:04:31] porque não é de autenticação, mas é de autenticação.
+[01:04:39] Acaba que é uma forma como a gente identifica um usuário dentro da nossa aplicação.
+[01:04:43] O JWT é uma forma muito boa, muito interessante, por uma série de questões.
+[01:04:50] Vocês falaram muitas delas.
+[01:04:51] ela é ela a gente confia que o cliente vai guardar aquilo ela não fica exposta na nossa
+[01:05:00] aplicação claro que a gente vai trabalhando com a aplicação no front-end é que depende
+[01:05:07] vamos lá se você está trabalhando com a aplicação é é com breq end front-end claro
+[01:05:15] que se você abrir lá as requisições da HTTPS,
+[01:05:21] você consegue vir ali, ser trafegado,
+[01:05:23] o JWT você pode capturar o JWT.
+[01:05:25] Aqui, como a gente falou,
+[01:05:27] ele tem um tempo de validade, ele não é para sempre.
+[01:05:32] Mas enquanto aquele JWT for válido,
+[01:05:35] eu consigo me passar pela pessoa,
+[01:05:37] eu consigo ser e fazer requisições no nome daquela pessoa.
+[01:05:41] Então, por isso, o JWT não pode ter um tempo muito longo.
+[01:05:44] é muito importante que ele seja culto. Mas vamos ver aqui a
+[01:05:52] a base, vamos aqui entender que é um JWT, por isso eu vou
+[01:06:03] aumentar dito e pra isso eu tô partindo na minha tela ainda.
+[01:06:07] É muito importante que a gente conheça esse site,
+[01:06:10] www.iou.com.br.
+[01:06:13] Aqui, isso é o Jason Web Tolkien,
+[01:06:16] os colegas já tinham matado a informação.
+[01:06:19] Só que aqui eu consigo ver as informações
+[01:06:21] que estão no meu JWT.
+[01:06:23] Eu consigo abrir e aqui nós vamos falar um pouquinho
+[01:06:26] o que é formado no JWT, no JWT.
+[01:06:29] Ele tem ali algumas partes.
+[01:06:32] Nós vamos começar a falar hoje do JWT,
+[01:06:34] deixa eu só explicar aqui para vocês.
+[01:06:36] Vamos começar a falar hoje, acho que a gente não vai conseguir ver tudo de OWT hoje.
+[01:06:39] A gente entra na próxima aula já falando de OWT 2 com o JWT, porque faz parte disso tudo.
+[01:06:46] E a gente dá prosseguimento, porque na segunda parte da aula,
+[01:06:50] eu queria que a gente trabalhe a dos projetos.
+[01:06:53] Eu vou dividir as drones, vamos lá, vamos com calma.
+[01:06:55] Mas vamos lá.
+[01:06:56] A pergunta.
+[01:07:03] Se eu passar só esse texto aqui pra vocês.
+[01:07:06] tem que esquece aqui o que está aqui do lado direito, esse texto aqui não me diz nada.
+[01:07:18] A partida é uma informação que ela está de certa forma, as informações estão
+[01:07:26] embaralhadas, eu não vou dizer criptadas porque aqui não tem criptografia também,
+[01:07:30] Não existe criptografia.
+[01:07:32] Aqui existe o carimbo e uma assinatura.
+[01:07:33] É diferente.
+[01:07:35] Não existe criptografia.
+[01:07:37] Então...
+[01:07:49] O JWT é um padrão aberto.
+[01:07:52] Ele tem um RFC.
+[01:07:55] A gente da RFC 7519.
+[01:08:00] A gente entra aqui, aqui nós temos toda a especificação do RFC.
+[01:08:07] Aqui tem alguns updates, pronto.
+[01:08:10] Mas aqui ele diz tudo, como ele é formado.
+[01:08:14] Aqui a gente vai ver alguns desses atributos que a gente tem aqui a pouco.
+[01:08:19] Mas aqui ele tem toda a especificação.
+[01:08:21] guardem isso, né? RFC 7519, já é especificação de como deve ser formado o nosso, é um padrão
+[01:08:29] aberto, né? E para um texto compacto. A ideia é que pensem comigo que eu consigo criar um
+[01:08:37] texto e pôr algumas informações lá dentro. E-mail, é... eu posso pôr e-mail, eu posso pôr nome,
+[01:08:46] Eu posso por algumas informações.
+[01:08:49] É.
+[01:08:52] Embrujava, vamos chamar assim e deixar aquilo disponível para
+[01:08:56] para para para poder fazer uso daquilo como autenticação,
+[01:08:59] mesmo menos essa ideia.
+[01:09:00] Ele carrega alguns dados, o compacto alguns dados.
+[01:09:04] Esses dados nós podemos chamar de clens, né, ou de atributos.
+[01:09:08] E uma assinatura, tá, e aqui é o ponto importante.
+[01:09:11] é aqui que faz o JWTC importantíssimo,
+[01:09:15] que ele é até melhor do que a gente trabalhar com...
+[01:09:21] E embora a gente pode fazer isso também, essa assinatura,
+[01:09:23] se a gente vai trabalhar com...
+[01:09:26] com um toque e sessão.
+[01:09:30] Isso também pode ser feito para garantir que é aquilo vir do navegador.
+[01:09:35] Mas é importante que a assinatura que prova
+[01:09:38] que esses dados não foram alterados.
+[01:09:40] Porque a assinatura tem dois propósitos.
+[01:09:42] A gente vai ver isso.
+[01:09:44] Assinatura.
+[01:09:45] Ele prova que aqueles dados, eles continuam sendo alterados.
+[01:09:48] Lembra que eu mostrei para vocês, lembra que eu comentei com vocês,
+[01:09:50] que um processo, quando a gente falou de chave assimétrica,
+[01:09:53] um dos processos que a gente tem é de assinatura.
+[01:09:56] É, como é que eu garanto que um documento não for alterado?
+[01:09:59] Pense aqui comigo.
+[01:10:01] Eu quero assinar um documento...
+[01:10:04] É...
+[01:10:06] A...
+[01:10:08] do contrato de serviço. Eu quero assinar esse documento. Então eu vou assinar o hash,
+[01:10:18] porque eu vou cometer com vocês. Aqui no caso não é bem o hash. O que eu quero dizer é que eu
+[01:10:26] quero garantir que os dados não foram alterados. Então ele se torna o carimbo de que além
+[01:10:32] daqueles dados não foram alterados ele pertence a aquele servidor. Porque se eu alterar alguns dados,
+[01:10:37] tentar gerar o JWT.
+[01:10:40] E eu não conheço... Se eu conheceu o segredo, sim, tá?
+[01:10:44] Se você conheceu o segredo, eu tive acesso ao segredo e esse é o ponto principal.
+[01:10:47] Se eu tenho acesso ao segredo, eu consigo alterar os dados,
+[01:10:50] fazer uma nova assinatura, geral, não consigo alterar o WT e me passar pela pessoa.
+[01:10:54] Mas eu tenho acesso ao segredo.
+[01:10:55] Se o seu segredo está público,
+[01:10:58] a sua aplicação está toda exposta.
+[01:11:00] Mas no caso que a gente tenha só o JWT,
+[01:11:03] se eu altero as minhas informações,
+[01:11:05] eu não consigo alterar a minha assinatura.
+[01:11:09] E aí o meu servidor não vai reconhecer aquele JWT.
+[01:11:14] Essa é a minha coisa mais importante.
+[01:11:17] Vamos entender aqui.
+[01:11:18] Vamos aqui, eu tenho, isso aqui é um JWT,
+[01:11:20] tá mostrando aqui para vocês.
+[01:11:22] Esse aqui é o que eu vou trafegar.
+[01:11:24] E eu vou passar isso aqui para o meu cliente.
+[01:11:27] E o meu cliente é responsável para guardar isso por um determinado tempo.
+[01:11:30] Se isso for o Postman, se for uma API...
+[01:11:37] Vou dizer, o nosso front-end, se for Angular,
+[01:11:47] se for qualquer aplicação cliente, ele é respostado para o guardaíso.
+[01:11:52] Agora, vamos ver aqui.
+[01:11:53] O nosso JWT tem três partes.
+[01:11:58] Ele tem primeiro o header, inclusive tem aqui, ele tem um header, que é essa primeira parte, esse primeiro ponto.
+[01:12:04] Esse header, ele diz o algoritmo a gente usou para assinar.
+[01:12:10] Você pode ver que eu usei o HSM 256 do tipo JWT.
+[01:12:16] Nós temos a segunda parte do nosso JWT, que é o nosso Playload.
+[01:12:21] É aqui que estão os nossos atributos, os nossos clãs.
+[01:12:25] também. Aqui que são as informações do meu usuário. Olha aqui, meu Playload, decoded.
+[01:12:33] E aqui eu tenho, por exemplo, esse sub, eu vou falar daqui a pouco dessas informações,
+[01:12:39] o name, o admin, e aqui são informações mesmo que a gente tem do nosso usuário,
+[01:12:46] também. E por fim temos essa parte final, essa parte final aqui, que ela é a assinatura
+[01:12:55] do nosso código, assinatura e o que eu vou fazer? Quando eu mandar isso aqui para o
+[01:13:01] meu servidor, ele vai pegar essa parte aqui e vai tentar extrair as informações lá de
+[01:13:08] dentro e para isso ele compara com a assinatura. Se essas informações não bateram, quer dizer
+[01:13:13] aqui isso é que foi alterado.
+[01:13:15] Esse embaralhamento, esse empacotamento aqui,
+[01:13:19] eu terei, em vez de ser João, foi João.
+[01:13:23] E eu geria aqui uma nova,
+[01:13:24] vai gerar aqui uma string diferente,
+[01:13:27] que não vai bater com a assinatura,
+[01:13:29] por conta do segredo que eu tenho no meu servidor.
+[01:13:32] Aí pronto, o meu servidor nega acesso
+[01:13:35] e retorna um auto indicado para pessoa.
+[01:13:36] A pessoa não pode mexer na aplicação.
+[01:13:39] Ok?
+[01:13:40] Nós temos aqui uma... Aqui não tem alguns valores, mas existe, se eu mostrar aqui para vocês um RFC,
+[01:13:48] eu tenho esses valores aqui que eles costumam ser meio que estariam ali no nosso JWT.
+[01:13:55] Que é o ISS, que é o Xur, esse aqui.
+[01:13:59] Esse Xur aqui é que é emitio, nós vamos ter escrito lá que é emitio.
+[01:14:04] O Subject, esse nós temos que é o Sub, ele está lá, cadê?
+[01:14:09] Nós temos esse Sub que é o Subject, que é de quem é o Tolkien, é o joário.
+[01:14:16] E temos outros valores, esse IAT aqui é o Ixua Ed, que você quer uma data.
+[01:14:22] Você vai observar aqui, ele está aqui a data de quando nasceu, ele foi gerado.
+[01:14:30] Eu peguei isso aqui em 2018, muito tímido isso aqui.
+[01:14:35] E você tem outros valores como inspiration, role, que ali você tem roles que você guarda
+[01:14:41] dentro do seu JWT, tá bem?
+[01:14:45] Pronto, só pra gente entender aqui, ser bem pra queimático pra não se ater muito
+[01:14:51] Eu já falei muito.
+[01:14:53] É...
+[01:14:54] Cada parte dele é convertido em base 64.
+[01:14:59] E esse base 64 é só uma forma de você ler em 64 caracteres.
+[01:15:06] É só uma forma de escrever bytes usando 64 letras.
+[01:15:13] Não somente as que a gente conhece.
+[01:15:16] Porque aí você fica mais compacto.
+[01:15:20] você acaba deixando o seu texto mais compacto
+[01:15:25] e consegue escrever mais coisas ali dentro.
+[01:15:27] É só por isso.
+[01:15:29] E o que mais que a gente pode falar sobre ele?
+[01:15:35] E a gente usa, a ponto importante de um uso é base 64,
+[01:15:39] que também é para que ele navega na HTTP sem ser partido.
+[01:15:42] Aqui tem alguns caracteres especiais
+[01:15:45] que nós temos no nosso decode normal,
+[01:15:51] que nós não conseguimos trafegar isso no nosso HTTP,
+[01:15:58] vai partir o HTTP.
+[01:15:59] Então, é por isso que a gente usa esse base MIA4 também.
+[01:16:03] Pronto, e o base MIA4 não é segredo.
+[01:16:05] Também a gente pode ver que a base MIA4 é criptografia, então é.
+[01:16:08] É só uma forma de você escrever diferente.
+[01:16:11] Você pode fazer o decode ou encode daquilo o tempo inteiro.
+[01:16:15] Por isso não confunda, base64 não é criptografia, guardem isso.
+[01:16:20] Então, como a assinatura funciona, vamos lá.
+[01:16:23] O servidor pega o que vem no header e o payload, essas duas partes aqui também,
+[01:16:28] e calcula, né, existe um algoritmo que chama da Gamec,
+[01:16:34] tá aqui, pronto, não quero muito me atender nessa questão,
+[01:16:38] e essa chave, ele scrama o resultado no fim.
+[01:16:40] Então ele pega isso aqui, passa para o algoritmo e gera essa chave, ok?
+[01:16:47] Usando o segredo que nós temos guardado na nossa aplicação.
+[01:16:52] E toda request que você faz, ele vai pegar isso aqui e vai passar de novo pelo algoritmo
+[01:16:59] e ele tem que gerar a mesma chave, mesmo hash, mesmo hmec.
+[01:17:05] Se você mudar qualquer coisa dentro do header e no Playload, você vai ter que uma chave
+[01:17:11] diferente, uma assinatura diferente e o servidor não reconhece aquilo.
+[01:17:16] De novo, se você tiver o segredo, sim, você consegue fazer isso.
+[01:17:22] As que são disso.
+[01:17:23] Se esqueça alguma coisa.
+[01:17:28] Então, sem a chave eu não consigo reproduzir essa assinatura.
+[01:17:35] É importante.
+[01:17:36] Ok, com a chave, sim.
+[01:17:38] E aqui eu tenho o código, só pra vocês entenderem, eu criei aqui um JWT manual, que...
+[01:17:47] Aqui é a nossa chave, tá?
+[01:17:52] chave. Eu coloquei aqui segredo. Isso aqui geralmente é uma string aqui, por exemplo,
+[01:18:02] aqui no nosso caso essa aqui, eu não existe uma, eu não criei uma variável de ambiente
+[01:18:10] e ele está pegando isso aqui como chave, demonstração da aula 3, não usa em produção. É só mesmo.
+[01:18:17] uma questão que é importante a gente ter uma chave real aqui, um hash grande, quanto
+[01:18:23] maior, mais protegido acaba sendo a nossa aplicação, tá bem?
+[01:18:26] E aqui é só uma chave que a gente não deve usar de verdade, é só mesmo demonstração
+[01:18:30] aqui para a nossa aula.
+[01:18:31] E aqui eu...
+[01:18:34] Crio aqui, eu vou passar em segredo, vou gerar os bytes dela.
+[01:18:37] aqui eu vou chamar a nossa gerar quando a gente vai ver lá nossa autenticação eu
+[01:18:49] chama esse gerar e eu vou passar a chave padrão, o usuário, o perfil e segundo de validação.
+[01:18:56] De novo, isso aqui pessoal, não é assim que a gente vai fazer quando a gente vai trabalhando
+[01:19:01] com Spring. Aqui eu coloquei realmente como nós faríamos, né, uma forma mais,
+[01:19:09] mais manual, ok? Por isso que eu estive aqui de WT manual. Então nós temos funções
+[01:19:16] que fazem isso para nós e nós vamos usar essas funções no nosso dia a dia. Aqui é
+[01:19:21] mesmo para vocês verem ali de uma forma mais como isso funciona debaixo dos panos,
+[01:19:26] mais ou menos como isso funciona.
+[01:19:28] Então aqui eu vou setando os valores, aqui eu vou setando os payloads, pronto.
+[01:19:35] E aqui eu gero o base 64 disso tudo, concateno.
+[01:19:40] E aqui eu gero a gamaque da chave e concateno no final.
+[01:19:46] Muito simples, aqui não tem nenhum segredo. Aqui eu deixei bem detalhado o que eu faço.
+[01:19:51] Eu tenho aqui o meu header, eu estou usando o que eu estou usando para assinar.
+[01:19:58] Eu estou usando aqui, eu tenho aqui o que eu estou colocando as informações.
+[01:20:03] E aqui eu já passo o ISS.
+[01:20:06] E aqui eu gero o base 64.
+[01:20:10] A gente vai vir aqui base 64.
+[01:20:12] Aí eles só geram base 64 RL.
+[01:20:15] Funçãozinha aqui, essa aqui.
+[01:20:17] Base 64.
+[01:20:20] E pronto, aqui eu gero o base MAC com RL, com cateno, com base 64 do Playload.
+[01:20:28] De novo, eu sou que eu estou fazendo aqui isso aqui, pessoal, por favor.
+[01:20:31] Entendendo o que eu estou fazendo.
+[01:20:33] Eu estou pegando isso aqui, que é o base 64, com cateno com isso aqui.
+[01:20:37] É só isso.
+[01:20:39] Ok?
+[01:20:40] E aqui eu por fim, gero a Gamec.
+[01:20:43] De novo, também uma função minha.
+[01:20:46] Eu que fiz isso aqui, acabei fazendo isso aqui na mão.
+[01:20:48] Mas não é como a gente...
+[01:20:52] Na próxima aula vocês vão perceber mais como isso deve ser melhor feito.
+[01:20:57] Isso é que a chave, e de novo, com a chave eu consigo montar aqui aquela string.
+[01:21:06] E aqui eu gero aquela parte final do nosso JWT.
+[01:21:12] É isso!
+[01:21:13] Isso com isso, depois da gente vir aqui o Gerar,
+[01:21:18] aqui,
+[01:21:24] aqui eu gero e entregue para o meu cliente,
+[01:21:27] que é basicamente que é só isso que eu quero.
+[01:21:31] Deixa eu ver, eu coloquei aqui, eu acho, coloquei aqui, sim.
+[01:21:36] Então, se eu vim aqui e correr,
+[01:21:39] olha só, ele gerou esse toque aqui para mim,
+[01:21:42] Deixa eu pegar aqui para vocês verem ele.
+[01:21:46] Se eu vim aqui no...
+[01:21:52] Aqui, tem até mais informações.
+[01:21:56] Eu posso fazer aqui o decode, e eu tenho aqui mais informações.
+[01:22:00] E o bichur, é de quem criou, que é a da segurança.
+[01:22:05] Ou sobre que é a pessoa, e eu tenho aqui até uma role, como eu falei para vocês.
+[01:22:10] E aqui várias informações. Eu postei meio,
+[01:22:12] eu postei algumas informações do usuário que eu posso que podem ficar aqui, não é problema.
+[01:22:17] Mas tem que tomar cuidado, é óbvio que, de novo, isso não é segredo.
+[01:22:23] Quem conseguir pegar essa informação consegue abrir as informações do nosso usuário.
+[01:22:29] Então, tem que tomar cuidado para não colocar aqui informações sensíveis, JWT também.
+[01:22:34] Você pessoal, vocês entenderam alguma dúvida até aqui?
+[01:22:40] Temos dúvidas, só olha só.
+[01:22:44] Na primeira coisa, acho que eu devo ter comido o músculo, mas quando você pegou esse JWT
+[01:22:52] gerado aí no código, ele conseguiu ler essas informações porque se o secret é diferente.
+[01:23:01] Porque o Secret, isso é isso aqui que é o Secret.
+[01:23:05] Isso aqui, uma excelente pergunta, muito boa.
+[01:23:10] Porque vamos lá, o nosso JWT tem três partes.
+[01:23:15] Duas delas são abertas.
+[01:23:17] Eu só gerei um, olha só, vamos voltar lá para o código.
+[01:23:21] Duas delas não têm nenhum segredo.
+[01:23:23] O que eu fiz aqui, vou voltar aqui para o código, tá, e nem um gerar, é aqui que eu
+[01:23:29] quero.
+[01:23:30] Eu só gerei um base MIA4 direto dessas duas partes.
+[01:23:34] Essas duas partes não é que estão em texto claro, mas elas estão ali para ser acessadas.
+[01:23:40] Qualquer pessoa que acessa essas duas partes, ela consegue abrir, decryptar o base MIA4 e ler a informação.
+[01:23:48] Ok? Então, primeira parte.
+[01:23:52] Primeira parte, tá? Primeira parte, cadê aqui o pódio? Perdi o pódio aqui.
+[01:23:56] Então, a primeira parte, essas duas partes, qualquer pessoa pode ver essas partes.
+[01:24:01] Por isso que eu comentei que você não pode ter aqui dados sensível.
+[01:24:05] Quando eu digo dados sensível é, eu vejo muito como as pessoas meterem e-mail,
+[01:24:10] o pessoal colocar nome, até algumas informações ali que você quer que esteja no do JWT.
+[01:24:16] Não é problema.
+[01:24:17] Mas, se tomar cuidado, porque isso aqui é público.
+[01:24:20] O que eu quero dizer como público?
+[01:24:22] que a pessoa quer acessar isso aqui, né? Vamos dizer que, veja, você tá, sei lá, no
+[01:24:30] café, cyber café. Você deixa o laço no navegador aberto, eu posso abrir o seu browser, copiar
+[01:24:39] isso aqui, né? E eu tenho essas informações. Agora, o que que é o segredo? Isso não sei
+[01:24:46] isso ficou muito claro, é essa parte. O que que essa parte faz? Essa parte ela garante
+[01:24:55] que o resto da informação está dentro do conforme. Por exemplo, você percebeu que
+[01:25:01] eu gerei uma base 64. O que eu tenho aqui? Hada segurança, Ana. Isso eu tirar esse Ana
+[01:25:08] e colocar aqui Nicolau. Gerar um base 64 de novo desse Playload. O meu header vai ser
+[01:25:14] mesmo, o meu Playload vai ser diferente. Percebe? O meu Playload vai ser diferente.
+[01:25:24] Então, quando eu for mandar o meu JWT para o meu servidor, o meu servidor vai tentar
+[01:25:34] gerar a assinatura disso e vai pegar a informação que chegou, vai gerar o novo HMAC e vai fazer
+[01:25:41] de meti da assinatura. Só que como eu coloquei aqui Nicolau ele vai gerar um outro uma outra
+[01:25:49] string uma outra base meia quarto ele vai gerar a meca dessas duas informações e vai
+[01:25:55] tomar outra string não vai bater com aquilo que o meu que o meu servidor assinou.
+[01:26:01] Entenderam aqui isso tá muito claro pessoal essa parte você já mais importante no WT.
+[01:26:06] Tiago ficou claro.
+[01:26:08] Sim, estou entendendo, estou pegando a...
+[01:26:11] Bom, diga lá.
+[01:26:13] Mas a questão é o seguinte.
+[01:26:19] É porque eu estou tentando entender
+[01:26:21] em todo o contexto da segurança
+[01:26:23] a questão de quando a pessoa vai acessar um site
+[01:26:27] e ela está acessando esse site.
+[01:26:30] E o que que garante ela, por exemplo,
+[01:26:34] que ela tem acesso a certos recursos?
+[01:26:36] Então, por exemplo, você tem a área de login, né? Na hora que você logra, você retorna
+[01:26:41] esse... você tem que retorna esse token, né? E esse token que te permite acessar, por
+[01:26:45] exemplo, uma lista, até voltando para o projeto, vai ser o que vai permitir você acessar as
+[01:26:51] listas do teu projeto, do teu... do teu chamados, né? Então, os chamados que são seus, você
+[01:26:58] só vai conseguir porque esse token validou você dentro do sistema para poder trazer
+[01:27:03] isso daí, certo? Essa validação ela acontece por quê? Por causa dessa última parte do
+[01:27:10] JwToken que vai garantir que as informações que chegaram, por exemplo, a gente vai guardar
+[01:27:15] um session ID, por exemplo, vai tá chegando lá, ela vai bater com os usuários e vai
+[01:27:20] trazer pra saber se aquela lista daquele IP chamado é realmente pra aquele usuário
+[01:27:27] que está vindo desse JW token.
+[01:27:30] Certo?
+[01:27:31] Mas aí, por exemplo, se eu conseguir pegar o JW token, sei lá, de outra pessoa
+[01:27:37] e copiar na minha requisição e mandar,
+[01:27:40] então eu vou ter acesso a API chamados do...
+[01:27:44] A lista de chamados da outra, da outra pessoa,
+[01:27:47] num determinado instante enquanto esse token não inspira.
+[01:27:51] Sim, certo.
+[01:27:52] Então, por isso que também não se pode colocar essas informações aí
+[01:27:56] que são decodificadas pelo Base64, dado o sentido porque, independente dessa chave,
+[01:28:03] a gente consegue descritaografar nesse site mesmo.
+[01:28:05] Descritaografar não, né?
+[01:28:09] Decaudificar.
+[01:28:10] Decodificar, isso.
+[01:28:11] Pronto.
+[01:28:13] Perfeito.
+[01:28:15] Tá, beleza.
+[01:28:16] Entendi.
+[01:28:17] É isso.
+[01:28:18] Pronto.
+[01:28:19] O JWT é um crachá.
+[01:28:20] Cachar não é seguro, crachar não garante que a pessoa é a pessoa, lembre-se disso.
+[01:28:27] Eu preciso decidir a validação, o que você faz quando você chega lá na caixa?
+[01:28:31] O só se eu crachar, eu chego lá com o crachar do Tiago.
+[01:28:34] O que me garante que eu posso entrar?
+[01:28:38] Só chegar com o crachar do Tiago, vamos deixar entrar na caixa, no ambiente da caixa?
+[01:28:44] Não, vai ter ali provavelmente vários seguranças que vão identificar a pessoa com o crachar.
+[01:28:49] E é muito pouco, ainda mais se for na agência do Thiago,
+[01:28:52] não vão deixar aumentar porque já me conhecem.
+[01:28:54] Pronto.
+[01:28:55] Aqui são várias analogias para a gente entender como é que funciona esse contexto.
+[01:28:58] Só que se não for um lugar que não conhece, eu posso, pelo menos,
+[01:29:02] por um determinado momento, talvez fingir e conseguir entrar.
+[01:29:05] Mas a questão é que existe ali validação.
+[01:29:07] Eu tenho que validar o posto da pessoa para um crachar que está no petro da pessoa.
+[01:29:11] Então, o JWT, ele é um crachar.
+[01:29:14] É só isso. Tá bem?
+[01:29:16] Então, por isso que você precisa...
+[01:29:18] Sim, pode curir.
+[01:29:20] Vai lá, vai lá, força.
+[01:29:22] Aí isso também sai porque assim, pelo que eu entendo assim, quando você tem um token,
+[01:29:26] é para que você evite de ficar toda a requisição,
+[01:29:29] porque você precisa de dados que são pessoais assim,
+[01:29:33] a nível de sistema, né?
+[01:29:35] São dados que são próprios para o contexto daquele usuário, né?
+[01:29:38] Vou colocar assim pra diminuir o escopo.
+[01:29:40] Então, você tem um usuário que ele tem recursos,
+[01:29:43] que são acessados e só podem ser acessados por ele, né?
+[01:29:47] E esses recursos, em vez de você ter que ficar toda vez em cada requisição,
+[01:29:52] você tem que ficar fazendo, colocando log em senha,
+[01:29:56] para que a requisição vai e chegue com seu log em senha
+[01:29:59] para certificar de que aquela pessoa é você,
+[01:30:02] esse Tolkien é enviado para que você não tenha que ficar repetindo
+[01:30:06] sem a direto para você conseguir acessar os recursos dentro do sistema, certo?
+[01:30:12] É praticamente isso, pra não ter que ficar repetindo e ao mesmo tempo dar um certo nível
+[01:30:17] de segurança e abstração pra não ter que ser tão fácil você acessar recursos de
+[01:30:24] Outrem, né?
+[01:30:25] É isso, porque quando a gente for ver o Alt2 na próxima aula, tinha a ver que tem vários
+[01:30:32] tipos de autenticação, uma delas é Client Creditions.
+[01:30:35] Client Creditions aí, eu tenho um login sem, eu vou passar, defini, vou passar pra cada
+[01:30:40] request o login que acenha. Na verdade a clática é o base authentication, porque eu vou passar
+[01:30:50] isso para toda request o login acenha. Só que isso eu tenho que colocar login acenha toda vez na minha
+[01:30:57] request e isso não é legal, não é uma prática bacana e em lugares são muito muito muito muito
+[01:31:05] conhecidos, por exemplo, eu tenho duas aplicações que fica dentro do meu servidor, dentro do ambiente
+[01:31:11] da caixa, que elas são muito próximas e elas se conhecem e ficam no ambiente seguro. Então eu posso
+[01:31:17] usar sim, né, porque não um base authentication, light creden, não tem problema, eu posso colocar
+[01:31:26] a legologin senha e fazer a autenticação via login senha toda vez. Só que se a gente está falando
+[01:31:32] de trabalhar com a Payrest, que tem outras aplicações,
+[01:31:36] e você tem cliente, você tem o cliente, o servidor,
+[01:31:41] já não é interessante.
+[01:31:43] Por isso que o JWT, pronto, quando a gente vê o Alt2,
+[01:31:45] você vai ver desses pormenores.
+[01:31:47] O Alt2 nos dá essa maior flexibilidade.
+[01:31:50] E, de novo, pensa em comigo.
+[01:31:53] Pensem que vocês estão na caixa.
+[01:31:56] Aí eu não bende vocês.
+[01:31:58] Vamos dizer que vocês estão no ambiente muito seguro,
+[01:32:02] que vocês estão trabalhando com o banco, etc.
+[01:32:04] Vamos dizer que penso que talvez se você estivesse aqui no banheiro,
+[01:32:06] você tinha que pôr a digital de vocês lá na porta do banheiro.
+[01:32:10] Vocês forem na cozinha, na copa, tem que pôr a digital, na porta da copa.
+[01:32:15] Pensa que em alguns lugares tem isso.
+[01:32:17] Pensa que vocês têm que acessar a porta de reuniões, a sala de reuniões,
+[01:32:21] a digital, na sala da reunião.
+[01:32:24] É onde você pensa que todo lugar que você passar, você teria que ir lá e pôr o digital.
+[01:32:28] O que geralmente nós temos é, para você entrar no ambiente da caixa,
+[01:32:31] caixa, você mete a digital, você faz reconhecimento facial, você trabalha com
+[01:32:36] ali com o crachá, com o chip do crachá. Pronto. Por que? Porque só na entrada que
+[01:32:42] você tem a autenticação mesmo. Dentro que você já está no ambiente seguro da
+[01:32:47] caixa, aí você está o tempo todo sendo validado com seu crachá com seu rosto.
+[01:32:52] De novo, eu gosto da analogia de 3JWT como crachá porque é mais ou menos isso.
+[01:32:56] Você já foi autenticado com seu login senha. Uma vez que você está dentro do
+[01:33:00] ambiente seguro, você então tem o JWT e você vai confiar que a pessoa que está fazendo
+[01:33:05] aquele JWT, você pode confiar naquele JWT. Claro, vamos ver isso, como isso precisa ser
+[01:33:13] limitado e pronto, você tem que tomar cuidado que a pessoa não, se ela tem acesso, ela
+[01:33:20] pode fazer, pode trazer realmente problemas, então ali tem que se expirar. Ainda tem uma
+[01:33:26] e isso depende muito dos requisitos de segurança e etc.
+[01:33:30] Mas pronto, a ideia mais ou menos é essa, vocês entenderiam ali
+[01:33:34] que você confia nessa estreia do JWT
+[01:33:36] para você, pelo menos, você ter uma certa garantia
+[01:33:41] que aquele JWT partesse o servidor, ele tem um tempo de ser inspirado
+[01:33:45] e ele tem ali os dados que você está refegando do nosso cliente.
+[01:33:49] Por exemplo, você falou do Session ID,
+[01:33:51] aí omitia a sessão do nosso servidor.
+[01:33:54] Pronto, se você não estiver trabalhando com o RESTful, eu me cheio na sessão do servidor
+[01:33:58] esse ssyniD e aí eu vou lá recupera, em vez, assim como eu fiz com o Kuki, eu recupero
+[01:34:04] esse valor e mantém a sessão do meu usuário.
+[01:34:06] Ah, então meu JWT se torna inválido.
+[01:34:08] Meu JWT inválido, eu exijo um novo login do meu cliente.
+[01:34:13] Aí meu cliente precisa de novo meter lá no login sem.
+[01:34:16] É um exemplo, né?
+[01:34:18] De como isso pode ser feito.
+[01:34:19] Via que nós avançamos na hora, já são 3, 4 e 34.
+[01:34:28] Então, eu vou liberar para nós termos agora o intervalo.
+[01:34:33] E depois disso, nós voltamos...
+[01:34:40] que tem tiner. Vou liberar então a gente pro nosso intervalo que depois a gente volta
+[01:34:50] e continua. Diz Matheus, pode falar.
+[01:34:55] É professor, hoje eu vou precisar sair mais cedo por volta 5 e 20 porque é minha formatura na faculdade.
+[01:35:04] OK, aí... Parabéns. Obrigado. Eu queria ver como fica a questão da presença.
+[01:35:11] Acho que não é só parte que não é da aula, né? Sim, sim, o que a gente pode fazer é só
+[01:35:16] algum... Eu tô lembrando disso, mas se eu for fazer e você já não estiver, é só
+[01:35:22] algum colega ser só fazer aquele lembrete e eu lembro de pessoa por você presença.
+[01:35:27] Mas Mateus, é só lembrar, Mateus. Você quer coisa? O colega pode dizer, ah, Mateus,
+[01:35:31] que é para formatura, se o pessoal me ajudar a lembrar na hora que eu vou fazer a chamada,
+[01:35:36] ok? Mas já está. Beleza, obrigado professor. Se algum colega pode lembrar aí, agradeço.
+[01:35:43] Sim, claro, se me ajudem, me ajudem, por favor. Mas pronto, vamos lá para o nosso intervalo,
+[01:35:47] porque já estamos de volta.
+[01:56:01] Vema o Mac φa lá.
+[01:56:24] Bonus vota.
+[01:56:26] Laboratório slowly Joga.
+[01:56:31] Então, pessoal, eu vou partir vocês em salas,
+[01:56:36] porque então eu gastrei que vocês começassem já a trabalhar.
+[01:56:40] Vamos votar assim para o projeto.
+[01:56:41] Vocês têm que cumprir aquele roteiro,
+[01:56:45] tentar entregar o máximo possível.
+[01:56:47] Só um ponto.
+[01:56:48] O projeto é muito grande, muito audacioso, é muita coisa.
+[01:56:52] Seja bom vocês tentarem fazer o máximo que vocês conseguissem.
+[01:56:56] Mas não deixem de apresentar.
+[01:56:57] Façam, desenvolvem, trabalhem.
+[01:57:00] E apresenta o que vocês conseguirem apresentar.
+[01:57:02] Isso já vai demonstrar bastante.
+[01:57:05] Pronto, trabalho com o promisso.
+[01:57:08] Não precisa estar 100% para apresentar.
+[01:57:10] Só fazem caprichem para ter um bom trabalho para apresentarem.
+[01:57:16] Deixa eu dividir vocês aqui em salas.
+[01:57:22] Eu vou abrir as salas e vocês devem ser direcionados para as salas.
+[01:57:27] E quem ficar aqui, a gente reorganiza dentro das salas.
+[01:57:31] Ok?
+[01:57:32] Tive pessoas que ainda não estão em nenhuma sala.
+[01:57:35] Tiago, Paulo e João Pedro vocês não estão em nenhuma sala?
+[01:57:58] e isso eu não fui pra nenhum eu tô na sala do eu tô na sala do que tá o Elvio que tá o
+[01:58:07] Thiago o Ian quem quem quem quem o Pedro Paulo Paulo falando Paulo Paulo ok isso deixa eu ver
+[01:58:17] que tal você tá aqui você realmente deveria tá aqui se eu tento te adicionar a esc to join
+[01:58:23] alguma informação aí pra você?
+[01:58:25] Espere aí, deixa eu ver porque eu tô...
+[01:58:27] eu tive que bater meu ponto aqui, eu tô fora...
+[01:58:29] eu não tô conseguindo ver o Kings.
+[01:58:31] Deixa eu tentar logo aqui pra ver se me aparece, rapidinho.
+[01:58:33] Ok.
+[01:58:35] O meu eu tô... é pra eu estar no grupo do Levy e do Matheus.
+[01:58:41] Deixa eu ver aqui...
+[01:58:43] E de News.
+[01:58:47] Mas você não tá aqui no grupo não, vou ter que te colocar lá, João Pedro.
+[01:58:51] Vou ver, ele está dando erro aqui. Eu vou esperar mais um pouquinho e eu volto lá.
+[01:59:01] O Thiago também é da outra, dessa minha lista aí. O Thiago está aqui na sala.
+[01:59:05] Acho que ele não deve estar também ouvindo não.
+[01:59:08] Mas você deve aparecer agora para você ser registrado para lá.
+[01:59:12] Ele está dando erro aqui. Mas eu vou esperar mais uns 5 minutos e eu volto com ponto aqui.
+[01:59:17] Aí eu vejo, tá beleza?
+[01:59:18] Ok, que eu te coloquei, você estava sem sala, você estava sem sala.
+[01:59:22] Eu estou na sala 1 agora, gente.
+[01:59:28] Eu vou voltar aqui pelo horário de 17 e 6, ainda que uns 5 minutos eu volto.
+[01:59:33] É o tempo de voltar com conta.
+[01:59:37] E te hago, e você te hago?
+[01:59:44] Está aqui.
+[02:03:48] Italian
+[02:04:04] 1 x plaque
+[02:04:11] Berginho
+[02:04:15] O professor, tá por aí?
+[02:04:17] Sim, sim, tô por aqui.
+[02:04:22] É, eu queria só validar uma questão só pra ter certeza sobre a questão do requisito
+[02:04:31] lá do projeto final do Git Hub, ou do Git, né, de usar a versionamento e tudo mais,
+[02:04:37] que a gente tá com o entendimento de que não é necessário.
+[02:04:41] mesmo? Vai, eu deixei no documento, não era, eu deixei tá, foi por um vacilo, deixa eu olhar, deixa eu abrir aqui,
+[02:04:51] porque não é preciso, eles vão me ver de jeito que vocês quiserem, tá? Deixa eu abrir aqui.
+[02:05:04] Eu até tava lembrando que você falou sobre isso na aula, mas com a dúvida no grupo, daí eu achei melhor vim aqui pra ter
+[02:05:10] Não tenho certeza.
+[02:05:19] A gente vai ter logo no início o repositor o guide compartilhado de visão diferentes, quem revisa o que.
+[02:05:24] Não é preciso, acho que eu coloquei isso aqui mesmo, não esquece.
+[02:05:30] Eu vou tirar aqui tudo que é guide, eu vou tirar e vou atualizar lá o documento também.
+[02:05:34] Beleza, show. Valeu, professor. Vou voltar lá para a sala.
+[02:06:40] Eu sou Thiago aqui, voltei do intervalo.
+[02:07:09] tem como me colocar lá na sala com o pessoal?
+[02:07:13] Sim, deixa... é isso, eu estava esperando você voltar.
+[02:07:17] Ai, cadê aqui Tiago? Você tem qual sala Tiago?
+[02:07:22] Você está na sala 1. Se eu coloco...
+[02:07:25] Eskidioen, aparece qualquer coisa aí para você?
+[02:07:28] Ainda não apareceu, não. Ah, está aqui.
+[02:07:30] Vou ver a neão nos uns 110 segundos. Valeu, obrigado.
+[02:07:33] Vai lá.

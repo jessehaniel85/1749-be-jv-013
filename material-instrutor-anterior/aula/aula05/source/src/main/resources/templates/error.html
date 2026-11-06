@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Erro</title>
+  <link rel="stylesheet" th:href="@{/estilo.css}">
+</head>
+<body>
+<header><h1>Não foi possível concluir</h1></header>
+<main>
+  <div class="cartao">
+    <!-- mensagem genérica de propósito: o motivo detalhado fica só no log do servidor -->
+    <h2 th:text="'Erro ' + ${status}">Erro</h2>
+    <p th:switch="${status}">
+      <span th:case="400">A requisição não pôde ser validada. Volte e tente entrar de novo.</span>
+      <span th:case="502">O login único falhou. Tente de novo em instantes.</span>
+      <span th:case="404">Página não encontrada.</span>
+      <span th:case="*">Algo deu errado. Tente novamente mais tarde.</span>
+    </p>
+    <p><a class="botao" href="/">Voltar ao início</a></p>
+  </div>
+</main>
+</body>
+</html>

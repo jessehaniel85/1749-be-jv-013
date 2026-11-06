@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Minha conta · login único</title>
+  <link rel="stylesheet" th:href="@{/estilo.css}">
+</head>
+<body>
+<header><h1>Login único da escola <small>· provedor de identidade</small></h1></header>
+<main>
+  <div class="cartao">
+    <h2>Você está logado no provedor</h2>
+    <dl>
+      <dt>Nome</dt><dd th:text="${usuario.nome}">Nome</dd>
+      <dt>Usuário</dt><dd th:text="${usuario.username}">login</dd>
+      <dt>E-mail</dt><dd th:text="${usuario.email}">email</dd>
+      <dt>Papel</dt><dd th:text="${usuario.papel}">papel</dd>
+      <dt>Aplicações acessadas</dt>
+      <dd th:text="${apps.isEmpty()} ? 'nenhuma ainda nesta sessão' : ${#strings.setJoin(apps, ', ')}">nenhuma</dd>
+    </dl>
+  </div>
+  <p class="acoes">
+    <a class="botao" th:href="@{/sso/sair}">Sair de todos os sistemas</a>
+  </p>
+  <p class="dica">Esta sessão (cookie <code>IDP_SESSAO</code>) é o que faz o segundo sistema não pedir senha.</p>
+</main>
+</body>
+</html>

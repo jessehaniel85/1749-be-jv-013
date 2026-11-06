@@ -1,0 +1,40 @@
+:root {
+  --cor: #374151;
+  --fundo: #f3f4f6;
+  --cartao: #ffffff;
+  --texto: #111827;
+  --suave: #6b7280;
+  --borda: #e5e7eb;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --fundo: #111827; --cartao: #1f2937; --texto: #f3f4f6; --suave: #9ca3af; --borda: #374151; }
+}
+* { box-sizing: border-box; }
+body { margin: 0; font-family: system-ui, sans-serif; background: var(--fundo); color: var(--texto); line-height: 1.5; }
+header { background: var(--cor); color: #fff; padding: 14px 16px; }
+header h1 { margin: 0; font-size: 1.2rem; }
+header small { opacity: .85; }
+main { max-width: 640px; margin: 0 auto; padding: 16px; }
+.cartao { background: var(--cartao); border: 1px solid var(--borda); border-radius: 10px; padding: 16px; margin-bottom: 16px; }
+.cartao h2 { margin: 0 0 8px; font-size: 1rem; }
+dl { display: grid; grid-template-columns: max-content 1fr; gap: 4px 14px; margin: 0; }
+dt { color: var(--suave); }
+dd { margin: 0; word-break: break-word; }
+ul.menu { list-style: none; padding: 0; margin: 0; }
+ul.menu li { margin: 6px 0; }
+a { color: var(--cor); }
+@media (prefers-color-scheme: dark) { a { color: #93c5fd; } }
+.botao, button { display: inline-block; background: var(--cor); color: #fff; border: 0; border-radius: 6px;
+  padding: 9px 14px; font: inherit; cursor: pointer; text-decoration: none; }
+button.secundario, .botao.secundario { background: transparent; color: var(--texto); border: 1px solid var(--borda); }
+label { display: block; margin: 10px 0 4px; }
+input { width: 100%; padding: 9px; font: inherit; border: 1px solid var(--borda); border-radius: 6px;
+  background: var(--fundo); color: var(--texto); }
+.erro { color: #b91c1c; margin: 8px 0; }
+@media (prefers-color-scheme: dark) { .erro { color: #fca5a5; } }
+.dica { color: var(--suave); font-size: .9rem; }
+table { width: 100%; border-collapse: collapse; }
+th, td { text-align: left; padding: 8px; border-bottom: 1px solid var(--borda); }
+.acoes { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+form.linha { display: inline; }
+code { background: var(--fundo); padding: 1px 5px; border-radius: 4px; }

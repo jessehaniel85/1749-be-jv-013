@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title th:text="${titulo}">Lista</title>
+  <link rel="stylesheet" th:href="@{/estilo.css}">
+</head>
+<body th:style="'--cor:' + ${app.cor()}">
+<header><h1 th:text="${app.nome()} + ' · ' + ${titulo}">Lista</h1></header>
+<main>
+  <div class="cartao">
+    <table th:if="${!linhas.isEmpty()}">
+      <thead><tr><th th:each="coluna : ${colunas}" th:text="${coluna}">coluna</th></tr></thead>
+      <tbody>
+        <tr th:each="linha : ${linhas}"><td th:each="celula : ${linha}" th:text="${celula}">valor</td></tr>
+      </tbody>
+    </table>
+    <p th:if="${linhas.isEmpty()}" th:text="${vazio}">Nada por aqui.</p>
+  </div>
+  <p><a class="botao secundario" th:href="@{/}">Voltar</a></p>
+</main>
+</body>
+</html>

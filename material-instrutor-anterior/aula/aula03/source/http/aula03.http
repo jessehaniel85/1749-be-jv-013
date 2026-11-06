@@ -1,0 +1,162 @@
+### Requisições da Aula 03 para o cliente HTTP do IntelliJ (abra este arquivo e clique no ▶ ao lado de cada requisição).
+### O ambiente "dev" (host) está em http-client.env.json. A API precisa estar rodando: mvn spring-boot:run
+### Cookies e variáveis (como {{token}}) ficam guardados enquanto o IntelliJ estiver aberto.
+### A numeração acompanha os blocos do roteiro: 1.x = Bloco 1, 2.x = Bloco 2, e assim por diante.
+
+############################################################
+### BLOCO 1: SESSÃO (o servidor GUARDA quem está logado)
+############################################################
+
+### 1.1 Login por sessão. Olhe a resposta: o cabeçalho Set-Cookie traz o JSESSIONID
+POST {{host}}/sessao/login
+Content-Type: application/json
+
+{"username": "ana", "password": "senha123"}
+
+### 1.2 Perfil por sessão. Funciona porque o cookie JSESSIONID foi reenviado sozinho
+GET {{host}}/sessao/perfil
+
+### 1.3 Logout: o servidor "esquece" o usuário
+POST {{host}}/sessao/logout
+
+### 1.4 Perfil de novo: 401, o servidor não conhece mais a sessão
+GET {{host}}/sessao/perfil
+
+############################################################
+### BLOCO 2: TOKEN (o servidor NÃO guarda nada)
+############################################################
+
+### 2.1 Login por token. A resposta traz o JWT, que fica guardado em {{token}}
+POST {{host}}/jwt/login
+Content-Type: application/json
+
+{"username": "ana", "password": "senha123"}
+
+> {% client.global.set("token", response.body.token); %}
+
+### 2.2 Rota protegida, com o token no cabeçalho padrão (Authorization: Bearer)
+GET {{host}}/jwt/protegido
+Authorization: Bearer {{token}}
+
+### 2.3 Rota protegida, com o cabeçalho pedido no projeto (access_token)
+GET {{host}}/jwt/protegido
+access_token: {{token}}
+
+### 2.4 Rota protegida SEM token: 401 (a resposta não explica o motivo; o motivo aparece no log do servidor)
+GET {{host}}/jwt/protegido
+
+### 2.5 Área admin com o token de uma usuária comum: 403 (autenticada, mas sem permissão)
+GET {{host}}/jwt/admin
+Authorization: Bearer {{token}}
+
+### 2.6 Login do admin, e a área admin com o token dele: 200
+POST {{host}}/jwt/login
+Content-Type: application/json
+
+{"username": "admin", "password": "admin789"}
+
+> {% client.global.set("tokenAdmin", response.body.token); %}
+
+###
+GET {{host}}/jwt/admin
+Authorization: Bearer {{tokenAdmin}}
+
+############################################################
+### BLOCO 3: O QUE É UM JWT? (copie o token para o jwt.io)
+############################################################
+
+### 3.1 Decodificar SEM chave: qualquer pessoa com o token lê o header e o payload
+POST {{host}}/jwt/decodificar
+Content-Type: application/json
+
+{"token": "{{token}}"}
+
+### 3.2 Gerar um token com os dados que você escolher (só para a aula). Use para preparar os tokens T1, T2 e T3
+###     T1: ana, USER, 86400   |   T2: admin, ADMIN, 86400   |   T3: bia, USER, -10 (já expirado)
+POST {{host}}/jwt/gerar
+Content-Type: application/json
+
+{"usuario": "ana", "perfil": "USER", "expiraEmSegundos": 86400}
+
+############################################################
+### BLOCO 4: DÁ PARA FALSIFICAR? (assinatura e validação)
+############################################################
+
+### 4.1 Validar um token de verdade: valido = true
+POST {{host}}/jwt/validar
+Content-Type: application/json
+
+{"token": "{{token}}"}
+
+### 4.2 Token SEM assinatura (alg none): o servidor recusa
+POST {{host}}/jwt/validar
+Content-Type: application/json
+
+{"token": "eyJhbGciOiJub25lIiwidHlwIjoiSldUIn0.eyJpc3MiOiJhZGEtc2VndXJhbmNhIiwic3ViIjoiYW5hIiwicm9sZSI6IkFETUlOIiwiZXhwIjo0MTAyNDQ0ODAwfQ."}
+
+### 4.3 Token que já nasce expirado (validade negativa): o servidor recusa
+POST {{host}}/jwt/gerar
+Content-Type: application/json
+
+{"usuario": "ana", "expiraEmSegundos": -10}
+
+> {% client.global.set("tokenExpirado", response.body.token); %}
+
+###
+POST {{host}}/jwt/validar
+Content-Type: application/json
+
+{"token": "{{tokenExpirado}}"}
+
+### 4.4 Cole aqui o token que você ALTEROU no jwt.io (assinado com uma chave errada): assinatura inválida
+POST {{host}}/jwt/validar
+Content-Type: application/json
+
+{"token": "COLE_AQUI_O_TOKEN_ALTERADO"}
+
+### 4.5 JWT é um PADRÃO: gerar com a biblioteca java-jwt (a da aula 08)
+POST {{host}}/jwt/biblioteca/gerar
+Content-Type: application/json
+
+{"usuario": "bia", "perfil": "USER", "expiraEmSegundos": 300}
+
+> {% client.global.set("tokenBiblioteca", response.body.token); %}
+
+### 4.6 ...e validar esse token com a validação feita À MÃO: aceita
+POST {{host}}/jwt/validar
+Content-Type: application/json
+
+{"token": "{{tokenBiblioteca}}"}
+
+############################################################
+### BLOCO 5: E SE ROUBAREM O TOKEN?
+############################################################
+
+### 5.1 Token que dura só 20 segundos
+POST {{host}}/jwt/gerar
+Content-Type: application/json
+
+{"usuario": "ana", "perfil": "USER", "expiraEmSegundos": 20}
+
+> {% client.global.set("tokenCurto", response.body.token); %}
+
+### 5.2 Use agora (200) e de novo depois de 30 segundos (401). O motivo aparece no log do servidor
+GET {{host}}/jwt/protegido
+Authorization: Bearer {{tokenCurto}}
+
+############################################################
+### BLOCO 6: QUEM GUARDA A CHAVE? DESAFIO DA CHAVE FRACA (não abra DesafioController.java)
+############################################################
+
+### 6.1 Pegue o token de USER do desafio
+GET {{host}}/jwt/desafio/token
+
+> {% client.global.set("tokenDesafio", response.body.token); %}
+
+### 6.2 Tente entrar como ADMIN com o token de USER: 403
+GET {{host}}/jwt/desafio/admin
+Authorization: Bearer {{tokenDesafio}}
+
+### 6.3 Depois de descobrir a chave e forjar o token ADMIN no jwt.io, cole-o aqui
+GET {{host}}/jwt/desafio/admin
+Authorization: Bearer COLE_AQUI_O_TOKEN_FORJADO

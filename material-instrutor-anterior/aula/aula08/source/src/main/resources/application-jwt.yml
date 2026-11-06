@@ -1,0 +1,5 @@
+# Perfil "jwt": autenticação com JWT (passos 6 em diante da aula).
+# A chave NUNCA fica no código: defina a variável de ambiente JWT_SECRET antes de subir a aplicação.
+app:
+  jwt:
+    secret: ${JWT_SECRET}

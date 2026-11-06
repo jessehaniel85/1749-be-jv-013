@@ -1,0 +1,8 @@
+resilience4j:
+  ratelimiter:
+    instances:
+      alunoService:
+        limitForPeriod: 1
+        limitRefreshPeriod: 10s
+        # 0s: a segunda chamada falha na hora (com 5s ela esperaria até 5 segundos por uma vaga)
+        timeoutDuration: 0s

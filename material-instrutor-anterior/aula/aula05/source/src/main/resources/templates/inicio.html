@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title th:text="${app.nome()}">Aplicação</title>
+  <link rel="stylesheet" th:href="@{/estilo.css}">
+</head>
+<body th:style="'--cor:' + ${app.cor()}">
+<header><h1 th:text="'Sistema ' + ${app.nome()}">Sistema</h1></header>
+<main>
+  <div class="cartao">
+    <h2>Olá, <span th:text="${usuario.nome()}">Fulano</span>!</h2>
+    <p class="dica">Você não digitou senha aqui. Estes dados vieram do provedor de identidade.</p>
+    <dl>
+      <dt>Usuário</dt><dd th:text="${usuario.sub()}">login</dd>
+      <dt>E-mail</dt><dd th:text="${usuario.email()}">email</dd>
+      <dt>Papel</dt><dd th:text="${usuario.papel()}">papel</dd>
+    </dl>
+  </div>
+
+  <div class="cartao">
+    <h2>O que você pode abrir</h2>
+    <ul class="menu">
+      <li th:each="item : ${app.menu()}"><a th:href="@{${item.caminho()}}" th:text="${item.rotulo()}">link</a></li>
+    </ul>
+  </div>
+
+  <div class="cartao">
+    <h2>Sair</h2>
+    <div class="acoes">
+      <form class="linha" th:action="@{/sair}" method="post">
+        <button class="secundario" type="submit">Sair só deste sistema</button>
+      </form>
+      <a class="botao" th:href="${app.idpUrlPublica()} + '/sso/sair?app=' + ${app.id()}">Sair de todos (login único)</a>
+    </div>
+    <p class="dica">Sair só deste sistema não encerra a sessão do provedor: ao voltar, você entra de novo sem digitar nada.</p>
+  </div>
+</main>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sem permissão</title>
+  <link rel="stylesheet" th:href="@{/estilo.css}">
+</head>
+<body th:style="'--cor:' + ${app.cor()}">
+<header><h1 th:text="${app.nome()} + ' · sem permissão'">Sem permissão</h1></header>
+<main>
+  <div class="cartao">
+    <h2>Você está logado, mas não pode abrir esta página</h2>
+    <p>O login único disse <strong>quem</strong> você é. O que o seu papel pode fazer aqui é decidido por este sistema
+       (autenticação é uma coisa; autorização é outra).</p>
+    <p><a class="botao" th:href="@{/}">Voltar ao início</a></p>
+  </div>
+</main>
+</body>
+</html>

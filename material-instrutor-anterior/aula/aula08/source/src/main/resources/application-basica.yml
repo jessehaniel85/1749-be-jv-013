@@ -1,0 +1,6 @@
+# Perfil "basica": passos 2 a 5 da aula (usuário e senha definidos aqui, HTTP Basic).
+spring:
+  security:
+    user:
+      name: aluno
+      password: ada123

@@ -1,0 +1,1741 @@
+Transcrição automática — Aula 1 · turma 1749 · BE-JV-013 Fundamentos de segurança para aplicações · Qua 28/10/2026
+Fonte: gravação do Teams (início da gravação às 15h15, horário de Brasília; duração 2h45). Marcas [hh:mm:ss] = posição no vídeo.
+Instrutor: Hagamenon Nicolau de Oliveira (conta Teams "Educacional 07").
+Gerada com Whisper (modelo small, pt) em 05/11/2026. Erra nomes próprios e termos técnicos; trechos de silêncio foram pulados.
+Resumo correspondente: ../passagem-de-turma.md. Documento de coordenação — não vai para os alunos.
+
+[00:00:00] Aula de Java, Spring Security.
+[00:01:00] Olá, olá, boa tarde, me escutam?
+[00:01:04] Escutam bem?
+[00:01:06] Boa tarde.
+[00:01:10] Boa tarde, não escuta por si.
+[00:01:12] Opa, então gente desculpe aí pelo super atraso, que tínhamos aqui alguns problemas para eu conseguir acessar a conta do...
+[00:01:20] eu vou tirar aqui a conta do que dá,
+[00:01:25] estava tendo alguns problemas com o fuso de horário, etc.
+[00:01:28] Mas pronto, acho que o ATP não estava a funcionar,
+[00:01:31] mas, acho que agora está a dar certo,
+[00:01:34] estamos agora na sala. Que bom, que bom.
+[00:01:37] Então, eu vou me dei em só um segundo
+[00:01:50] Eu vou abdiquear os itens, nós temos muito que conversar.
+[00:02:20] E aí
+[00:03:50] Então deixa eu puxar a tela.
+[00:04:11] antes dessa primeira aula.
+[00:04:18] Essa primeira aula eu gostaria de tratar a vocês.
+[00:04:26] Você parou, cadê?
+[00:04:39] Isso, essa aqui. Pronto.
+[00:04:43] Então, vocês estão, vocês conseguem ver a minha tela?
+[00:04:48] Sim.
+[00:04:49] Digam lá quando estiver partilhando, conseguem ver?
+[00:04:51] Sim.
+[00:04:52] Certo?
+[00:04:54] Aqui vou deixar preparar aqui,
+[00:04:58] ver o que tem aqui aberto.
+[00:05:09] A gente não usa algum código útil.
+[00:05:11] Mas vamos lá, de novo estamos, deixa eu me apresentar,
+[00:05:15] deixa eu falar aqui algumas questões.
+[00:05:18] Então, eu estou aqui, instructor Dada,
+[00:05:22] Meu nome é Agameno Nicolau, podem me chamar de Nicolau,
+[00:05:25] para que as pessoas geralmente me falam comigo.
+[00:05:31] Mas pronto, podem me chamar também de Agameno Nicolau,
+[00:05:34] o jeito que você deixe o melhor, não tem nenhum problema.
+[00:05:37] Eu queria aqui nesse primeiro momento,
+[00:05:39] nesse primeiro minuto, falar um pouco do curso,
+[00:05:42] falar um pouco de mim, pedir vocês também
+[00:05:44] para ser apresentadas aqui a pouco,
+[00:05:45] falar um pouquinho de como eu gostaria,
+[00:05:48] como seria bom que as aulas discorressem,
+[00:05:51] que a gente vai ter alguns dias a trabalhar juntos. Gostaria de me apresentar também.
+[00:05:56] E aí é o você saber um pouquinho sobre a minha vida, o que eu tenho feito, né? Eu
+[00:06:04] estou tendo trabalhado ao longo, né, com a minha experiência para a gente poder trocar
+[00:06:10] aqui algumas ideias. O objetivo principal é que seja uma troca, né? Uma aula que a gente
+[00:06:17] a gente consiga, não é mais uma aula, mas realmente um troca,
+[00:06:20] onde vocês consigam trazer a sua experiência para partilhar com todo mundo.
+[00:06:24] E eu consigo trazer aqui também um pouco do que eu já vivi.
+[00:06:27] Sobre tudo isso de segurança, né?
+[00:06:29] Trabalhar um pouquinho aqui, mostrar um pouquinho da minha perspectiva para vocês.
+[00:06:33] Eu até um background interessante de segurança.
+[00:06:36] E quero falar um pouquinho sobre isso ao longo da nossas aulas.
+[00:06:41] Pronto, primeiro, deixa eu me apresentar um pouco.
+[00:06:45] Já abro para vocês primeiro, gostaria muito que aqueles que pudessem abrir a câmera, pudessem estar aqui, participando conosco.
+[00:06:56] Eu sei que vocês têm outras questões, estão envolvidos aí também, mas eu peço que vocês estejam a tirar nesse momento,
+[00:07:04] esse tempo aqui para a gente poder debate e discutir junto.
+[00:07:06] Enquanto mais vocês participarem, mais dinâmico e mais produtivo fica aula, né?
+[00:07:14] Não vamos chamar de aula, mas essa troca que a gente está tendo aqui.
+[00:07:17] Se você deixa eu falar três horas seguido, pronto, vai ficar uma coisa muito massante,
+[00:07:24] ficar uma coisa muito chata e eu não sei, eu não consigo perceber o quanto vocês estão recebendo.
+[00:07:31] Então, para não ficar uma coisa aqui, só eu falo, falo, falo.
+[00:07:34] E também eu não consegui ver vocês, eu peço para aqueles que possam abrir a câmera, participarem comigo, estar interagindo.
+[00:07:42] E aí vocês me consideram, até agora só o colega que abriu, Mateus, por favor, volte a abrir, Mateus, Guijamir.
+[00:07:49] Aqui eu posso ver o Yann, Vanessa, Paulo, Diego, os inícios.
+[00:07:53] Por favor, Caio, Carla, abram as vossas câmeras para quem pode.
+[00:07:59] Então deixa eu me apresentar um pouquinho desse...
+[00:08:02] Eu tenho alguma experiência com desenvolvimento de Java,
+[00:08:09] sou graduado em Jaria da Contação pela PUC Goias em 2011,
+[00:08:17] e desde 2010 eu tenho trabalhado com desenvolvimento de Java,
+[00:08:20] mas a atenção é algum tempo.
+[00:08:22] E eu passei por outras tecnologias, claro,
+[00:08:25] passei por Node.js e JavaScript.
+[00:08:36] No Node.js é JavaScript, mas pronto,
+[00:08:41] eu falo no backend, no front-end.
+[00:08:43] Já trabalhei com Python, já trabalhei com Swift,
+[00:08:49] com Flutter, que é o programação mobile,
+[00:08:54] e um pouquinho de Android, né? Tudo isso aí ao longo do mês, mais ou literalmente 90% da minha
+[00:09:01] experiência ao longo dos anos tem sido Java, né? E toda arquitetura e todo com texto Java. Desde
+[00:09:06] Struts com JCF e, queria falar, outro de BOSS, né? Trabalhando arquitetura com JCF e já recete com Spring,
+[00:09:22] Spring Boot, então temos aí uma vasta experiência de Swing,
+[00:09:27] tem uma experiência com Swing também,
+[00:09:28] vocês veram que eu já estou velho nessa área.
+[00:09:31] Já, eu comecei, o swing já era velho, né?
+[00:09:34] Depois eu já vi effects, mas pronto, hoje quase,
+[00:09:38] acho que essas tecnologias que tendem a criar algum tipo de desktop,
+[00:09:43] alguma...
+[00:09:45] UI pra Java, elas caíram no desuso, né?
+[00:09:48] Bastamos aí outras tecnologias,
+[00:09:51] mas realmente o Java tem trabalhado bastante com a parte web.
+[00:09:55] Isso pronto, que eu queria falar com vocês,
+[00:09:57] que tocando um pouquinho de experiência,
+[00:10:00] falando, principalmente, de uma experiência que eu tive muito boa,
+[00:10:03] que foi...
+[00:10:04] Eu trabalhei numa empresa de segurança, de certificação digital,
+[00:10:08] e ali eu tive muito experiência nessa parte de assinatura, de credencial,
+[00:10:13] de partes-chaves, de...
+[00:10:15] Tudo, tudo, tudo da segurança, né?
+[00:10:18] Era tamanha de segurança.
+[00:10:19] e nós tínhamos que trocar e-mails, se tinha qualquer questão de informação, código presencial,
+[00:10:26] os e-mails tinham que ser incriptados com parte de chargos.
+[00:10:30] E para vocês terem uma ideia, como a gente tem que trabalhar com essa parte de segurança.
+[00:10:35] Então, e pronto. E hoje toda a aplicação, toda a arquitetora demanda muito segurança.
+[00:10:41] Isso que o nosso não é um floreio, não é uma mais, não é o adeno.
+[00:10:49] Segurança é importantíssimo.
+[00:10:52] E é isso que eu quero trazer para a gente rebater que tá,
+[00:10:56] que nós precisamos de segurança, nós precisamos implementar essa camada, nossa aplicação.
+[00:11:00] E, importante, a gente vai falar sobre isso ao longo das aulas, mas a segurança não é só código.
+[00:11:05] Não é só implementar, é incriptar a senha na base de dados.
+[00:11:10] não é só desimplementar um JWT.
+[00:11:13] Segurança não é só você ter ali um Alt-2
+[00:11:15] implementado na sua aplicação.
+[00:11:18] Não é você colocar Spring Security,
+[00:11:20] seguindo isso, só isso.
+[00:11:21] Mas segurança ele demanda em todas as fases de desenvolvimento
+[00:11:24] de software, inclusive no código,
+[00:11:26] inclusive todas essas ferramentas e estudos,
+[00:11:28] que a gente falou.
+[00:11:29] Mas lembre-se, ele vai falar isso várias vezes,
+[00:11:32] mas existe aquele de dado que uma corrente
+[00:11:34] era tão forte quanto seu elo mais fraco.
+[00:11:36] E não adianta nada você fazer implementar
+[00:11:42] todo o quanto é tipo de segurança, código e pronto.
+[00:11:46] E você deixar assim anotada no seu computador.
+[00:11:54] Adianta você ter todo tipo de segurança, infecitação e etc.
+[00:11:58] Selecretação de ponta a ponta e pronto.
+[00:12:02] você precisa, sendo que a sua senha está notada aí no seu desktop, no seu workspace.
+[00:12:10] O pessoal vem lá, as pessoas pegam a sua senha e vão ter acesso a toda a estrutura e tudo aquilo que não deveria.
+[00:12:17] Então pronto, quando a gente fala de segurança da informação, lembrando das ISOs 27.1, 27.2,
+[00:12:24] não são questões aí que a gente precisa sempre lembrar, que a segurança nos acompanha em todos os etapas.
+[00:12:29] por exemplo, se você trabalha um pouco em banco, então você sabe o nome disso pelo
+[00:12:34] que ninguém. Que banco é algo que devemos que é um inseridor
+[00:12:37] regulamentado, que vocês trabalham o tempo todo com dados sensíveis.
+[00:12:41] E isso só é para uma pronta, essa é minha experiência, um pouco do que eu
+[00:12:47] trabalhei, eu tenho essa vasta experiência aí com Java e permitei tudo quanto
+[00:12:53] tipo de segurança que vocês imaginarem. Podemos até depois falar algumas coisas
+[00:12:57] que eu implementei, que não são bem o que o mercado fala,
+[00:13:02] eu tive ali algumas experiências,
+[00:13:04] implementando um Java diferente para implementar segurances,
+[00:13:07] enfim, e o trivial, né?
+[00:13:09] Como eu falei, os Plank Security, implementar um ZWT,
+[00:13:13] implementar o Auto e 2, Clutch Creditions, Password Creditions,
+[00:13:17] e assim tudo que nós temos, todo esse encarcar bolso de segurances,
+[00:13:21] que nós precisamos para ter uma aplicação mais ou menos segura.
+[00:13:26] Então, antes de a gente começar, antes de a gente partilhar,
+[00:13:33] eu queria que um tempo para a gente... Pronto, você já me conhece.
+[00:13:35] Uma coisa que eu quero deixar aqui para vocês é duas coisas.
+[00:13:41] Uma, primeiro, eu vou deixar aqui no chat. É o meu e-mail.
+[00:13:45] E a outra é o meu link.
+[00:13:51] Meu link é o link em meio aqui tem dois propósitos.
+[00:14:04] Se vocês quiserem, o que é que você tem que tratar?
+[00:14:08] Ah, levei falta porque eu estava presente na aula.
+[00:14:12] Meio, meu está aí pra vocês tentarem entrar contato comigo.
+[00:14:15] Ah, levei falta porque não tive problema,
+[00:14:18] precisa sair mais cedo, sair mais cedo naquele dia e levei falta.
+[00:14:22] A gente tratar os assuntos.
+[00:14:24] Eu costumo dizer que sim, vocês podem na ouvidoria, podem direto nada,
+[00:14:30] mas para a gente tentar tratar aqui, na nossa sala de aula,
+[00:14:33] tentar tratar entre nós e produzir a coisa, não for resolvida.
+[00:14:37] Se a situação não for resolvida aqui, sim, pronto.
+[00:14:39] Aí vocês podem escalar e levar o nível mais alto.
+[00:14:43] Mas enquanto ela for resolvível, resolvida aqui entre nós, pronto.
+[00:14:46] como sentar, pedovê que fica mais fácil e mais rápido, né?
+[00:14:51] Existe tanta burocracia.
+[00:14:52] Então, meus contatos estão aí,
+[00:14:54] vocês podem ficar à vontade para a gente trocar ideias, trocar e-mails.
+[00:14:58] E vamos aqui, e é isso,
+[00:15:01] e eu preciso tratar algumas coisinhas importantes para vocês.
+[00:15:04] Primeiro, é isso, é abrir as câmeras,
+[00:15:07] para a gente ter uma aula mais dinâmica,
+[00:15:09] ainda que a verdade de vocês não abriu.
+[00:15:11] Então, insisto para que nós possamos trabalhar nessas aulas,
+[00:15:16] nesse minico em que a gente vai estar,
+[00:15:18] nesse breve momento que a gente vai ter durante as semanas,
+[00:15:22] é que vocês possam abrir as câmeras.
+[00:15:27] E a aula é importante que a aula seja interativa,
+[00:15:30] é uma aula que vocês precisam trabalhar,
+[00:15:32] aí eu não consigo trabalhar sozinho,
+[00:15:34] eu não consigo só falar,
+[00:15:37] não vai ser tão bom,
+[00:15:39] para que vocês interajam e trazem na vossa experiência.
+[00:15:42] E e também é importante que você que a gente tenha essa essa troca de experiências com todo mundo e
+[00:15:51] todo mundo aqui tem uma experiência mais básica mais mais mais senior e é isso que é interessante pra gente e
+[00:15:59] não é porque a pessoa é senhora que ela não possa aprender essa troca é muito importante.
+[00:16:03] Eu ia comentar pronto nós temos aqui algumas ações que a gente precisa então quero pedir
+[00:16:10] vamos falar isso principalmente agora do intervalo. Eu estou acostumado a trabalhar com as turmas da
+[00:16:16] Ada. Nós começamos as três horas, eu não costumo atrasar, hoje realmente foi uma questão atípica,
+[00:16:25] um resumo muito atual e eu costumo começar as três horas do ele cinco minutos, porque tudo
+[00:16:31] é aí chegando e ninguém ficar ninguém pelo caminho. Então a gente começa as três horas e vamos até as quatro e meia.
+[00:16:39] Na minha questão é que as quatro e meia nós tenhamos intervalo no break.
+[00:16:46] Aí eu pergunto para vocês aqui qual que é o que a gente tem.
+[00:16:49] Já tive alunos que queriam ter 30 minutos para o ponto dos intervalos do banco.
+[00:16:55] Tem alunos que queriam que para eles 20 é suficiente.
+[00:16:59] A minha sugestão é 20, mas a pergunta é para vocês.
+[00:17:02] 20 é suficiente, 20 está bom para vocês.
+[00:17:04] Podemos manter esse intervalo de 20 minutos?
+[00:17:07] Como é que é? Me faça o link aqui que vocês acham.
+[00:17:10] Pôr o link, tá ótimo, Priscil.
+[00:17:12] É, por um momento, mas tá perfeito.
+[00:17:15] Tá ótimo, ótimo.
+[00:17:17] Então, pronto, a gente vai até 4.30.
+[00:17:22] Nós damos 20 minutos de intervalo ali para o bíblio mar,
+[00:17:25] para a EREC, pegar o mar.
+[00:17:27] A gente volta então em 450 e terminamos a nossa aula das 450 até 6 horas.
+[00:17:34] Eu quero muito que nós temos uma aula dinâmica e a gente trabalhe, faça atividades para não ficar uma coisa muito aqui, só aulas positivas, etc. Vamos ver isso.
+[00:17:46] Eu até quero ver aqui se eu consigo dividir as salas.
+[00:17:50] Eu acho que eu não consigo dividir que as salas com vocês.
+[00:17:56] Como eu estou, como eu fui do otologado navegador,
+[00:18:02] eu não consigo dividir.
+[00:18:06] Então agora,
+[00:18:12] queria hoje inclusive dividir para a gente poder trabalhar,
+[00:18:17] trabalhar de novo. Você vai trabalhar aqui todo mundo na sala,
+[00:18:23] para tentar organizar isso. Então antes de eu passar a bola para vocês e vocês se apresentarem,
+[00:18:32] eu queria que vocês olhassem para a minha tela, acho que ainda se está partilhar,
+[00:18:37] meu vinho sim está partilhando. Eu estou aqui então para mostrar para vocês o nosso que eu
+[00:18:43] plano de aula. Esse plano de aula, ele não é uma obrigação, ele é meio que o norte. Nós devemos
+[00:18:51] passar por todos esses assuntos, devemos falar sobre isso, né, e isso vai dar muito de como as
+[00:18:57] aulas vão ser. Se você chamar muito a atenção para o assunto, ou seja, ficar muito tempo no assunto,
+[00:19:02] tipo, isso aqui não é uma exigência, não é uma caixa. Nós estou fechando as aulas nessa caixa,
+[00:19:11] não escuto o desenho.
+[00:19:12] Eu estou dizendo que isso aqui é mesmo uma questão da gente debater a respeito da gente
+[00:19:19] falar todo mundo e conforme as aulas vão avançando, nós podemos ir incrementando os
+[00:19:26] assuntos.
+[00:19:27] Isso aqui é como eu disse, o norte que é o nosso horizonte e aquilo que nós vamos
+[00:19:32] nos espelhar e tentar trabalhar em cima disso.
+[00:19:35] Então, aqui o motivo do módulo é que os alunos completam os fundamentos de segurança
+[00:19:40] Então, nós vamos falar sobre que é segurança,
+[00:19:44] por que segurança?
+[00:19:45] A gente tem essa questão dos pilares,
+[00:19:48] a segurança da informação,
+[00:19:50] e como a gente coloca isso dentro das nossas aplicações,
+[00:19:54] vamos ver ali, o ALT, o SSL, o PID, o Connect,
+[00:19:58] como isso funciona, a ideia que a gente vai para o código,
+[00:20:01] vamos trabalhar com o JWT,
+[00:20:03] vamos falar bastante de Spring Security,
+[00:20:05] afinal, o nosso contexto é Java,
+[00:20:08] E como que a gente implementa a LISP,
+[00:20:10] Spring Security, as ferramentas que nós temos no Spring Security,
+[00:20:13] e aí ao final, espere a ser que vocês consigam ter toda essa noção do Spring
+[00:20:19] como implementar essas proteções.
+[00:20:21] Podemos ali estimular alguns tipos de ataques,
+[00:20:24] são coisas que podem acontecer, alguns injectos,
+[00:20:28] XSS, DOS, a gente vai ver que a gente consegue implementar
+[00:20:35] e se não lá isso acontecendo em tempo aqui na essa máquina,
+[00:20:39] claro, em muita menor escala,
+[00:20:41] mas não é ideia de como isso funciona e como nós podemos
+[00:20:44] proteger as nossas aplicações com esses ataques,
+[00:20:49] dizer isso em código mesmo.
+[00:20:51] Então aqui está todo o conteúdo que a gente vai ver,
+[00:20:54] tudo que é o nosso objetivo, o nosso propósito,
+[00:20:58] ao final das nossas nove aulas,
+[00:21:01] nós devemos ter estudado tudo isso, ok?
+[00:21:05] E tá aqui só as nossas aulas, aula hoje, né? O que nós vamos ver, nós vamos tentar ver todo esse conteúdo, mas ponto importante pessoal, né?
+[00:21:13] Porque vamos dizer que hoje, por aqui é o nosso tempo, pela dinâmica da aula, a gente conseguiu só ver até xs.
+[00:21:20] Esse assunto você vai ficar praticado? Não, eu vou tentar trazer esse assunto na próxima aula, pra gente poder voltar a ele, por exemplo.
+[00:21:28] A gente já começa a aula nesses assuntos, falarei um pouquinho e já partiu para o contexto do que a gente vai ver nos outros assuntos.
+[00:21:36] Mas, pessoal, entende como eu disse, vocês que vão determinar, vocês que vão soltar o momento que dá algo,
+[00:21:42] como nós vamos abordar cada assunto, como isso vai promover debates, como isso vai promover perguntas, como a gente vai poder trabalhar nesses juntos.
+[00:21:50] Então, é isso que demanda que nós trabalhem disso juntos.
+[00:21:54] Continuando aqui, então aqui nós temos uma justificativa, que aplicações web,
+[00:22:00] APIs, esses são... Nós fomos aí um problema com PHP, vocês devem saber e a respeito disso.
+[00:22:06] Você provavelmente todo mundo viu isso, que uma semana, duas semanas atrás foi
+[00:22:14] descoberta aí uma falha muito grave no PHP, que obrigou inclusive diversos governos
+[00:22:19] governos do mundo a desligar seus sites.
+[00:22:22] Estivemos aí governos no lugar na Austrália.
+[00:22:25] Aqui em Portugal aconteceu, né, na França também,
+[00:22:29] onde governos tiveram que desatibilitar e desativar,
+[00:22:32] simplesmente tiraram sites do ar até que as vulnerabilidades
+[00:22:36] tinham sido corrigidas.
+[00:22:37] Quero lembrar de vocês também, sobre o Java,
+[00:22:40] há uns cinco, seis anos atrás,
+[00:22:45] nós tivemos o evento de Log4J.
+[00:22:47] Não sei se vocês conhecem essa biblioteca, Log4j é uma ferramenta de logs que nos permite trabalhar com logs,
+[00:22:54] mas ela em 2019, 2020 acho que 2019, só não me engano.
+[00:23:00] Estou trabalhando há 7 anos, não é?
+[00:23:03] Nós tivemos uma vulnerabilidade que está 13 anos atrás, 10 anos atrás, uma coisa assim.
+[00:23:09] Foi uma implementação que tinha sido feita lá atrás e ninguém nunca tinha se dado conta dela,
+[00:23:14] ela que eu podia fazer eu podia executar um comando num servidor de forma externa.
+[00:23:22] E descobriram essa falha foi um CVF.
+[00:23:24] Falaram por fundo de um CVF.
+[00:23:27] E isso acabou gerando ali todo um burburinho no mundo.
+[00:23:32] Aí eu lembro de eu quando eu estava trabalhando uma empresa inclusive
+[00:23:36] né nessa empresa de segurança onde todo mundo correu
+[00:23:41] até de madrugada para atualizar todos os ferramentas e remover onde tinha que ser removido do log4j.
+[00:23:50] Então foi uma corrida ali, uma mollukisse.
+[00:23:53] Então imagina o que que ele trabalha com PHP, passou pelo mesmo agora nesses últimos dias.
+[00:23:59] Isso é comum. Então nós temos as nossas aplicações expostas, essas peíssemos postas.
+[00:24:05] e o que é importante que nós tenhamos ali formas de garantir que quem está acessando aquela
+[00:24:11] informação ela pode acessar aquela informação, ela está autorizada a acessar aquela informação.
+[00:24:17] Então é muito importante, então esse modo, essas aulas, esse momento,
+[00:24:24] vamos debater sobre esse conteúdo, como a segurança, como implementar,
+[00:24:30] como trabalhar e a gente garantir sempre nossas atuações. Pronto, e aqui vamos falar um pouco
+[00:24:35] A nossa aula hoje, a nossa primeira aula, a introdução, a segurança e tudo que a gente tem que fazer aqui.
+[00:24:42] Vamos tentar trabalhar esses assuntos. O nosso objetivo mesmo é nos apresentar, nos conhecermos.
+[00:24:49] E quando eu disse isso aqui, não é obrigado a gente a ver tudo isso hoje, a gente faz uma força.
+[00:24:54] E o que não ficar a gente coloca para a próxima aula. E eu posso passar aqui qualquer conteúdo também, deixar para vocês.
+[00:25:00] é um conteúdo digital lá na LMS, por exemplo, isso aqui que vocês estão vendo,
+[00:25:05] eu vou gerar um PDF desse material e vou deixar lá na LMS para vocês poderem acessar, tá bem?
+[00:25:10] Aqui tá tudo que a gente tem a tendência de estudar, nós temos uma prática para trabalhar hoje, ok?
+[00:25:17] Aqui é umas questões que eu sugiro que vocês leiam,
+[00:25:20] dêem uma olhada aqui, né? Vamos falar depois sobre esse site, sobre essa estrutura.
+[00:25:25] Eu sugiro aqui também umas pesquisas para vocês leirem, pesquisarem sobre ataques aqui mesmo.
+[00:25:31] Quando eu falar que é atividade para casa, é atividade extravel.
+[00:25:35] Vamos passar a tema daqui depois para deixar extravel, não é para vocês se fazerem em casa.
+[00:25:39] Mas na hora que vocês estiverem ali no ônibus, na hora que vocês estiverem, né, aguardando...
+[00:25:44] Tiveram ali uma xadela, tem uma pesquisada e ponham isso aí no seu checklist
+[00:25:53] para vocês poderem ir atrás.
+[00:25:55] Então, a nossa aula de sexta-feira,
+[00:25:57] aqui nós entramos em algum assunto,
+[00:25:59] criptografia, DTPS, QX, que é um lindo bacana.
+[00:26:06] Aqui na aula 3 nós vamos ter uma aula segunda-feira,
+[00:26:09] segunda-feira é feriago, vocês devem estar assistentes,
+[00:26:11] e a gente volta na quarta-feira.
+[00:26:13] Na quarta-feira nós entramos já em JWP,
+[00:26:17] na sexta-feira a gente já viu o Alt2,
+[00:26:20] é importantíssimo e como quais são os tipos de implementação de Alt2, isso é muito importante.
+[00:26:26] E aqui nós temos o SSCO, SimSignOn, ok? Vamos ver isso na nossa sexta-feira da próxima semana.
+[00:26:34] E aqui é pronto aí na segunda-feira, dia 11, a gente entra para ver OAPID.
+[00:26:43] Dia 13, Estações Rádios de Ambilidade, Trata Muitas de Sessões.
+[00:26:47] Vamos entender aqui como isso aqui se aplica na nossa vida.
+[00:26:52] E aqui dia 11 de 11, Spring Security, tenta a autenticação básica
+[00:26:56] e a gente vai ver o ETA no VWT com Spring Security.
+[00:27:01] E dia 18 é nosso encerramento.
+[00:27:04] E aqui, pronto, aqui está alguns links para vocês visitarem.
+[00:27:08] Aqui são links para vocês olharem,
+[00:27:11] para vocês darem uma olhada e pesquisarem.
+[00:27:14] são itens importantes que eu achei que poderiam, né, auxiliar vocês, poderiam
+[00:27:22] ali despertar curiosidade, vocês poderiam ir atrás de mais conteúdo extra.
+[00:27:26] E até interessante vocês leirem, como vocês devem, né, que um conteúdo que ele vai ser
+[00:27:31] para a nossa aula, eles puderem já vir com esses links lidos, pronto, a gente consegue aproveitar
+[00:27:38] muito mais o que vocês podem trazer aqui para a sala. Aqui alguns livros, né,
+[00:27:42] alguma documentação, alguns links também, que vocês podem ir atrás e ter mais princípios sobre isso.
+[00:27:50] Pronto, eu vou gerar o PDF disso, vou subir lá para vocês terem acesso a isso,
+[00:28:00] e vocês podem baixar pela ferramenta, vai estar na primeira pasta, na parte...
+[00:28:06] No final do dia, você já pode acessar,
+[00:28:10] Hoje, ao final do dia, eu já coloco, ainda não coloquei, ao final do dia eu coloco,
+[00:28:13] e vocês vão poder ter acesso a isso.
+[00:28:15] Ok?
+[00:28:16] Um ponto importante, antes de a gente avançar, é, eu tenho aqui, deixa eu mostrar aqui para vocês,
+[00:28:27] esse, essa, isso aqui, deixa eu diminuir.
+[00:28:34] Eu quero que você se preste muita atenção aqui, que eu vou subir esse MD lá para o passo do LMS.
+[00:28:42] Isso é um projeto que vocês vão trabalhar.
+[00:28:45] Ok? Eu não consigo dividir a turma aqui em salas.
+[00:28:49] Então isso vai ficar pra gente fazer na próxima aula.
+[00:28:53] Aqui a gente vai trabalhar hoje todo mundo na mesma sala.
+[00:28:56] Então, o que eu vou dizer é que eu vou...
+[00:29:02] mas vocês vão desenvolver uma PI e uma camada de segurança para me com Sprint.
+[00:29:07] E levar isso na...
+[00:29:09] Isso aqui vai ser mão na massa, ok?
+[00:29:12] Então, é um projetinho, um projeto básico, ok?
+[00:29:17] Que vocês vão implementar do seu lado.
+[00:29:21] E vocês vão formar aí grupo de dois, três pessoas.
+[00:29:27] E vocês vão implementar isso em equipe.
+[00:29:30] E vocês vão me apresentar no dia 18.
+[00:29:33] A avaliação de vocês, para eu entender como vocês evoluíram nas aulas,
+[00:29:38] vai ser esse projeto e conto que vocês implementem e a gente vai ter isso, vai ser feito em sala de aula.
+[00:29:45] Eu vou dar ali todos os dias, a partir da próxima aula, a partir de sexta-feira,
+[00:29:50] eu vou dar ali um intervalo para vocês poderem, eu vou devei quebrar a sala,
+[00:29:55] você vai poder separar nos grupos e vocês vão trabalhar
+[00:29:59] com toda equipe, ok?
+[00:30:03] Então pronto, quanto que vocês trabalhem, quanto que vocês
+[00:30:09] façam esse projeto e me apresentem, e que importante
+[00:30:13] que vocês estejam no dia da apresentação, porque eu vou levar
+[00:30:16] essa consideração, vocês precisam estar presentes no dia da apresentação, ok?
+[00:30:20] guardem então dia 18, guardem essa data,
+[00:30:23] porque vocês podem até faltar em outras datas,
+[00:30:26] mas não falta essa data, que vai ser a avaliação de vocês também.
+[00:30:28] Fazer esse projeto, e a gente vai conversar, vocês vão apresentar,
+[00:30:33] quando diga apresentar, partilhar a tela,
+[00:30:36] fazer as personalidades correm,
+[00:30:39] e se a gente vai discutir do código, falar do código,
+[00:30:42] vocês vão partilhar o código,
+[00:30:44] e a gente vai falar um pouco, conversar um pouco com vocês, implementar.
+[00:30:47] Esse é o nosso propósito.
+[00:30:49] E pronto, por isso que eu peço, não esqueçam dessa data também de 18,
+[00:30:53] do 11, se vocês têm que estar presente para fazer essa apresentação.
+[00:30:56] Pronto, então vocês vêm com calma, aqui está escrito certinho,
+[00:31:00] o que eu quero, o que eu espero que vocês façam,
+[00:31:04] aqui tem os casos de uso, também que eu quero que vocês implementem.
+[00:31:08] A arquitetura sugerida, porque nós estamos trabalhando com Java,
+[00:31:15] então eu espero que vocês sigam essa arquitetura.
+[00:31:19] E pronto, eu diria que vocês lêem,
+[00:31:24] eu vou deixar lá de novo, também vou subir junto com o plano de aula.
+[00:31:28] E aqui vocês possam seguir e implementar esse projeto.
+[00:31:34] Então essa era...
+[00:31:37] Deixa eu guardar aqui.
+[00:31:41] Então pronto, era isso. Agora eu quero passar a palavra para vocês.
+[00:31:47] Ah, deixa eu ver aqui. Olha, então,
+[00:31:58] esse é o momento que eu queria passar a palavra para vocês, para a gente se conhecer. Eu tive falando aqui
+[00:32:04] de algum tempo e até agora eu não ouvi nem a cor da voz de vocês. Então quero que vocês falem,
+[00:32:11] que vocês interajam comigo. Então, eu vou deixar aqui algumas ideias que vocês se apresentam.
+[00:32:18] Diga o seu nome, o que você faz, o que você tem que trabalhar, você já trabalha com Java,
+[00:32:27] qual sua experiência com Java, qual que área, o que você trabalha com Java, aí o seu projeto,
+[00:32:32] o que você faz, do que é possível falar, né, óbvio, dentro daquilo que não pode ser dito,
+[00:32:37] porque isso é de segurança, não diga, realmente é o que pode ser dito aqui para todo mundo.
+[00:32:44] E eu quero que você responde uma frase para mim.
+[00:32:47] Quando eu escuto segurança de aplicações, você pensa em,
+[00:32:51] aí diz para mim o que você pensa, o que vem na sua cabeça.
+[00:32:56] Vale tudo. Nunca pensei em segurança.
+[00:32:59] Vale golpe, vale vazamento, vale perder dinheiro, vale prejuízo,
+[00:33:06] que vocês acharem é importante.
+[00:33:09] Então, falem, eu quero agora para te dar para vocês, ok?
+[00:33:14] Eu quero entender, eu quero conhecer, eu vou até anotar aqui,
+[00:33:19] eu gosto de separar esse momento.
+[00:33:26] Para fazer anotações dos alunos que você está apresentando,
+[00:33:30] eu vou parar aqui de partilhar agora.
+[00:33:36] E eu vou passar a palavra pra vocês e eu gosto de tomar nota aqui de coisas que vocês disserem.
+[00:33:45] Eu trazei isso para as nossas aulas. Então pronto, eu queria então,
+[00:33:49] passar a palavra pra vocês, se apresentem, digam o seu nome, digam o que você tem trabalhado,
+[00:33:56] digam se você trabalha com Java, se o experiência Java, abrem a câmera, porque vocês ainda não abriram a câmera,
+[00:34:01] eu peço o filme que faço nisso e digam quando você pensa em segurança, você pensa em que?
+[00:34:05] o que vem na sua cabeça?
+[00:34:07] Então, você pensa em segurança o que vem na sua cabeça?
+[00:34:10] Vamos lá, pessoal?
+[00:34:11] Vamos?
+[00:34:12] Vamos, vamos, vamos participar?
+[00:34:14] Vamos lá, vamos lá, Matheus.
+[00:34:19] Bom, me apresentando, eu trabalho atualmente na estreia de produção do sistema lotérico
+[00:34:29] e especificamente na parte de testes de qualidade de software.
+[00:34:34] eu estou empolgado para esse módulo, porque a segurança é um tema que me interessa.
+[00:34:40] O meu TCC agora na graduação que eu estou finalizando é com relação a testes de segurança
+[00:34:45] estáticos e dinâmicos.
+[00:34:48] E quando penso em segurança, em falta de segurança, eu penso em prejuízo financeiro,
+[00:34:54] perder de confiança em um produto, em uma marca.
+[00:34:57] E é isso.
+[00:35:00] Passe para o próximo vídeo.
+[00:35:04] pode ser eu aqui, no meu enjaminho, estou mexendo com o Java nesse trabalho, primeira vez de verdade,
+[00:35:16] atingi isso só na faculdade, mas já faz um ano mais ou menos,
+[00:35:19] então está correndo bem e o que eu penso quando falo de segurança atualmente vem duas
+[00:35:30] uma que seria questão de perfis, mas é mais porque o que eu estou mexendo, sou responsável
+[00:35:38] por uma parte do programa que a gente usa, para os programas sociais que usa para administrar
+[00:35:47] eles e outra coisa eu acho que seria que até meio chato que a toda hora fica logando
+[00:35:57] mas faz parte. Ok, ok. É pode falar? Tá me ouvindo? Sim, e a né? Sou eu mesmo. É. Poxa gente.
+[00:36:14] Pera, pera, pera aí, pera aí, desculpa, eu puxo, gente, vocês deram a câmera, falem, fecha. Vamos
+[00:36:20] a minha câmera deixa ligado é do vontade de remover excluir o botão de fechar a câmera
+[00:36:27] escupia favor tranquilo tranquilo tranquilo é só e eu trabalho agora num equipe que já mexe
+[00:36:37] em Java um tempo eu entrei justamente como desenvolvedor na minha equipe mas ainda estou na
+[00:36:44] É a etapa de treinamento da equipe porque a gente vai refatorar o nosso sistema em Java
+[00:36:49] no Java 21.
+[00:36:50] E eu estou basicamente numa maratona de estudos de Java que eu posso achar de Java.
+[00:36:57] Com relação à segurança, toda vez que me perguntam e falam sobre segurança, a primeira
+[00:37:02] coisa que me vem à mente é a proteção de dados durante o processo de fazer o código.
+[00:37:07] Então fazer um código e tentar fazer o máximo de etapas possíveis de camadas de proteção,
+[00:37:13] de criptografia no geral, para evitar que esses dados posam vazar de qualquer forma.
+[00:37:18] É a primeira coisa que vem à mente quando se fala em segurança.
+[00:37:21] Pra mim é isso.
+[00:37:22] Boa.
+[00:37:25] Obrigado, Ia.
+[00:37:26] Próximo.
+[00:37:27] Bom, eu vou me pervencar, meu nome é Carla.
+[00:37:34] Eu atuo atualmente no sistema de...
+[00:37:39] Na verdade, é de...
+[00:37:41] Ele seria da parte de...
+[00:37:44] Ai, meu Deus, eu se diz.
+[00:37:46] Ele trata das correções disciplinares da caixa.
+[00:37:53] Então, quando eu penso em segurança,
+[00:37:55] eu penso em perfis diferenciados,
+[00:37:58] em proteção de dados civilosos.
+[00:38:02] Eu penso nisso.
+[00:38:04] Ok, ok, ótimo, obrigado, obrigado Carlos.
+[00:38:11] Próximo?
+[00:38:16] Pode ser eu então. Acho que o pessoal aqui é todo mundo novo de caixa, né? Eu acho que um pouquinho mais, eu entendo, 2021 aqui na caixa.
+[00:38:28] Eu trabalho, estou no mercado desde 2006,
+[00:38:32] com desenvolvimento em PHP,
+[00:38:35] também passei por área de administração de dados,
+[00:38:39] trabalhei com o Banco de Dados lá no Ministério da Educação,
+[00:38:42] e depois, quando entrei na caixa,
+[00:38:45] me puxaram para a equipe de BI,
+[00:38:46] e eu trabalhei na sumarização do pagamento do auxílio emergencial,
+[00:38:53] porque a gente teve que entregar o inventário do que foi pago
+[00:38:55] para o Ministério.
+[00:38:57] Eu trabalhei nessa área e, como eu era do desenvolvimento também,
+[00:39:01] acabou que me puxaram para um projeto novo.
+[00:39:03] Hoje eu ainda estou permaneço na comunidade do pagamento de programas sociais.
+[00:39:07] E agora eu estou trabalhando no sistema que dá treinamento do C-BEC.
+[00:39:10] O C-BEC é o sistema do Bolsa Família e a gente está criando o sistema
+[00:39:15] que faz o treinamento para as prefeituras do C-BEC.
+[00:39:20] Então, é um sistema novo, a gente começou com Java, eu nunca tinha programado Java.
+[00:39:25] já programei também fora da caixa em Flutter,
+[00:39:29] com JavaScript também, Node, essas outras tecnologias,
+[00:39:32] mas com Java nunca tinha mexido.
+[00:39:34] Até por isso eu também tenho buscado fazer o curso.
+[00:39:38] Eu fui escolhido para montar a arquitetura dos nossos projetos,
+[00:39:41] eu montei com quarkos e tudo mais,
+[00:39:42] tipo assim, ia ajudando, olhando projetos prontos aqui
+[00:39:45] que já estavam rodando,
+[00:39:47] peguei o PBS como modelo,
+[00:39:49] e aí fui conseguindo montar e sair do outro lado.
+[00:39:51] Entreguei a arquitetura, as fábricas estão utilizando a arquitetura
+[00:39:53] que posso dizer que eu participei da montagem para eles desenvolver.
+[00:39:57] E aí busquei um curso de Java justamente para me aprofundar mais a linguagem,
+[00:40:01] porque eu comecei de agora, então acho que agora já o Java 21 para a frente
+[00:40:05] já é totalmente diferente do que foi o Java,
+[00:40:08] você ir para trás ali e eu não tenho esse conhecimento.
+[00:40:10] Então a minha ideia seria essa,
+[00:40:11] buscar um pouco do histórico da linguagem e me aprofundar mais
+[00:40:15] para poder melhorar meu conhecimento do que eu já sei agora.
+[00:40:19] E não mais é isso.
+[00:40:20] quando eu pensei em segurança eu pensei sim muito parecido com o Mateus também mas eu pensei
+[00:40:28] assim em previsão de fraudes e perdas financeiras também né trabalhando em banco também aí eu vejo
+[00:40:33] muito pessoal da segurança falar sobre isso né que a Caixa é um banco que tá toda hora sob a
+[00:40:38] ataque ali alguns colegas da segurança sempre falam isso e eu acho que é algo que a gente tem que
+[00:40:43] sempre manter ele no radar também além da questão dos dados que foi que o Guiân falou também é isso
+[00:40:50] Pronto, obrigado.
+[00:40:54] Já, Paulo.
+[00:40:57] Já apresentando meu nome é Caio, eu já tenho um bom tempo de caixa, porém na API tem uns dois anos, mais ou menos dois anos e pouco.
+[00:41:07] Tenho atuado basicamente como Scrum Master, não necessariamente no core, e venho estudando para, em breve, poder atuar e concursar as codificações.
+[00:41:19] talvez estuda em algum tempo.
+[00:41:21] Mas ainda não codifica, certo?
+[00:41:24] Não, não. Eu estou só como Scrum Master mesmo no projeto.
+[00:41:28] Aí aos pouquinhos vendo uma coisa ou outra, mas não necessariamente desenvolvendo aí.
+[00:41:34] O que eu penso sobre segurança é confiabilidade, que a empresa precisa passar,
+[00:41:43] proteção dos dados.
+[00:41:45] É isso, basicamente isso.
+[00:41:48] Eu tenho muito mais.
+[00:41:50] Ok, boa.
+[00:41:56] Bom, vou continuar aqui.
+[00:41:58] Vou botar aqui.
+[00:42:00] Ah, pode falar.
+[00:42:02] Desculpa. Meu nome é Vanessa.
+[00:42:04] Eu sou nova na Caixa e nova na área de tecnologia.
+[00:42:08] Atualmente eu caí na equipe de tesouraria.
+[00:42:12] Então sou na equipe responsável pelas aplicações que atende a tesouraria do banco.
+[00:42:17] e atualmente eu estou mais voltada para o sistema legado, então eu não pro
+[00:42:26] programado bem pouquinho e a linguagem ela é bem antiga que é
+[00:42:29] trabalhada, é uma coisa totalmente fora da caixa, eles usam mumps e
+[00:42:37] COS, que é caixa object script, que é voltada a que é a linguagem da
+[00:42:44] que eles falam que é baseado em MAMPs, mas é orientado a objetos.
+[00:42:50] Então é bem fora, mas está no movimento de modernização,
+[00:42:54] então eles criaram já alguns componentes para que o sistema legado consiga
+[00:42:59] se comunicar, consumir API e coisas tipo, e foi desenvolvido em Java.
+[00:43:04] Então a ideia nesses movimentos é tentar aprender mais,
+[00:43:08] ter maior conhecimento para poder migrar para esses projetinhos mais modernos.
+[00:43:13] e a primeira coisa que vem à mente quando falem de segurança é proteção de dados,
+[00:43:20] criptografia e ataque hacker.
+[00:43:23] Boa, boa. Criptografia, criptografia, ataque hacker e o que mais você falou?
+[00:43:32] É proteção de dados.
+[00:43:34] Protecão de dados.
+[00:43:37] Ok.
+[00:43:43] o que mais? Opa, o que não falou, todo mundo falou na UNA. É meu nome Henrique. Eu tenho
+[00:43:51] em média um ano e pouquinho de caixa, recente também. Atualmente atuo na parte do mainframe,
+[00:43:57] né? Fazendo programação em Cobol, JCL, essa parte mais, mais batch, continuem batch. E não tem
+[00:44:06] muita experiência em Java, eu fiz um curso de Java quando eu estava na época da faculdade ainda de
+[00:44:11] mas depois de cê nunca mais mexi e eu tenho bastante base em c, em guarda de c, mas em
+[00:44:20] Java não tem muito não.
+[00:44:21] Ok, mas cê puro mesmo.
+[00:44:23] Cêsão.
+[00:44:25] Ok, ok.
+[00:44:26] Aí quando falo de segurança eu penso em, já que eu tô mexendo com o mainframe, então
+[00:44:33] eu já penso em um mainframe que é um dos ambientes mais seguros contra invasão, contra
+[00:44:38] ataques de segurança.
+[00:44:41] Mas aqui entra um ponto importante, viu Henrique?
+[00:44:44] Que eu trago até provocativo mesmo.
+[00:44:46] Porque eu falo isso muito com o debate,
+[00:44:49] muito com o pessoal de DevOps, de cloud, de segurança.
+[00:44:52] Aqui é uma mão de via dupla. Não adianta nada você pular
+[00:44:56] 20 firewalls, a camada de segurança serina
+[00:45:00] intransponível acessar, chegar até ali.
+[00:45:03] Se a sua aplicação ela tacar penga na segurança.
+[00:45:07] E a mesma coisa dos dois lados, não adianta nada. Você ter uma aplicação que usa o Alt2,
+[00:45:15] criptografia e tudo bonitinho, sendo que uma pessoa consegue invadir chegar na estrutura de cloud,
+[00:45:25] na parte operacional. Aliás, duas coisas andam muito juntas, isso é muito importante.
+[00:45:31] Boa.
+[00:45:34] Boa tarde.
+[00:45:37] Meu nome é Helio.
+[00:45:41] E o Paulo falou que é antigo de caixa, eu também sou bem antigo, sou de 2003.
+[00:45:49] Vinte e poucos anos aí, né.
+[00:45:52] Mas eu tô na TI há pouco tempo.
+[00:45:55] Eu comecei a trabalhar com desenvolvimento na Caixa
+[00:45:59] no começo da pandemia em 2019.
+[00:46:05] Antes trabalhei na FGT-S, trabalhei na habitação.
+[00:46:10] E na própria habitação, eu acabei indo para a área de desenvolvimento.
+[00:46:16] Trabalhei com PHP alguns anos.
+[00:46:21] Framework Laravel, que é bastante famoso.
+[00:46:25] E agora eu estou há uns três anos já na TI,
+[00:46:31] trabalho na área de segurança no Squared de Biometria.
+[00:46:39] A aplicação lá é toda em Java, as aplicações são diversas.
+[00:46:49] A gente está trabalhando numa modernização lá, porque está tudo em Java 8, Jboss, tudo bem antigo,
+[00:46:56] e a gente está migrando para Spring. O primeiro projeto que eu trabalhei foi o Spring Bet,
+[00:47:04] o Henrique que trabalha com o Routine Bet, trabalhei com Java também, que está para fazer.
+[00:47:11] Quando penso em segurança, porque está na área bancária, eu penso nesses vazamentos
+[00:47:23] de dados que testam nossa paciência todo dia e que a gente recebe ligação, que o pessoal
+[00:47:30] está com nossos dados. Pense em autenticação. Já penso em coisa mais relacionada com o nosso
+[00:47:40] trabalho aí. Boa, boa, boa.
+[00:47:44] Obrigado, Elio. Perfeito.
+[00:47:49] Você falar? Ah, ok, mais.
+[00:47:52] Pode ser eu? Sim.
+[00:47:55] Então, pessoal, meu nome é Levi, atualmente eu trabalho com desenvolvimento e mantém
+[00:48:00] ção de sistemas legados aqui, né, na comunidade de loterias.
+[00:48:03] Estou atando principalmente com Java no back, young,
+[00:48:08] na front, TypeScript.
+[00:48:10] E, cara, quando eu penso em segurança,
+[00:48:13] eu, caro que eu penso, é validar o usuário,
+[00:48:18] é validar se ele realmente diz ser quem ele é
+[00:48:21] e controlar o que ele pode acessar.
+[00:48:24] Basicamente.
+[00:48:26] perfeito, Lili, perfeito. Realmente, eu vou lidar o doare com o controle do que ele acessa.
+[00:48:35] Perfeito, isso mesmo. Por aí. Quem mais? Posso falar agora?
+[00:48:42] Diego, né? Sim, claro. Meu nome é Diego, atualmente estou trabalhando no sistema de mensuração,
+[00:48:50] de função aí atualmente trabalha com Java e Angular.
+[00:48:55] O meu ver assim a parte de segurança para mim deveria ser algo essencial
+[00:49:00] durante o desenvolvimento. Atualmente o pessoal fala muito
+[00:49:02] aquele conceito do IA first primeiro aí o pessoal acaba deixando
+[00:49:07] a segurança um pouquinho de lado.
+[00:49:11] Aí esse é o meu ver ok ok ok.
+[00:49:14] Ah mas aqui a gente chamou atenção você falou que a primeira
+[00:49:17] a construção de ponto de função? Isso.
+[00:49:20] O sistema de menstruação de ponto de função.
+[00:49:24] Ah, ok. O sistema de menstruação de ponto de função.
+[00:49:28] Mas então a caixa usa ponto de função para menstruar a software.
+[00:49:31] Isso.
+[00:49:33] Esse é o primeiro lugar que eu...
+[00:49:36] O primeiro lugar que eu vejo falar em ponto de função é na caixa.
+[00:49:39] Tipo, a gente fez para todo lado.
+[00:49:42] Nicolá, o ponto de função é a métrica utilizada por todos os órgãos de governo do Brasil,
+[00:49:53] por conta de ser assim de ser uma coisa aceita para as auditorias, principalmente as auditorias externas, né?
+[00:50:01] Os órgãos de governo são subordinados aí à auditoria, né?
+[00:50:06] e a métrica aceita é o ponto de função.
+[00:50:10] Então, acredito que tudo quanto é órgão de governo usa o ponto de função.
+[00:50:16] Então, você está dizendo...
+[00:50:18] Alguém já comentou isso comigo, alguém já tinha dito,
+[00:50:21] não é a primeira vez que eu escuto isso.
+[00:50:24] Ou você está dizendo agora, se isso me trouxe alguma coisa na mente.
+[00:50:30] Ok, ok.
+[00:50:31] Por exemplo, a gente, se eu ouvi falar de ponto de função,
+[00:50:34] Eu fui professor de faculdade lá atrás, né?
+[00:50:37] E a gente dá e me discutimos isso na academia,
+[00:50:41] falamos com os alunos lá em Géria da Computação,
+[00:50:44] sistema de informação, mas quase eu não me lembrava disso
+[00:50:50] dos órgãos do governo, é verdade.
+[00:50:52] Pronto, obrigado, obrigado, Diego.
+[00:50:54] Pronto, Té, o Dio, você quer...
+[00:50:56] Seu jogo, é, vou aproveitar, é...
+[00:50:58] Eu, como é, o Paulo não sou novo de caixa,
+[00:51:04] Na verdade, eu vim para tecnologia para tecnologia em 2000,
+[00:51:09] trabalhei até 2010 na área espacial de suporte, redes.
+[00:51:15] Em 2010, vim para desenvolvimento do hotel hoje.
+[00:51:19] Na época, era JCF, J-Boss, e hoje,
+[00:51:24] Quarcos e Spring.
+[00:51:30] Eu trabalho na comunidade de estruturas, basicamente com sistemas de relatórios.
+[00:51:37] São sistemas utilizados só na intranet.
+[00:51:42] Eu não trabalho com desenvolvimento direto, só quando precisa, alguma coisa apertada.
+[00:51:50] Mas não tem muita familiaridade com carcos, então acaba toando mais no SpringBet.
+[00:51:55] A gente tem módulos Batch e módulos online.
+[00:52:00] E dentro da realidade do nosso projeto,
+[00:52:03] nosso cuidado com segurança no desenvolvimento
+[00:52:06] é justamente na parte de acesso,
+[00:52:08] matriz de acesso, autenticação e autorização.
+[00:52:11] Quem pode acessar o quê,
+[00:52:13] autenticá-lo, a local, os acessos,
+[00:52:18] a auditar, a trilha de historias.
+[00:52:20] Então a nossa preocupação é essa.
+[00:52:22] Ou quando tem algum apontamento
+[00:52:24] na dos pen-test, da área de segurança, mas geralmente são ligados a parte de infraestrutura,
+[00:52:30] não da aplicação em si.
+[00:52:31] Você falou algumas coisas aqui muito importantes.
+[00:52:37] A gente deve voltar isso durante as aulas, né?
+[00:52:40] Matri de acesso, autenticação, autorização, trilha de auditoria.
+[00:52:43] São pontos aqui realmente que quando a gente fala de segurança, a gente tem que, nós
+[00:52:48] sempre precisamos falar sobre isso.
+[00:52:50] Muito bom, muito bom.
+[00:52:51] perfeito. Obrigado, obrigado. Quem mais?
+[00:52:59] É uma boa tarde, acho que posso ir? Vinicius, sim.
+[00:53:03] Boa tarde pessoal, boa tarde Nicolau. Meu nome é Vinicius, eu trabalho
+[00:53:10] desenvolvimento back end aqui para a comunidade de depósitos judicial.
+[00:53:15] Eu fiz agora nesse mês dois anos de caixa e dois anos atrás, antes de entrar na caixa,
+[00:53:23] eu não sabia nada assim sobre nada, não, sabia só um pouco de lógica, por caso de um curso
+[00:53:29] técnico e fio no ensino médio, mas eu aprendi a programar mesmo quando eu entrei aqui.
+[00:53:33] Então de dois anos até hoje, é que eu tenho aprendido e já comecei no desenvolvimento mesmo.
+[00:53:41] tá aí com o pessoal que já sabia programar um pouco, então eles me ajudaram ali no começo
+[00:53:46] e tô até hoje aprendendo, né, ali Java desde o início, tô aí desenvolvendo sobre
+[00:53:53] principalmente ali na parte do, como eu tô no depósito de CELT, ali na parte do levantamento
+[00:54:00] que é quando o juiz ele assina ali o Alvará que vai determinar que determinado beneficiário
+[00:54:09] beneficiar vai receber o dinheiro. Então quando olham na segurança, quando vem essa
+[00:54:15] pergunta para mim, uma das primeiras coisas que eu lembro é sobre esse controle de acesso
+[00:54:22] de quem pode fazer determinada funcionalidade. Por exemplo, nesse caso do levantamento que
+[00:54:30] eu falei aqui, apenas um documento que foi assinado por um juiz. A gente usa um API para
+[00:54:36] ir lá no CNJ e conferir se aquele CPF que foi assinado,
+[00:54:41] ele confere com um juiz que está lá no cadastrado na base do CNJ.
+[00:54:49] E você valida, provavelmente foi assinatório digital,
+[00:54:52] e você valida assinatório digital, correto?
+[00:54:55] Exatamente, a gente valida primeiro assinatório digital
+[00:54:58] através de uma API que é o FWC, que é da própria Cache,
+[00:55:01] que ele faz essa validação.
+[00:55:04] e a partir dessa avaliação a gente tem o CNPJ, o CPF de quem assinou.
+[00:55:12] Aí a gente manda o CPF do CNJ para saber se ele é magistrado ou não.
+[00:55:16] E não sei se você já teve interesses de curiosidade, mas de abrir esse código de como se vale de uma assinatura,
+[00:55:25] é bem interessante. Eu falo isso porque eu comentei que eu estou como trabalhador de uma empresa de Cês Cáudios Digital.
+[00:55:32] Eu trabalho nessa questão de trabalhar com assinatura, verificação de assinatura,
+[00:55:37] validação de assinatura.
+[00:55:39] Então essa é por questão de validação de cadeia, como é juiz,
+[00:55:46] a SCP Brasil e etc.
+[00:55:49] Então você deve saber de todas essas questões.
+[00:55:51] É bem legal, depois procura um código aí que você deve ter algum GitHub interno aí,
+[00:55:56] algum repositor interno que tenha esse código.
+[00:55:58] Dá uma olhada pra você ver.
+[00:56:00] é bem complexo, geralmente é bem chato, mas é legal, divertido.
+[00:56:07] Obrigado, Vinicius.
+[00:56:10] Alim.
+[00:56:13] Foi todo mundo?
+[00:56:16] Boa tarde, acho que faltou eu, hein.
+[00:56:18] Vai lá, Edgar.
+[00:56:20] Então, boa tarde.
+[00:56:22] Meu nome é Edgar, sou novo na caixa também, fazendo um ano agora esse mês.
+[00:56:26] Eu trabalho na gestão de acesso, na parte de segurança aqui, que é a parte de abertura
+[00:56:33] e fechamento de agência, no CCIA.
+[00:56:36] Só que a gente trabalha muito no código legado, a gente está reescrevendo o código.
+[00:56:42] Eu trabalho muito na parte de gestão e no front-end também.
+[00:56:46] O back ainda vai começar, então ainda não peguei para trabalhar ainda.
+[00:56:50] E com relação à frase de segurança, né?
+[00:56:54] O que eu mais penso aqui é o acesso, mesmo, a proteção, que a gente precisa levar muito
+[00:56:59] a sério isso aqui.
+[00:57:00] E é isso.
+[00:57:03] Boa, boa, boa.
+[00:57:05] Ah, eu, pronto, obrigado.
+[00:57:07] Acho que todo mundo falou, certo?
+[00:57:09] Esqueci.
+[00:57:10] Agora, eu queria abrir aqui pra gente falar junto e trazer uma discussão sobre a taxa.
+[00:57:19] Vamos agora mudar um pouco o foco,
+[00:57:21] a gente fala muito de segurança.
+[00:57:23] Mas antes de a gente entrar às aulas,
+[00:57:25] eu queria muito ver essa percepção de vocês.
+[00:57:31] Como vocês percebem questão de ataques,
+[00:57:34] de software, de aplicação?
+[00:57:36] Qual que é a percepção de vocês?
+[00:57:38] Quando eu falo isso, é que vocês me narram, me digam
+[00:57:41] qual é uma forma de atacar.
+[00:57:43] Eu tenho a minha aplicação, eu vou lá,
+[00:57:45] eu sou a desenvolver o Java, a gente falou que desenvolveu Spring,
+[00:57:49] estou aqui a implementar a aplicação de qualquer coisa.
+[00:57:52] A coisa que vocês quiserem até,
+[00:57:53] a aplicação do projeto que eu pedi vocês para implementar
+[00:57:56] é um hop desk,
+[00:57:57] mas pode ser qualquer coisa, pode ser um sistema de...
+[00:58:02] Vamos fechar o desculpo para ficar fácil.
+[00:58:05] Vamos ter que nós trabalhamos todo o nosso uso na equipe.
+[00:58:08] Pense aqui comigo, eu quero todos participando.
+[00:58:11] Abrem aí o futebol de participa, abre a câmera, abre o microfone,
+[00:58:14] que eu quero agora que vocês participam comigo.
+[00:58:16] Você que nós estamos um projeto e o nosso projeto é desenvolver um helpdesk.
+[00:58:21] É tá.
+[00:58:23] Eu tive uma ideia melhor que é para trabalhar com dinheiro aqui é mais mais mais questão
+[00:58:27] mais mais mais impactante.
+[00:58:29] Nós vamos implantar um sistema de agendamento de câmbio.
+[00:58:38] Ou seja, eu quero comprar euro, eu quero comprar dólar.
+[00:58:41] Então eu quero eu como cliente de fora, cliente da caixa.
+[00:58:46] Eu quero entrar na ferramenta e quero comprar, vou lá e faço o agendamento para ir buscar,
+[00:58:52] para ir lá na caixa física, na minha agência física e sacar a dólar, sacar euro.
+[00:58:58] Então nós vamos implementar um agendamento.
+[00:59:00] Pense aqui comigo, tá?
+[00:59:04] Esquece aqui a parte física, só a questão da gente fazer o agendamento.
+[00:59:07] Eu vou te dar aqui da cabeça aqui para gente pensar.
+[00:59:10] Que tipo de ataques que vocês acham ter uma aplicação que envolve o dinheiro,
+[00:59:14] que envolve a questão financeira, quais são os tipos de ataques que a gente pode pensar?
+[00:59:20] Quem que vocês pensam aqui? Quem que vocês conseguem tirar aqui? Conseguem trabalhar aqui comigo
+[00:59:28] e a gente debater um pouco sobre... Temos 15 minutos para intervá-lo. Eu queria separar
+[00:59:33] esses 15 minutos para a gente entrar nesse assunto para ver essa questão, qual é a percepção
+[00:59:39] de vocês?
+[00:59:40] Mas uma vez eu participei de uma sala de guerra do CISU lá no MAC,
+[00:59:45] eu vi acontecer na Alvivo lá um ataque de DDoS lá durante a inscrição.
+[00:59:51] Pessoal subiu lá, não sei quantos gigas lá de trafégo de uma vez,
+[00:59:56] e aí eu vi transferindo lá ao vivo lá pro Akamai lá,
+[01:00:00] e eles conseguiram manter o serviço funcional, não derrubou, né?
+[01:00:03] Mas a gente conseguiu acompanhar o ataque acontecendo assim na hora.
+[01:00:06] Foi legal, bem interessante ver isso acontecendo.
+[01:00:09] É, pronto, temos um ataque, obrigado, vale isso, entendeu, é um ataque.
+[01:00:14] Para quem não...
+[01:00:17] Você pode nos explicar, Paulo, que você é um ataque de DOS?
+[01:00:20] A negação de serviço, eles começam a enviar várias requisições em massa ali,
+[01:00:24] acho que eles não sei se eles usam robôs, eu não sei exatamente para explicar 100%,
+[01:00:27] mas eu sei que eles tomam todo o tráfego,
+[01:00:30] fica enviando requisições fantasmas ali, controlando até algumas máquinas,
+[01:00:35] até derrubar o servidor, não responder mais a nenhuma requisição de quem exatamente quer receber a informação.
+[01:00:45] Acho que isso é isso.
+[01:00:47] Obrigado, Paulo. É perfeito, explicação.
+[01:00:50] A gente até chama de máquinas umbis, que são máquinas que são tomadas.
+[01:00:54] E pode acontecer, por exemplo, da sua máquina mesmo estar infectada por um vírus e ela promover ataques e você nem perceber.
+[01:01:03] está acontecendo requisições na sua máquina e você nem percebe.
+[01:01:06] Benjamin, você queria falar alguma coisa? Desculpe, eu não te dei a vez.
+[01:01:09] Sim, era falar exatamente isso, que disse que não sabia exatamente como funciona,
+[01:01:15] que muitos vírus funcionam como um queojão para transformar sua máquina em uma máquina zumbia.
+[01:01:24] E só máquina e vários outros mandam a requisição para bloquear.
+[01:01:29] Boa, boa, começamos bem, começamos bem, DDoS.
+[01:01:35] Que mais, por favor?
+[01:01:36] Não é um tipo de ataque de negação de serviço, mas nesse contexto, nesse cenário que você
+[01:01:42] valorou de, nem financeiro, o ataque mais comum que tem é da engenharia social, né, de você
+[01:01:51] enganar uma pessoa e te fornecer usuários, as credenciais dele e, e, e, e, valor, você
+[01:01:57] faz a festa.
+[01:01:58] O Fichin, Zão, Henrique.
+[01:02:02] E aí, no social, é...
+[01:02:04] Vamos lá, me explica, eu falo um pouco mais sobre o Fich,
+[01:02:08] eu alegria... Vamos, vamos, vamos nos detalhezações, mas vamos, vamos, vamos debater sobre isso.
+[01:02:12] Por que seria esse Fich, consegue explicar mais detalhes?
+[01:02:15] Ah, não, não com detalhes assim, mas o Fich está relacionado a isso também,
+[01:02:20] a enganar o usuário, né, ainda mais quando se trata de,
+[01:02:23] de meios financeiros, cara, senha, Tolkien, dados,
+[01:02:27] Esse meio vale muito, cara.
+[01:02:28] Então, Fisch também é um tipo de ataque aqui.
+[01:02:31] Sim, sim.
+[01:02:32] Que é bem usado.
+[01:02:33] Sim, perfeito.
+[01:02:34] Sim.
+[01:02:34] Eu consigo nos dar um exemplo de Fisch?
+[01:02:40] Eu posso ajudar.
+[01:02:41] Eu só tô que esticando a corda,
+[01:02:44] pra você me ajudar, tá?
+[01:02:45] Mas é, não se fiquem constrangidos.
+[01:02:48] Ok, obrigado.
+[01:02:49] Participa mesmo.
+[01:02:50] E eu vou... E é mais pra gente participar.
+[01:02:51] Vamos lá Vinicius, você consegue me ajudar?
+[01:02:53] Ah, eu vi isso levantar.
+[01:02:55] Sim, sim, sim.
+[01:02:56] Quando a gente estava aqui...
+[01:02:59] Não, não, não, não, a gente está levando, por favor,
+[01:03:00] por continuar a participar.
+[01:03:02] Deslávio, Nisse, desculpe de cortar, pode falar.
+[01:03:05] Quando a gente entrou aqui na empresa,
+[01:03:08] eu não sei se aconteceu com todo mundo,
+[01:03:10] porque são várias turmas,
+[01:03:11] de meses em meses a caixa convocava.
+[01:03:13] Pessoal, aí no e-mail,
+[01:03:16] certamente,
+[01:03:18] eles mandaram...
+[01:03:19] assim, era algo de Natal,
+[01:03:21] eles mandaram a promoção
+[01:03:23] no meio da empresarial isso.
+[01:03:25] de suporte para a notebook. Aí colocou várias informações assim e convidando para o link
+[01:03:33] externo. Aí esse link externo quando você criava lá tinha uma recomendação que você
+[01:03:41] fez algo errado né que você caiu num num num fichinho né. É bom exemplo. Isso é um teste da caixa.
+[01:03:51] E se a gente faz em direto, cara?
+[01:03:53] Quem é? O teste padrão.
+[01:03:54] Se você não denunciar o e-mail da maneira correta, você também vai penalizado porque você não viu...
+[01:04:00] Ah...
+[01:04:01] Deixa eu passar.
+[01:04:02] Não é só clicando no link não, que você é penalizado, digamos assim.
+[01:04:05] Ah...
+[01:04:06] Só você ir lá excluir o e-mail, você também pode ter problema.
+[01:04:10] Você ignorar o e-mail, passo pro próximo, também você é penalizado.
+[01:04:15] Acho que tá no meu, tio. E, ó, você já viu alguma coisa?
+[01:04:17] Você fica numa listinha de que tem que chamar a atenção dessa pessoa e fazer treinamento.
+[01:04:22] Eu já vi.
+[01:04:27] Nessa empresa de segurança mesmo, que eu comentei com as pessoas que eu trabalhei,
+[01:04:35] nós tínhamos alguns testes também.
+[01:04:37] Eles mandavam testes de fishing, mandava alguns emails também de produtos de arvore de natal,
+[01:04:42] alguma coisa assim pra você clicar, né? Com muito cara ali de coisa que era fishing,
+[01:04:47] pra obter alguma dado, etc. Eu percebo, percebo que a empresa desenvolve pra ver esses testes
+[01:04:53] mesmo, pra pegar as pessoas que são ali dormindo, desavisados, etc. Muito bom, muito bom.
+[01:04:59] Mateus, desculpe lá, deixei você cansado de mão levantada. Por favor, participe.
+[01:05:04] É, tranquilo, pessoal. Eu queria falar de um exemplo que eu recebo toda semana, toda
+[01:05:11] que é a notificação de compra na nubank, que eu nem tenho conta com nubank, mas eu sempre recebo uma mensagem desesperada,
+[01:05:25] dizendo que eu preciso validar uma compra de 3 mil, e aí quando você abre, é um site tentando roubar as suas credenciais,
+[01:05:35] sem ser isso as credenciais lá, né?
+[01:05:37] É...
+[01:05:39] Então, fichei muito isso.
+[01:05:40] Você falsificar, por exemplo, um campo, assim,
+[01:05:43] fazer a pessoa clicar num link
+[01:05:45] para partir disso com febre enxão
+[01:05:48] formular falso, sabe?
+[01:05:50] E um segundo ponto que eu
+[01:05:52] lembrei também, na verdade,
+[01:05:54] pensando em segurança de software,
+[01:05:56] é...
+[01:05:57] é dos... das vulnerabilidades de
+[01:06:00] SQL Injection, que...
+[01:06:03] que é uma pessoa mal-atencionada ali, executar um comando, prazer roubar um dado, fazer uma modificação, né?
+[01:06:10] E é isso.
+[01:06:13] Boa, boa. Eu realmente tenho muitas reclamações sobre o do Bank.
+[01:06:19] Eu acho que eles não são um exemplo de segurança. Acho que todo mundo tem um amigo, um colega familiar,
+[01:06:25] que já foi, sofreu engenharia social muito bem, que teve, não sei como, fizeram piques com centenas de milhares de reais.
+[01:06:34] Eu tenho pessoas da minha família que tinha ali algumas centenas de milhares de reais, 200 mil reais,
+[01:06:41] e inexplicablemente conseguiram fazer um pique para uma outra pessoa.
+[01:06:47] É meio bizarro algumas coisas que acontecem ali.
+[01:06:51] E aí vocês falaram, acho que quem comentou primeiro,
+[01:06:55] eu não me lembro agora quem comentou primeiro,
+[01:06:58] eu já tô perguntando de vocês,
+[01:06:59] mas sobre engenharia social, e aqui é o...
+[01:07:02] Tchau, né?
+[01:07:03] Engenharia social, a gente vai falar muito sobre isso.
+[01:07:06] E meio que para contextualizar aqui,
+[01:07:09] muita gente levantou esse conceito em engenharia social,
+[01:07:11] mas só para a gente ter uma ideia.
+[01:07:13] Engenharia social, posso dizer que é...
+[01:07:16] Acho que é um termo que todo mundo deve conhecer,
+[01:07:18] mas só para ter certeza mesmo,
+[01:07:19] que a gente fica todo mundo na mesma página.
+[01:07:24] É que eu posso definir já isso a sua forma mais simples.
+[01:07:29] É você se passar pela pessoa, você não tem ataque direto ao sistema.
+[01:07:35] Não vou aqui tentar descobrir que porta, que pê qualquer seu interesse,
+[01:07:41] qual é a sua credencial, qual é a sua passuagem.
+[01:07:43] Eu não vou tentar aqui tentar vencer seus 20 firewalls
+[01:07:49] e tentar entrar pela caixa batendo de frente
+[01:07:51] com toda essa arquitetura e complexidade.
+[01:07:53] Não, eu não vou fazer nada disso.
+[01:07:55] Eu vou tentar me passar por um funcionário,
+[01:07:57] eu vou tentar me passar por um cliente,
+[01:07:59] eu vou tentar me, inclusive,
+[01:08:02] eu fiz um... só para vocês terem...
+[01:08:04] só em termos de contextualização e percebendo bem esse ponto,
+[01:08:08] eu tirei a certificação 27 mil e em 27 mil e dois,
+[01:08:13] de segurança, né? E lá quando eu tava tendo as aulas, fazendo os testes, as provas da certificação,
+[01:08:21] eu lembro que o professor contou, partilhou uma experiência bem bacana, que ele era contratado
+[01:08:28] pra validar e certificar bancos e empresas que precisavam ali de certa certificação de
+[01:08:36] de segurança, é isso de segurança. Aí ele conta que uma delas era ele se passar por
+[01:08:42] pessoa que não podia ter acesso, ele chegava lá com um cracha falso que obviamente não
+[01:08:48] ia passar, ele chegava ali com algum tipo de acesso e do banco mesmo, é óbvio que
+[01:08:53] se ele passasse ali a biometria dele ou passasse o crachá não ia validar. Então ele ali meio
+[01:08:58] que tentava enganar a segurança, os funcionários, né, e até onde ele ia com o cracha falso.
+[01:09:06] É que mais ou menos o que vocês disseram, que é receber em meio falso, que é ver a
+[01:09:10] validação do banco, só que ele era de engenharia social.
+[01:09:13] Ele se passava por um funcionário, ele se passava por uma pessoa que tinha autorização
+[01:09:16] para acessar o banco e até onde ele ia, até que ponto ele ia ser barrado, né, e ele
+[01:09:23] fazendo esses testes de engenharia social e ponto, né? Se o banco tivesse ali com mais atenção,
+[01:09:29] tivesse ali com os processos em dia, pronto, ele não conseguia entrar no prédio, não conseguia
+[01:09:35] ter acesso a nenhum tipo de sala mais mais mais confidencial e conforme o banco tá ali, né?
+[01:09:41] Ou a estrutura, assim, a estrutura no ancestral de sua banco. Pronto, então, ali quando a gente
+[01:09:48] que a gente fala de engenharia social, é você tentar se passar pela pessoa.
+[01:09:53] Você tentar, por exemplo, eu ligar para você dizendo que eu sou do Nubank e dizendo, olha,
+[01:10:03] eu percebi que teve uma falha no seu cartão de crédito, eu vou te mandar um ATP, um código,
+[01:10:12] você tenta, você me passa esse código de volta, só pra eu lidar essa identidade.
+[01:10:19] Veja lá como a pessoa realmente trabalha com a manipulação da pessoa.
+[01:10:25] E aí a pessoa acha que ela tá falando com uma pessoa do Nubank,
+[01:10:29] ela é muito rápido, ela não tá ali ressorcinando, ela não tá realmente preparada pra ali.
+[01:10:36] E claro, a pessoa foi muito educada, foi muito acessível e se mostrou muito próxima
+[01:10:44] para você tirar as barreiras físicas da pessoa, as barreiras que a pessoa se preocuparia.
+[01:10:50] Aí ela não lê a mensagem que chegou e quando ela informa para ela o OTP,
+[01:10:54] ela consegue roubar a conta do banco digital.
+[01:10:58] Porque sabemos que banco digital tem, como eu já comentei, tem ali muitas falhas
+[01:11:04] e pouca segurança, não tem validação de aplicativo, não tem a validação de aparelho,
+[01:11:10] simplesmente eu posso trocar de aparelho, vocês terem uma ideia, eu moro em...
+[01:11:14] Eu não comentei, mas eu moro em Portugal, eu trabalho...
+[01:11:17] Eu moro aqui já, trabalho com a empresa de Lisboa, já há alguns anos, e eu precisei trocar...
+[01:11:23] Eu tenho um banco digital e eu precisei trocar de aparelho.
+[01:11:26] E morando em Portugal, né, simplesmente fiz a troca de aparelho para o outro,
+[01:11:30] com o número de Portugal e pronto, não teve nenhuma resistência do banco.
+[01:11:34] Eu pessoalmente fiquei muito preocupado quando isso aconteceu,
+[01:11:37] porque achei que tinha que ter ali qualquer segurança para tentar impedir isso.
+[01:11:42] E não teve, né?
+[01:11:43] Eu acho que pronto é muito fácil eu roubar um aparelho de uma pessoa e me passar por outra pessoa
+[01:11:49] e vou lá e troco e jogo de outra para enfim, vocês entenderam que é lógico.
+[01:11:54] Então pronto, então a regéria social é essa e eu me passo por uma pessoa de confiança,
+[01:12:00] de credibilidade, você confia em mim, você me ofernece o seu OTP, sua senha, sua validação
+[01:12:09] de segundo fator de autenticação, que provavelmente aquele código que chega no seu SMS, você me
+[01:12:14] devolve, pronto, a coisa... vou enrolar para o seu lado, porque eu consigo ter acesso
+[01:12:21] aí, eu faço o PIX, uso o seu cartão de crédito e quando você vê, você vai tirar
+[01:12:27] muito dor de cabeça pra você desfazer isso. É óbvio que geralmente as engenharias sociais
+[01:12:32] o banco devolve o dinheiro. Pra mais uma experiência. Porque é até o banco que percebe que é muita
+[01:12:41] coisa de falha do próprio banco. Então essa falha acontece. Mas enfim, aí um colega
+[01:12:46] que disse Levi, o pano em colar hoje, eu tive que entrar mais cedo e tô no limite do tempo
+[01:12:52] o ponto e preso sair.
+[01:12:53] Bola, que eu sei até 6.
+[01:12:54] Ah, já vai encerrar por hoje mesmo, definitivo?
+[01:12:57] Tá bom.
+[01:12:58] É, mas a gente também tá saindo com intervalo.
+[01:13:02] Então, aqui nós falamos aqui alguns tipos de ataques,
+[01:13:06] é interessante, tem gente viu,
+[01:13:08] DDAES, gênero social, fishing, né?
+[01:13:14] E vamos continuar falando aqui de outros ataques
+[01:13:17] que nós temos aqui durante a nossa aula.
+[01:13:19] mas pronto, vocês perceberam, nós temos que estar ciente desses ataques e de novo eu levanta aquela questão
+[01:13:29] uma corrente que é tão forte quanto nosso elo mais fraco do que o canto, não adianta, eu disse como eu comentei, não adianta você investir em segurança,
+[01:13:43] em VPNs, em credenciais, obrigar a pessoa trocar credencial a cada 30 dias, obrigar a senha da pessoa
+[01:13:54] ter caractere especial, ter letra maiúscula, letra minúscula, número, ter 20 caracteres, ela não pode
+[01:14:03] ser repetida as últimas 3, 5, 10 senhas que ela usou e você aplicar todo tipo de verificação
+[01:14:10] você pode imaginar. Só que se a pessoa que está usando ela anota a cê no post-it e gruda no
+[01:14:19] computador e todo mundo tem acesso ali ao workspace dela, todo mundo vê a cê na dela exposta.
+[01:14:25] Então é essa questão, então a segurança vai muito além do código, muito além do software.
+[01:14:32] E é muito importante a gente ter essa provocação, esse bom senso de como a gente pode trabalhar.
+[01:14:38] de novo. Retoma cuidado com e-mails. Retoma cuidado de como a gente vê e-mails, como a gente
+[01:14:43] recebe mesmo. Vocês falaram aqui que o Fishing, pronto, um ataque muito comum em
+[01:14:48] diária social, né, de que ela se passa por uma empresa e lá tem um link malicioso, que
+[01:14:54] vai enviar um credencial. A gente vai falar que é até um tipo de ataque, talvez essa aula,
+[01:14:58] na próxima aula, que eu consigo, se é o sistema não tá preparado, eu consigo fazer um ataque
+[01:15:07] de forma que você faz uma transferência,
+[01:15:09] eu faz qualquer tipo de validação tão autenticado.
+[01:15:14] Eu consigo ali meio que forjar a autenticação
+[01:15:18] e quando percebe,
+[01:15:21] você fez uma operação que era indesejável,
+[01:15:24] você não percebeu, mas você realizou alteração.
+[01:15:27] Pronto, vamos entender todo esse contexto,
+[01:15:29] vamos ver esses ataques como isso funciona.
+[01:15:32] A gente volta na posse intervalo, vamos lá para o nosso intervalo.
+[01:15:36] Eu vou levantar aqui um timer.
+[01:15:38] Eu acho que aqui tem um timer.
+[01:15:40] Eu vou colocar aqui então o nosso tempo.
+[01:15:48] Depois de 20 minutos a gente volta e como é voltamos para nossa aula.
+[01:15:52] Tá bem? Vamos lá então pessoal.
+[01:36:36] Pessoal, vamos lá? Olha, tem o botha de si. Eu consegui ter acesso aqui à ferramenta
+[01:36:52] e consigo agora quebrar a sala. A gente está aqui. Então, eu acho que eu vou começar
+[01:37:01] algo que eu planejei, achei que eu não ia conseguir fazer hoje, né, pra gente começar
+[01:37:06] a nossa dinâmica.
+[01:37:07] Primeiro, eu vejo que nós estamos comendo gente, acho que algumas pessoas já saíram,
+[01:37:14] mas eu cansei de quebrar vocês em salas e o topo que é o seguinte, eu quero que,
+[01:37:20] eu queria, uma sugestão, eu quero dar de 10 minutos pra vocês trocar uma informação
+[01:37:27] entre vocês, tá bem?
+[01:37:29] Eu quero que vocês, né, eu vou quebrar vocês em grupo, eu quero que você escolhe
+[01:37:37] uma aplicação, qualquer uma, seja banco, delivery e e comer, sistema de escola, pode ser o
+[01:37:45] internet banking da caixa, fique à vontade, é o critério de vocês.
+[01:37:49] Eu quero que vocês listem o que ele guarda de valor, o que é importante para aquela
+[01:37:55] aplicação e o que acontece com a empresa e os usuários se isso for invadido, né?
+[01:38:02] Pense, eu quero que vocês pensem então, vamos lá. O que ela guarda de valor, aquela aplicação?
+[01:38:07] O que acontece com a empresa, com os usuários, se ela for invadida e o que precisa ser feito
+[01:38:14] para evitar? Eu quero que vocês então pensem, que vocês, vou dividir vocês em sala, nós aqui
+[01:38:20] E hoje somos...
+[01:38:25] Temos três, então vou dividir em quatro grupos.
+[01:38:28] Ok, acho que fica bom.
+[01:38:31] E aí a ideia é nós vocês debateram entre si, tomarem algumas notas.
+[01:38:35] A gente voltar para a sala principal daqui 10 minutos.
+[01:38:38] E a gente debate junto.
+[01:38:40] Conversar junto. Vocês trazerem essas informações, esses debates.
+[01:38:43] Aí eu escolhi o aplicativo tal e tomei essa nota, essa nota.
+[01:38:46] Eu escolhi esse aplicativo e tomei isso, isso, isso.
+[01:38:49] Então, de novo, deixe eu colocar aqui no chat para vocês terem o que eu estou pedindo.
+[01:38:58] Deixa eu poupar aqui.
+[01:39:00] Eu vou colocar aqui no chat, que aí vocês podem ter acesso.
+[01:39:07] Então.
+[01:39:11] Então, eu escolho uma aplicativa do dia a dia,
+[01:39:13] o banco, o delivery, o comercio, o sistema de escola,
+[01:39:16] fica em montade, aí eu quero que você o que que ele guarda de
+[01:39:19] valor, eu quero que vocês analisem isso, o que acontece se
+[01:39:22] se for invadido, o que acontece com a empresa, né, qual é a
+[01:39:25] consequência e que que vocês tomam em nota quais são as as
+[01:39:31] precauções que vocês tomariam, quais são as medidas de
+[01:39:34] segurança que vocês tomariam pra evitar isso. Então, vou
+[01:39:37] dividir vocês em salas, ok? E e vai ser random, acho que fica
+[01:39:42] bacana nesse primeiro momento. Então se eu dividir...
+[01:39:46] Então eu vou dividir quatro grupos, aí vai ter três grupos com quatro pessoas.
+[01:39:58] Acho que fica legal, fica bem bacana. Aí se eu colocar cinco grupos...
+[01:40:03] Não, não precisa, acho que quatro grupos está ótimo para a gente debater.
+[01:40:07] Então de novo, acho que vocês entenderam. Vou dar então aí 10 minutinhos para vocês.
+[01:40:11] para vocês, vocês interagem, vocês debatam com seus colegas.
+[01:40:16] É importante que vocês voltem para cá e tragam esses assuntos para a gente conversar
+[01:40:20] junto.
+[01:40:21] Tá bem?
+[01:40:22] Vamos lá.
+[01:40:23] É, professor?
+[01:40:24] Como que ficou a divisão de grupos mesmo?
+[01:40:38] Não, isso não é o grupo de trabalho, tá bom?
+[01:40:41] A gente depois vamos deixar para falar do trabalho na sexta-feira.
+[01:40:45] Hoje vamos só, vou dividir vocês aqui em grupo, mas a partida não...
+[01:40:51] A gente pode falar disso na próxima aula, se fiquem esses grupos,
+[01:40:54] se vocês querem outros grupos, a gente pode pensar nisso na próxima aula.
+[01:40:58] Mas a partida não é nossa preocupação, não deixa isso para sexta-feira.
+[01:41:02] Porque agora eu vou quebrar vocês em grupos,
+[01:41:04] vai ter um grupo um tem quatro, um tem quatro pessoas, o grupo dois tem três
+[01:41:10] pessoas, o grupo três tem três pessoas, o grupo quatro tem três pessoas. Foi feito
+[01:41:14] de forma aleatória, então eu vou jogar vocês em salas, eu vou abrir as salas e
+[01:41:20] vocês vão ser redirecionados. Vocês têm dez minutinhos, pensem no aplicativo,
+[01:41:26] pensem como vocês vão fazer essa separação e quando vocês estiverem
+[01:41:31] vocês ouviram, vêm para a gente volta aqui para a sala e vamos discutir
+[01:41:38] juntos o que vocês escolheram e os pontos que eu pedi vocês para levantar.
+[01:41:43] Tá bem? Vamos lá!
+[01:53:01] Cai!
+[01:53:20] caímos.
+[01:53:21] Você entrou direto aqui, Carla?
+[01:53:30] Sim.
+[01:53:31] Qual sala é você?
+[01:53:32] Meu, meu, nosso cara.
+[01:53:34] Mas que eu de todo mundo?
+[01:53:36] Eu tenho pressão.
+[01:53:37] Não, o, o, o, o.
+[01:53:39] Eu tentei sair da outra sala pra voltar.
+[01:53:42] Caí, tive que voltar pra cá.
+[01:53:44] Ok, e qual, o L, L, o L aqui?
+[01:53:48] Nós estávamos na R1, R1, R2.
+[01:53:51] Não lembro o número da sala, não.
+[01:53:54] Na R2.
+[01:53:55] Na R2, Carla, Paulo e Hélio.
+[01:53:58] Carla, Paulo e Hélio.
+[01:53:59] A gente conseguiu recorrer.
+[01:54:05] Aí você vai se aguardar e eu vou falar que a banda não tem muito tempo.
+[01:54:09] Já tinha dado tempo, né?
+[01:54:10] É, falta um minuto que eu estava contando.
+[01:54:13] Ah, maravilha.
+[01:54:14] Na sala lá, estava 10 minutos e 40 lá, contando a gente com a gente.
+[01:54:18] Agora já estou aqui no meu clube.
+[01:54:23] Agora ficou aqui, ingressar na sala aqui no topo aqui da...
+[01:54:28] Já estou fechado, todo mundo está voltando para a sala.
+[01:54:31] Ela sumiu daqui.
+[01:54:41] Eita, já vão...
+[01:54:43] e aí
+[01:54:46] Olá pessoal, eu chamei vocês de volta que a gente pode continuar aqui com a nossa aula.
+[01:54:54] Então pronto, então queria que vocês falassem, eu não sei se vocês lembram da,
+[01:55:04] eu vou falar pelo número que eu tenho aqui a relação das salas.
+[01:55:09] Salão um é é é o de beijamento de ego e cai o que vocês chegaram você pode
+[01:55:16] apontuar para a gente aquelas questões qual foi a aplicação que vocês pensaram
+[01:55:22] em todos aqueles pontos
+[01:55:25] em
+[01:55:28] alguém escondida tem pessoal agora aí eu posso falar é nós escolhemos o
+[01:55:35] do ponto de sistema, o sistema escolar. Pode ser de ensino fundamental, médio, faculdade.
+[01:55:42] O conceito é semelhante. Aí o que ele guarda tem valor. Nós conseguimos se linkar como
+[01:55:48] itens de valor dentro do sistema, por exemplo, dados pessoais, que são relacionados diretamente
+[01:55:52] ao usuário, seja ele um aluno, um professor. Registro os escolares, exemplo diploma, diploma
+[01:56:00] de ensino médio, de nível superior, notas escolares e a frequência também.
+[01:56:09] Aí o que acontece com a empresa e com os usuários se ela for invadida?
+[01:56:19] Primeiramente a perda de credibilidade, a mancha na imagem daquela empresa e a possibilidade
+[01:56:26] de fraude, seja em notas, por exemplo, aumentar a nota de um aluno, acrescentar um diploma
+[01:56:33] ali que não é um diploma verdadeiro e frequência também, tanto que até um colega citou que
+[01:56:40] a presença pode ser utilizada como um alibi em caso de processo judicial, e eu já tinha
+[01:56:45] ouvido falar isso também.
+[01:56:47] E também outro risco é a utilização de dados pessoais em outros golpes, por exemplo,
+[01:56:52] Fishing.
+[01:56:53] Aí o Trace, o que seria preciso para evitar um ataque desse tipo?
+[01:56:59] Uma das possibilidades seria o treinamento de usuários, por exemplo, evitar caim Fishing,
+[01:57:07] entre outras coisas, auditoria, auditoria, por exemplo, de acessos, versões atualizadas
+[01:57:13] de software, de bibliotecas ou do próprio SEO que está rodando a aplicação e um exemplo
+[01:57:20] meu autenticação em duas etapas durante o login.
+[01:57:23] Aí esses foram alguns dos tópicos que a minha equipe conseguiu elencar.
+[01:57:28] Alguém quer contribuir com mais alguma coisa.
+[01:57:34] Basicamente é isso mesmo.
+[01:57:35] Mas é o mais ou menos essa ideia aí.
+[01:57:39] OK, perfeito.
+[01:57:40] Obrigado gente, perfeito essa ideia.
+[01:57:46] Eu gostei dos pontos que vocês levantaram de treinamento
+[01:57:50] de colocar a questão do de colocar a autenticação de duas etapas. Isso é interessante.
+[01:57:59] É a gente vai falar, mas isso é isso da autenticação dos etapas, porque eles falam que a questão de segurança é uma coisa que é que é uma coisa que é você.
+[01:58:08] Geralmente a biometria geralmente o biometria facial o dedo uma coisa que você tem que pode ser um token
+[01:58:18] criptográfico, pode ser o seu celular com o OTP,
+[01:58:24] a autodicação de duas etapas e uma coisa que você sabe que seria uma senha.
+[01:58:30] É exatamente isso, então, perfeito.
+[01:58:35] Então, quando você exige do cliente, pelo menos aí, dois níveis,
+[01:58:40] uma coisa que ele sabe, uma coisa que ele tem, que seria o celular, o OTP
+[01:58:47] e a senha, uma senha em critérios, óbvio. Pronto. Você já tem certo nível de segurança. Perfeito.
+[01:58:57] Então pronto, acho que é uma excelente aplicação de escola, que eu acredito que vocês vão estar
+[01:59:06] nos pontos muito bem de que o que a gente precisa, quais são os dados que são importantes
+[01:59:12] por uma preescola eu acho que se ele não tem o que dizer acreditar tá se vocês
+[01:59:17] fecharam toda a questão direita ótima está muito bem obrigado pessoal
+[01:59:22] pronto a sala dois nós temos a Carla o Paulo e o velho
+[01:59:31] Vocês querem falar, Elio ou Carlos, posso falar, vocês preferem?
+[01:59:37] Pode ficar bom, claro.
+[01:59:40] Certo, o nosso grupo aqui, nós escolhemos a aplicação, seria o e-commerce, né?
+[01:59:45] O que ela guarda de valor, seriam dados pessoais, dados financeiros ali,
+[01:59:51] comentários sobre os produtos comprados, né, perfil de compras,
+[01:59:54] seriam uma base de dados bem rica, né, nas informações em si.
+[01:59:59] O que acontece com a empresa e o usuário se ela for invadida?
+[02:00:02] A empresa pode ter problemas de imagem,
+[02:00:04] usuários podem via ter identidade, dados pessoais expostos,
+[02:00:11] além do risco financeiro pela divulgação de alguns dados de pagamentos armazenados
+[02:00:17] para os usuários. Pode ser que aconteça isso.
+[02:00:20] E o que seria preciso fazer para evitar?
+[02:00:23] Seria um tipo de criptografia de informações sensíveis do usuário,
+[02:00:26] na base, investimento e ferramentas de autenticação também.
+[02:00:29] É a análise de segurança no desenvolvimento das aplicações,
+[02:00:33] colocamos como exemplo ali, evitar um resquelinjection, por exemplo,
+[02:00:37] e implementa a política de certificação digital,
+[02:00:42] utilizar a utilização de certificado digital para esse tipo de aplicação.
+[02:00:47] Aí foi isso que nós discutimos ali, nesse momento.
+[02:00:50] Ok, o quanto você fala de certificado digital seria o HTTPS, correto?
+[02:00:54] Isso também.
+[02:00:55] OK, OK, OK.
+[02:00:58] Porque pronto, você pode exigir o token daquele do cliente para que ele tenha um token na máquina.
+[02:01:03] E pronto, mas eu não vejo muito sentido dele ter esse tipo de segurança para o usuário.
+[02:01:08] Mas é bem bacana. Ecommerce é algo extremamente complexo.
+[02:01:13] E você tem várias frentes, tanto se você for pensar do cliente que vocês estão dizendo,
+[02:01:19] de um ano, tem a própria empresa de produtos, de estoque, de credibilidade, como vocês
+[02:01:25] falaram, pensa que eu serei invadido, eu posso ter tanto os dados do cliente em expostos,
+[02:01:35] tem a questão do pagamento, né? A gente não guarda os dados de pagamento em si, mas pronto,
+[02:01:42] eu posso ter ali qualquer tipo de fródico, cartão de crédito, eu posso ter ali qualquer
+[02:01:48] tipo de ingéria social, brigando alguma transferência pra mim, etc. Então o fraude cartão de crédito,
+[02:01:56] usar cartão de crédito de terceiros e aqui entra a questão de você validar. Existem uma
+[02:02:02] série de validações de cartão de crédito, se o cartão de crédito é roubado, se o cartão de
+[02:02:07] crédito existe, pra assim dizer, se ele tem qualquer, assim, você existe qualquer índice de fraude
+[02:02:14] no cartão de crédito.
+[02:02:15] Então você tem a lissérie de validações,
+[02:02:18] que existe então e e-commerce,
+[02:02:19] é um cenário universo de situações complexas, né?
+[02:02:24] Então se lembre, gostei do que vocês disseram,
+[02:02:26] a CCL é importante.
+[02:02:28] Hoje a gente vai falar sobre isso, a gente vai falar de HTTPS, de CCL,
+[02:02:31] que é você,
+[02:02:33] garantir que o que está sendo trocado
+[02:02:35] entre o seu navegador e o servidor, eles são,
+[02:02:40] não houve alteração.
+[02:02:42] Se você já mexer com iShark ou algum tipo de ferramentas assim,
+[02:02:46] você sabe do que eu estou dizendo,
+[02:02:47] que eu posso capturar as informações,
+[02:02:49] pense que você está fazendo qualquer tipo de transação na rede.
+[02:02:53] Você está em um café,
+[02:02:55] comprando alguma coisa no café.
+[02:02:58] Pense que você está no café do seu gosto,
+[02:03:01] ou usar a sua rede online, a Wi-Fi do café.
+[02:03:06] E você está na Amazon fazendo uma compra,
+[02:03:09] parece que você vai postar um cartão de crédito na Amazon.
+[02:03:11] Se não existe HTPS, não existe criptografia, eu posso, na li, você dá a rede pública,
+[02:03:18] eu posso ali, uma forma de ler a rede, ler o que está sendo trafegado, ler os pacotes,
+[02:03:23] e eu conseguirei capturar seus dados do cartão de crédito.
+[02:03:26] Então, por isso que quando se fala de, por isso que é importante, nós temos ali,
+[02:03:32] temos que, seja pelo menos, HTPS, SSL, né, para a gente ter qualquer tipo de segurança na autenticação.
+[02:03:40] embora não é muito tempo, não é impossível quebrar o SSL.
+[02:03:44] É difícil, mas não é possível.
+[02:03:47] Então mesmo são situações que eu não colocaria na rede pública,
+[02:03:53] não usaria no Wi-Fi de um café, colocar meu cartão de crédito, por exemplo.
+[02:03:58] Mas pronto, é importante que pelo menos isso nós temos um pouco de segurança.
+[02:04:03] Então, como eu disse, é como se temos um universo de coisas que a gente vale lembrar,
+[02:04:09] mas vocês liberaram de pontos muito importantes, diria que é isso, diria que é importante.
+[02:04:14] Muito obrigado, certinho.
+[02:04:17] A sala 3
+[02:04:20] é o Henrique, Matheus e Edgar.
+[02:04:30] É... Opa!
+[02:04:33] Vou...
+[02:04:34] Alguns colegas querem falar?
+[02:04:35] Eu posso puxar aqui também.
+[02:04:37] Pode puxar aí.
+[02:04:38] A gente escolheu empresas de delivery, mas especificamente a gente...
+[02:04:47] Pensei no iFood enquanto a gente conversava.
+[02:04:50] E aí respondendo que uma aplicação da assistente de valor a gente elencou algumas coisas como o endereço do cliente,
+[02:04:59] dados pessoais de forma geral, para além do endereço,
+[02:05:03] informação de cartão de crédito,
+[02:05:06] localização em tempo real da pessoa que está acessando a aplicação,
+[02:05:09] entre uma série de movimentações,
+[02:05:13] centenas de milhares de movimentações de compra
+[02:05:17] e de venda que passam por essa aplicação.
+[02:05:21] E aí, pensando o que acontece com a empresa
+[02:05:26] E com os usuários que estão ali na aplicativa, se ela foi invadida,
+[02:05:30] a gente enlê com alguns pontos um pouco mais gerais,
+[02:05:33] assim, por exemplo, o processo de judiciais,
+[02:05:36] uma reputação, perda financeira e vazamento de dados.
+[02:05:43] O que seria preciso fazer para evitar?
+[02:05:46] A gente também levantou alguns pontos,
+[02:05:48] treinamento contra a engenharia social para os empregados,
+[02:05:52] política de segurança de rede robusta,
+[02:05:55] criptografia dos dados e desenvolvimento de código seguro desde a concepção do software.
+[02:06:02] Ok, ok, ok. O que conseguem, Esmil, só um pouquinho, que seria esse código seguro?
+[02:06:11] Não, só isso. Vocês do grupo, vocês querem, o que vocês pensaram quando a gente falar?
+[02:06:18] Concepção desde o início de software seguro. O que é que vocês pensaram?
+[02:06:22] Eu pensei essa frase pensando desde a elicitação dos requisitos do software, então não só
+[02:06:33] a produção, mas você pensar o que você está produzindo para que você tenha uma aplicação
+[02:06:39] segura, inclusive pensando o ponto de vista da engenharia social, mas também na produção
+[02:06:47] do código ali mesmo, é, de evitar inserir através de práticas de desenvolvimento de
+[02:06:53] código seguro, evitar inserir vulnerabilidades, pelo menos as vulnerabilidades conhecidas.
+[02:06:59] Então, você pode inserir ali numa pipeline de produção com testes estáticos antes de
+[02:07:06] você passar o código para produção, testes dinâmicos também, né?
+[02:07:10] Tem ferramentas que automatizam esses testes.
+[02:07:13] Enfim, tem any coisas aí que eu pensei nesse sentido?
+[02:07:18] Eu pensei mais na parte do teste mesmo do código dele,
+[02:07:21] que acho que vai mais fazer diferença mesmo.
+[02:07:24] Mas eu estava começando com o app grande assim,
+[02:07:27] eu acredito que o maior problema meu é o humano, acaba sendo humano meu.
+[02:07:31] O app grande é tipo iFood.
+[02:07:34] Claro, é importante, mas eu acredito que o parte humano é mais perigoso sempre.
+[02:07:40] Ok, vamos falar sobre isso. Diz lá, o que você quer acrescentar para nós?
+[02:07:47] A clica, você querê? Ok. Ok, ok. Não, não, o que eu ia comentar é porque, de novo, quando a gente fala de aplicativo, de novo,
+[02:07:58] Então, aquilo que eu falei, nós temos que ter muito cuidado da informações que são
+[02:08:03] trocadas entre qualquer aplicativo, qualquer estrutura que usa rede, que usa Wi-Fi, que usa rede,
+[02:08:12] que trafega pelo ar. Temos que tomar cuidado que usa uma rede sem fio que usa Wi-Fi,
+[02:08:18] e tomar cuidado com aquilo que a gente trafega. Por isso que o pessoal fala de ter uma VPN,
+[02:08:24] pessoal fala de ter uma uma SSL para trocar informações seja importante.
+[02:08:31] Eu ia falar alguma coisa sobre a questão.
+[02:08:33] Ah, testes.
+[02:08:37] O colega levantou sobre essa questão de testes.
+[02:08:39] Só um ponto importante.
+[02:08:42] Teste ele é você tem alguns tipos de testes.
+[02:08:47] Só deixa eu abrir aqui um parêntese.
+[02:08:49] Não é nosso foco teste.
+[02:08:51] mas é porque nós temos teste unitário que testa o código.
+[02:08:55] O teste unitário aqui nesse tele é validar qualidade de código.
+[02:09:00] É verificar se ele atende os requisitos, verificar se ele atende as necessidades,
+[02:09:07] se o código vai evoluindo e aquilo não quebra, aquilo não parte.
+[02:09:12] Se um requisito tem a questão de segurança,
+[02:09:17] É óbvio que os testes também vou acabar embarcando a parte de segurança.
+[02:09:23] Só que o não é...
+[02:09:26] O que eu quero que vocês entendam aqui é uma questão.
+[02:09:30] O teste unitário, o teste por si só, se ele não tiver definição de segurança,
+[02:09:37] você vai ter dificuldade de testar isso.
+[02:09:39] E de novo, você precisa ter especificação.
+[02:09:41] Lembra lá, nós vamos voltar um pouco.
+[02:09:45] pouco, você tem os requisitos funcionais, que são as funcionalidades da nossa aplicação,
+[02:09:50] que todo mundo conhece, e os requisitos não funcionais.
+[02:09:54] O que são os requisitos não funcionais?
+[02:09:56] São as especificações técnicas da nossa aplicação, exigências da nossa aplicação.
+[02:10:03] E entre uma delas, lá entre a lista de requisitos não funcionais, nós temos a de segurança.
+[02:10:09] É aqui que vai ser definido, por exemplo, por exemplo, ter um certificado SSL, o tráfego
+[02:10:15] entre o nosso aplicativo e o servidor tem que ser criptado.
+[02:10:19] Isso requer de segurança.
+[02:10:21] Por exemplo, se estiver definido,
+[02:10:23] vai ter um teste de integração
+[02:10:27] que vai estar responsável por levantar essa questão.
+[02:10:33] Vai fazer o teste de integração,
+[02:10:37] ou na verdade não é teste de integração,
+[02:10:39] aí é teste de segurança.
+[02:10:41] Aonde ele vai tentar open test,
+[02:10:44] onde ele vai fazer requisições,
+[02:10:46] que uma pessoa vai tentar capturar as informações.
+[02:10:49] Então, não esqueçam disso.
+[02:10:51] O teste, por si só,
+[02:10:54] tem algumas questões.
+[02:10:57] Cada teste tem um propósito
+[02:10:59] dentro da pirâmide de teste.
+[02:11:03] E o teste básico, o teste unitário,
+[02:11:05] ele testa código, ele testa qualidade de código.
+[02:11:08] Ele tem assim um contexto de segurança
+[02:11:11] dentro da qualidade,
+[02:11:12] mas ele não valida mesmo a...
+[02:11:15] por si só, o teste de segurança...
+[02:11:18] o teste de código, o teste unitário, ele não valida por si só a segurança.
+[02:11:22] Conseguindo entender o que eu quero dizer?
+[02:11:24] Se estiver especificado dentro dos requisitos tão funcionais,
+[02:11:28] você vai lembrar de testar isso nos testes unitários.
+[02:11:30] O que eu quero dizer?
+[02:11:32] Se tem lá dizendo que você tem que ter uma autenticação,
+[02:11:35] que é uma foto de autenticação,
+[02:11:36] é óbvio que você vai ter testes unitários
+[02:11:38] que testam o fato de autenticação dentro da sua classe.
+[02:11:42] Só que se isso não estiver especificado,
+[02:11:44] você vai implementar o seu código
+[02:11:47] e não vai ter como testar algo que não foi especificado.
+[02:11:51] Conseguirão entender que então por isso que,
+[02:11:53] quando você tem testes de requisitos,
+[02:11:57] que é você ir lá e validar seus requisitos
+[02:11:59] estoleados com o cliente,
+[02:12:01] você tem teste unitário, que é testar o código,
+[02:12:04] com testar as classes, que é o mais baixo nível.
+[02:12:08] Você tem teste de integração, que é você testar
+[02:12:11] entre os componentes.
+[02:12:14] Nós temos o TET-Aintituente,
+[02:12:16] que é você testar a aplicação do começo ao fim.
+[02:12:18] É você correr a aplicação
+[02:12:20] e você pôr tanto ser humano
+[02:12:23] como que há uma ferramenta de qualidade,
+[02:12:26] que ela vai ficar testando a sua aplicação.
+[02:12:29] Do início ao fim, tudo.
+[02:12:31] Você tem teste de interface, que é você testar interface.
+[02:12:34] Por exemplo, com Celene.
+[02:12:36] E tem, por exemplo, teste de carga.
+[02:12:40] Se a sua aplicação existe uma carga, você vai tentar colocar isso.
+[02:12:44] Tem teste de segurança que é você tentar invadir,
+[02:12:47] quer ir prontar as empresas quando elas têm essa responsabilidade.
+[02:12:51] Você tem uma equipe de qualidade de segurança,
+[02:12:54] o objetivo dela é analisar a segurança da sua aplicação.
+[02:12:57] Mas se lembrando, de novo, eu só quero...
+[02:12:59] Não sei se isso ficou muito claro, deixar muito claro,
+[02:13:01] porque isso tem que estar especificado para a gente lembrar de desenvolver.
+[02:13:04] Tá bom? Só para a gente falar de testes aqui,
+[02:13:06] eu achei que era muito importante já que a gente lembrou.
+[02:13:09] Então tem um pirâmide teste, temos aí vários testes que cada um tem a sua responsabilidade
+[02:13:16] dentro da pirâmide de testes, tá bom?
+[02:13:18] Um assunto que não é nosso, mas só para a gente não deixar isso escapar.
+[02:13:22] Pronto, se tiverem qualquer dúvida pessoal, eu falei algo que não ficou claro, podem me
+[02:13:30] interromper e não precisam esperar, não precisam levantar a mão.
+[02:13:33] É abrir um microfone e me interrompam.
+[02:13:35] ou o professor, ou o instrutor, ou o Nicolau, eu tenho aqui uma dúvida,
+[02:13:39] isso para mim não ficou claro.
+[02:13:41] Deixem a dúvida ficar aí, não deixem algo que não ficou claro e não tem pergunta buba, tá?
+[02:13:46] Não vou criticar e não... Não tem questão, não tem pergunta errada, não tem pergunta básica,
+[02:13:52] podem perguntar o que vocês quiserem. Pronto, o grupo 4, agora Vinicius, Iã e Vanessa, por favor.
+[02:14:00] Pode deixar que eu puxo e se algum deles identificar alguma coisa que eu faltei e
+[02:14:10] falar eles sentam-se a vontade, tá pessoal?
+[02:14:13] A gente escolheu um aplicativo semelhante ao do último grupo, a gente pegou um aplicativo
+[02:14:19] de delivery, né?
+[02:14:21] A gente começou a cogitar quais são os possíveis dados que podem vazarem, enfim, quais são
+[02:14:26] os possíveis riscos no aplicativo.
+[02:14:28] Então a gente dê um Google, dê um Google assim, o que precisa para se registrar no
+[02:14:33] iFood como logista, por exemplo.
+[02:14:36] A gente verificou e basicamente o iFood ele pede mais ou menos a mesma coisa para o logista,
+[02:14:42] para o entregador e para o usuário, que é um documento que comprove que a pessoa é
+[02:14:48] a pessoa que está utilizando aquela conta, né, pede um endereço completo e há alguns
+[02:14:57] dados particulares do indivíduo. Então a gente pensou em primeiro lugar um risco, já
+[02:15:04] chegando no ponto 2, primeiro lugar um risco é que o seu endereço está lá. Todo mundo
+[02:15:10] sabe onde você mora e esse dado é um dado sensível, não é um dado que se passa para
+[02:15:15] qualquer um. Outro tipo de dado que fica no aplicativo como iFood, fica salvo registrado,
+[02:15:22] métodos de pagamento, muitas das vezes fica salvo seu cartão lá ou seu vale
+[02:15:27] alimentação, enfim, e você só precisa, vou dar o exemplo particular, né, eu tenho
+[02:15:34] vale refeição no iFood e eu só preciso dos três vídeos de trás para
+[02:15:39] comprovar que o vale é meu, é só isso, porque já tá registrado na minha conta,
+[02:15:43] então não há muitas complicações nesse tipo de dado estar lá, mas há muita
+[02:15:50] facilidade de um dado desse poder sair. E a gente ficou pensando, tá, se esses dados
+[02:15:55] são sensíveis de algo que não é legal que saia, né, que vaze os seus dados
+[02:16:00] bancários, por exemplo, os seus registros de pagamento, o que a gente pode fazer, o
+[02:16:04] que a gente poderia fazer, o que a gente imagina que é feito hoje no aplicativo
+[02:16:09] como iFood, para evitar que esses dados se vaze. E aí eu tenho uma listinha aqui,
+[02:16:13] pouquinho a coisa que a gente anotou, só vou pegar aqui no canto. A gente falou
+[02:16:18] sobre a criptografia de dados quando passa internamente, alguns colegas aí mencionaram
+[02:16:23] também a noção de treinamento de equipe para o pessoal que trabalha na equipe do
+[02:16:27] iFood, para não fazerem engenharia social e algum tipo de dado interno VASA do próprio
+[02:16:34] aplicativo.
+[02:16:35] A gente pensou na autenticação de multifator, como é feita mesmo no iFood?
+[02:16:39] Você fala um número para o entregador, para poder pegar a encomenda e fazer um controle
+[02:16:46] maior de acesso.
+[02:16:47] No geral é isso que a gente fez, que a gente discutiu.
+[02:16:53] Boa, boa.
+[02:16:55] Mas eu senti falta só no detalhe, tinha uma terceira resposta.
+[02:17:00] Não sei se eu posso responder o que é.
+[02:17:03] Terceira, o que pode fazer para evitar?
+[02:17:08] É.
+[02:17:09] A criptografia, o treinamento.
+[02:17:11] Você falou de escoplar.
+[02:17:13] É que eu fui muito rápido também nessa última parte.
+[02:17:15] Não, não, não, não, não, eu peço desculpas.
+[02:17:18] Pronto, delivery, o outro grupo comentou, acho que vocês não comentaram, que é sobre
+[02:17:24] a questão de, que eu não cometei também, não falei mais a respeito, que é algo muito
+[02:17:28] grave, que é a localização em tempo real, isso é muito grave, né?
+[02:17:32] Você fornecer para uma aplicativa, sua localização é exata, e aquilo ali fica vários minutos
+[02:17:38] ali sendo partilhado e tanto delivery quanto Uber, né, tudo usa esse tipo de tecnologia,
+[02:17:45] isso é realmente muito grave. Claro que as aplicações, as lojas, né, as,
+[02:17:52] eu quero dizer, as lojas, elas já tem ali todo um critério de segurança, que ela tem, você tem
+[02:17:59] que especificar o porquê que você usa aquela informação, né, tipo, aí eu estou exigindo
+[02:18:05] a localização. Então, nesse ponto, o iOS é mais chato, a Apple é mais chata, inclusive eu tenho
+[02:18:14] que existe ali testes humanos para entender como que a sua aplicação funciona, principalmente na primeira vez.
+[02:18:20] Então quando você está lançando o aplicativo, então você não simplesmente lança e coloca lá que você vai usar a localização
+[02:18:27] e coloca o requisito de segurança, coloca lá autorização para poder usar localização na sua aplicação e pronto, não.
+[02:18:35] Eu acho que, e é um ponto que talvez aqui ninguém comentou, que é a própria loja.
+[02:18:40] a própria loja, seja a Google, seja a Apple,
+[02:18:43] eles têm ali todo um requisito de segurança
+[02:18:46] para você poder publicar um aplicativo.
+[02:18:49] E você tem que obedecer essas regras,
+[02:18:51] tem que seguir essas regras, porque senão
+[02:18:53] eles não permitem que você publique o aplicativo na loja.
+[02:18:57] E um ponto é, pronto, como eu ia dizer,
+[02:18:59] a Apple ainda é, inclusive, mais chata,
+[02:19:01] quando ela precisa desses itens de segurança
+[02:19:05] que são pouco piores como como câmera localização. Então isso acaba sendo eles acabam sendo bem
+[02:19:14] chatos com isso. Eu vou fazer um comentário aqui sobre a questão do Cátil. Ah e também
+[02:19:20] tem um outro perfil que é onde o motor boy também tem além de você ter a loja. Tem
+[02:19:26] o velho de você que ainda tem o motor boy que eu falo motor boy é o que vai fazer a entrega
+[02:19:31] Pode ser ciclista, pode ser motorboy, pode ser de carro, whatever.
+[02:19:34] Mas, né, nós temos outro profundo.
+[02:19:37] Mas é, tem um aplicativo que exige muita segurança,
+[02:19:40] que existe muito cuidado, né, pra pronto,
+[02:19:45] eu não roubar as informações,
+[02:19:47] você lembrou muito bem que eu não me lembrei recordar,
+[02:19:49] é quando as aplicações que nós temos do cartão de crédito
+[02:19:52] guardado nas aplicações, que são muitas,
+[02:19:55] que uma coisa é você salvar lá, usar uma vez e descartar, né.
+[02:20:01] Agora outra vez é quando a cartão de crédito fica salvo na aplicação.
+[02:20:04] E nós temos aí várias aplicações que já foram expostas cartão de crédito.
+[02:20:09] Se vocês não sejam lembrar disso,
+[02:20:11] já temos uns 10, 15 anos mais a Playstation, a Sony,
+[02:20:15] ela teve seus dados vazados, toda a base de cartão de crédito,
+[02:20:19] ainda lá no Precision 3, se não me engano,
+[02:20:21] ela teve todos os seus cartões de crédito expostos,
+[02:20:24] vários cartões de crédito foram publicados,
+[02:20:26] eles tiveram que inclusive sugerir
+[02:20:28] para que os clientes cancelassem os cartões de crédito, se fizer assim,
+[02:20:32] hoje nós temos cartões de crédito digital que acabam facilitando um pouco essa realidade.
+[02:20:37] Mas, entendei muito a ideia, ficou muito bom o trozamento.
+[02:20:44] Obrigado, vocês até estão com a maioria com a câmera ligada.
+[02:20:48] Obrigado mesmo que essa quebra de gelo, isso é o que a gente precisa.
+[02:20:52] E pronto, a gente tem poucos minutos.
+[02:20:56] Eu vou começar aqui e falar de um ataque.
+[02:21:00] Antes de falar de um ataque, eu queria trazer só um botão de introdução.
+[02:21:05] Quando a gente fala de segurança, nós temos três princípios fundamentais.
+[02:21:14] Eu queria que vocês guardassem isso também, que é confidencialidade.
+[02:21:18] Isso a gente volta lá na questão de conceito de segurança.
+[02:21:23] confidencialidade, é o que nós chamamos de CIA, confidencialidade, que é a informação só é
+[02:21:30] acessível a quem é autorizado. Nós temos integridade, que é muito importante, que a informação
+[02:21:38] guardada ela não é alterada. O que eu quero dizer com isso? Pensa que eu fui lá e salvei a
+[02:21:45] minha informação. Eu vou lá e salvei a minha senha. Eu, o Gaminon e o Colau, vou
+[02:21:52] lá e criei a minha senha. O que garante que essa senha não vai ser alterada por uma outra
+[02:21:58] pessoa? Isso é integridade. O dado ele está íntegro pela pessoa que alterou. Ah, daqui
+[02:22:04] dez dias eu quero alterar minha senha por uma senha nova. Eu vou alterar. Tem problema.
+[02:22:09] Ou seja, eu tenho a autorização para mexer, para alterar essa aplicação.
+[02:22:17] Então eu vou lá e vou mudar o estado dela para um outro, para um outro sete.
+[02:22:23] Isso, o que eu garanto?
+[02:22:25] Pensa também aqui, nós estamos todos integrados numa questão de banco.
+[02:22:30] Eu tenho um saldo, R$ 10,00.
+[02:22:34] O que garante que daqui a 10 dias esse saldo vai estar lá, daqui a um mês esse saldo vai estar lá.
+[02:22:39] que passa os dias ninguém alterou o estado daquele saldo sem a anteriorização.
+[02:22:43] Então isso é integridade. Então, confidencialidade é informação sucessível
+[02:22:48] que aqui está autorizado. Integridade, o dado está íntegro, ok?
+[02:22:53] Ou seja, a informação mantém-se correta.
+[02:22:55] Então você não alterou esse estado.
+[02:22:59] Esse dado não se tornou...
+[02:23:02] Não teve alterações indevidas a essa informação.
+[02:23:07] E por fim, disponibilidade, a informação está acessível.
+[02:23:11] Eu preciso fazer uma transferência no meu banco.
+[02:23:15] Eu vou pegar aqui o celular e vou fazer a transferência.
+[02:23:18] Eu preciso fazer a transferência.
+[02:23:20] Meu banco está offline por alguma questão.
+[02:23:23] Então, você tem esse tripé que são os princípios de segurança.
+[02:23:29] Confidencialidade, integridade e disponibilidade.
+[02:23:32] Ok?
+[02:23:33] É...
+[02:23:34] Então, por exemplo, pensa em uma empresa que protege os dados de clientes contra os testes
+[02:23:38] indivíduos, que corresponde à confidencialidade, especialmente nisso, então é impedir alterações
+[02:23:50] não autorizadas, isso corresponde à integridade.
+[02:23:54] Eu só queria lembrar desse conceito que a gente vai levar ele para o resto da aula,
+[02:24:03] o resto do nosso curso, que é o nosso fundamento e nosso tripé. Nós temos um quarto valor que
+[02:24:12] é segurança, que ele não é falado aqui, que ele é a questão de você de garantir
+[02:24:19] de quem está acessando. Mas pronto, os três pilares principais é isso, confidencialidade,
+[02:24:24] integridade e disponibilidade. Tá bom? Ah, deixa eu ver que aí e só pra quem diga lá.
+[02:24:33] É onde eu pode falar. Eu acho que tem autores que tem ainda o quinto e o sexto ainda, né? Além dos quatro, né?
+[02:24:43] Proto, pode ter alguma alguma autorização da IZU e que eu não estou por dentro. Eu não estou me lembrado
+[02:24:50] desses três. Você sabe quais são?
+[02:24:54] Não é irretratabilidade, né?
+[02:24:58] Ela não poder negar que foi ele que fez aquela ação, né?
+[02:25:04] Então, está registrado,
+[02:25:08] registra quem fez aquela ação,
+[02:25:13] então ele não pode dizer, não fui eu. Não, está aqui, está logado,
+[02:25:16] que foi você que fez ou alguém se passando por você, né?
+[02:25:19] e outra é conformidade, talvez para o Brasil, não sei se é em alguns equiparidos, mas aqui
+[02:25:30] as transações obedecem a legislação, a LGPD.
+[02:25:33] É conformidade, percebi, percebi com a legalização, com as leis invigoras sim, perfeito, perfeito.
+[02:25:43] E tem a proteção também, que eu não me engano, que eu não me lembro bem o conceito, mas tem a ver com aquela relação de acesso restrito.
+[02:25:54] Que você tem que garantir que ele está acessar, é de direito àquela informação.
+[02:26:00] Não é o parto que você falou? Autenticidade?
+[02:26:04] Não, é confidencialidade. Ah, não, autenticidade, é isso. É confidencialidade, integridade,
+[02:26:11] disponibilidade e autenticidade. É, se tinha falado. É autenticidade, esse mesmo, eu não me lembrava,
+[02:26:18] era da autenticidade, é isso. O básico que a gente terá na ISO 27.1 é esses três, mas provavelmente
+[02:26:25] devemos ter tido aí qualquer atualização com relação a esses outros, né, que vão sendo adicionados, né,
+[02:26:32] que eu não estou por dentro. Mas bom, é bom ponto e depois eu
+[02:26:36] queria atrás desses outros que você lembrou, né? Porque é verdade que eu
+[02:26:42] tal de você fazer com que a informação seja dele, né? É
+[02:26:48] valer desse, inclusive pra quem trabalha com as
+[02:26:52] natureias digital, você tem a inversão do ônus, né? Quem é
+[02:26:56] assim, né? E aí, você tem a inversão do ônus, né?
+[02:27:00] do ônus, né? Quem assina, por exemplo, eu assinei uma coisa digitalmente. Eu tenho um contrato com Iá.
+[02:27:08] Contrato de serviço. Comprei o serviço dele, fiz uma assinatura digital. Ele tem lá o contrato
+[02:27:15] assinado. Eu tenho que comprovar que eu não assinei, porque com a inversão do ônus da prova,
+[02:27:21] quem tem assinatura, garante que fui. Aí a inversão é você vai ter que... eu vou ter que aprovar que
+[02:27:28] que não fui eu que assinei, é o contrário.
+[02:27:30] Percebem?
+[02:27:31] Isso que a gente chama de inversão do ônus.
+[02:27:33] Isso quando a gente fala de assinatura digital.
+[02:27:36] Lembre-se que existe assinatura digital e assinatura eletrônica.
+[02:27:42] Assinatura digital envolve certificado e par de chaves.
+[02:27:47] Assinatura eletrônica tem menos rigor e ela é só uma questão
+[02:27:55] onde ele está, o digital, talvez, pega o seu IP, pega o seu CPF, pega ali algumas informações
+[02:28:01] em seu e-mail, faz ali uma chave, faz ali algumas informações e diz que aquela pessoa
+[02:28:08] assinou com aqueles dados. Mas, por exemplo, com uma assinatura eletrônica, ou se não
+[02:28:12] tem uma inversão do anos da prova, não é alguma coisa tão segura. Já com uma assinatura
+[02:28:18] digital, sim, você tem uma inversão do anos da prova, você tem toda a questão do part
+[02:28:24] Chaves, principalmente se você não acontece no Brasil, é óbvio que eu vou dizer agora,
+[02:28:28] que você está assinando com uma chave CP Brasil, né?
+[02:28:31] Toda cadeia valida ao seu certificado.
+[02:28:35] Mas pronto, nós temos aqui...
+[02:28:39] Pronto, nós estamos bem avançados na hora, eu vou fazer primeiro chamada.
+[02:28:44] A gente já está quase.
+[02:28:48] Eu acho que dá para a gente entrar no contexto de alguns ataques.
+[02:28:55] Acho que dez minutos a gente começa a falar de ataque.
+[02:29:06] Então vou fazer a chamada, por favor,
+[02:29:08] conforme eu vou dizendo, vocês vão respondendo, tá bem?
+[02:29:11] Beija a mim.
+[02:29:14] Presente.
+[02:29:16] Caio.
+[02:29:18] presente o senhor. Ok, Diego.
+[02:29:26] presente. Edgar. presente.
+[02:29:31] Ed Nielson.
+[02:29:35] esqueci de me lembrar dele ter falado qualquer coisa esse de Nielson. É o
+[02:29:38] de. Tá aí já. Existe. Gente, já tive. Hélio. E o que? Já vi. Henrique.
+[02:29:46] presente presente e a presente obrigado João Pedro
+[02:29:56] qual João Pedro mesmo? João Pedro Moreta só tem um só tem um João Pedro
+[02:30:02] eu acho que ele está de férias ah ok pronto Carla
+[02:30:08] Eu venço.
+[02:30:10] Ok, obrigado.
+[02:30:11] Levi, Levi é o que falou que saiu mais cedo, né, que teve que bater ponto.
+[02:30:16] Isso.
+[02:30:17] Matheus, eu, Paulo.
+[02:30:21] Presidente.
+[02:30:23] Roberto.
+[02:30:25] Tiago.
+[02:30:29] E não, Vanessa.
+[02:30:33] presente eu também vou ter que sair agora
+[02:30:36] questão de tempo mesmo de trabalho também está bem também perfeito pode
+[02:30:42] poder estar tudo certo Vinícius presente ok a gente vai começar agora a falar de
+[02:30:48] um ataque a gente volta e fala um pouquinho o que a gente tem pouco tempo
+[02:30:52] aqui a nossa aula é bastante mas um ataque que eu quero até mostrar aqui para
+[02:30:58] vocês.
+[02:30:59] É, deixa eu mostrar aqui, vou partir a tela.
+[02:31:05] Você está vendo minha tela?
+[02:31:23] É um site de teste, também esse XX Game.
+[02:31:31] É um jogo que ele...
+[02:31:34] É...
+[02:31:35] Que eu não vou...
+[02:31:36] Não vou invadir um site, não vou promover que um ataque real de verdade...
+[02:31:40] Não vou cometer um crime aqui, ó...
+[02:31:42] Vou fazer isso.
+[02:31:43] Pronto, beijamente, é tudo certo.
+[02:31:45] A gente volta no início da aula com esse assunto e sai com o resto.
+[02:31:48] Mas eu consigo aqui...
+[02:31:50] É...
+[02:31:51] Fazer um teste rapidamente com vocês no que que é...
+[02:31:55] Que é...
+[02:31:56] É...
+[02:31:59] o cross-site scripting.
+[02:32:02] Qualquer ideia.
+[02:32:05] A ideia é que eu injetar um código.
+[02:32:07] Quem trabalhou com front-end,
+[02:32:10] ou nem exatamente front-end com HTML também,
+[02:32:12] aqueles blogs,
+[02:32:14] quem trabalhou com um blog principalmente,
+[02:32:18] quem implementou um blog,
+[02:32:19] quem fez um blog uma vez na vida,
+[02:32:20] sabe que um ataque era bem chato,
+[02:32:25] era a pessoa criar um comentário com HTML.
+[02:32:28] seja um vídeo, seja um iFrame, seja ali qualquer coisa no meio.
+[02:32:33] Ele mandava um comentário com o HTML dele.
+[02:32:36] Muitas vezes podia ter um script, já havia script no código ali no comentário,
+[02:32:41] onde ele fazia várias ações no código.
+[02:32:44] Então a ideia é essa, a ideia é um ataque de script malicioso.
+[02:32:48] Eu adiciono um script dentro do site.
+[02:32:51] Esse script inicialmente não pertence ao site,
+[02:32:54] ou esse HTML não pertence ao site.
+[02:32:56] Então, quando um cara, mas tão em mal intencionado,
+[02:33:02] ele vai colocar uma senha, ele vai criar um comentário,
+[02:33:08] ele vai rodar um script que ele vai fazer alguma coisa.
+[02:33:15] Desde tentar capturar informações e enviar para o terceiro
+[02:33:20] para o que for de estar no site,
+[02:33:22] desde ficar tentando fazer requerições de outro site.
+[02:33:27] A gente falou de DDoS, que a gente consegue criar ali um botzinho,
+[02:33:31] um time-out, que ele fica tentando fazer requerições em outro servidor.
+[02:33:36] Então, o invasor, ele passa a fazer ações indesejáveis dentro do aplicativo.
+[02:33:47] Então, a aplicação pega o que o usuário ditou,
+[02:33:51] e sem tratar. Lembre-se disso, essa é a palavra.
+[02:33:55] Ele não trata a entrada, ele não pensa que aquele ali pode ser uma liste ouvi,
+[02:33:59] e o que acontece é que aquele é tratado como script ou como HTML.
+[02:34:03] Por exemplo, eu vou fazer aqui um exemplo bem básico pra vocês.
+[02:34:09] Aqui nesse comp aqui, eu quis irei aqui uma busca, aqui eu tenho até aqui.
+[02:34:15] Eu vou escrever esse script alert.xss.
+[02:34:18] Isso aqui é um script javascript que ele criou um pop-up.
+[02:34:24] Se isso aqui fosse tratado adequadamente,
+[02:34:27] ele não ia interpretar isso como javascript,
+[02:34:30] ele não pode interpretar isso como javascript.
+[02:34:33] O que acontece quando eu faço o cert?
+[02:34:36] Ele interpretou como javascript, o que ele fez?
+[02:34:39] Ele pegou a minha entrada e correu uma função javascript.
+[02:34:45] E aqui que está a invasão.
+[02:34:50] E aqui, claro, aqui eu estou fazendo uma alerta que não tem,
+[02:34:54] mas ali você não tem nenhum problema,
+[02:34:56] que não vai causar nenhum impacto na empresa, no site da pessoa.
+[02:35:02] Só vai abrir um pop-up.
+[02:35:04] Não tem prejuízo.
+[02:35:05] Mas você imagina, de novo, eu dei um exemplo.
+[02:35:08] Imagina eu criar um site, criar um JavaScript,
+[02:35:10] criar um comentário que fica lá um JavaScript,
+[02:35:13] que ele vai ficar fazendo requisição para o site,
+[02:35:17] ficar pingando,
+[02:35:18] fazendo requestes ao site,
+[02:35:21] no time out,
+[02:35:22] enquanto a pessoa estiver lá com a página carregada,
+[02:35:25] aí eu uso o recurso da máquina da pessoa,
+[02:35:28] porque o navegador usa recurso,
+[02:35:30] eu faço asções indesejadas dentro do portal,
+[02:35:36] tanto o portal não quer isso,
+[02:35:40] quanto a provavelmente a pessoa que está ali acessando também não quer.
+[02:35:43] Então, é todo mundo aqui que está sofrendo prejuízo, tá bem? É muito importante a gente ter essa questão.
+[02:35:54] Então, temos esses ataques. Claro que nós temos ali dois tipos de ataques, eu vou deixar de falar dos tipos na próxima aula para não...
+[02:36:07] Então, pronto, para a gente tentar focar só fazer essa introdução mesmo.
+[02:36:12] Tá, aí vem aí eu pergunto para vocês.
+[02:36:17] Eu vou jogar aqui para ver se vocês conseguem responder.
+[02:36:21] Como é que vocês tratariam esse erro?
+[02:36:25] Essa invasão?
+[02:36:26] Esse erro não, essa invasão.
+[02:36:27] Esse ataque.
+[02:36:28] Validação.
+[02:36:29] Você não quer de texto?
+[02:36:33] Validação.
+[02:36:34] Você não quer de texto?
+[02:36:35] Validação.
+[02:36:36] Me explica como você faz essa validação.
+[02:36:44] Se o texto chegar em determinados formatos,
+[02:36:49] na verdade, acho que faz menos sentido você fazer uma leitura,
+[02:36:54] por exemplo, da string que está chegando ali,
+[02:36:56] e faz mais sentido você, através desse campo, por exemplo,
+[02:37:00] que eu acho que esse era de pesquisa que você mostrou, né?
+[02:37:02] né? Você impedir que esse campo faça, por exemplo, chamadas em um boco de dados, não sei.
+[02:37:11] Parece a mais simples quando eu me propus a responder.
+[02:37:16] Não, não, não, não, não, não tem problema, por favor, por favor, se propõe a responder,
+[02:37:21] ok? Não, não, não tem erro. Você foi no caminho. Quero te dizer que você foi no
+[02:37:27] Vou chegar lá. Mas é porque o que acontece? Quando a gente está falando de front-end,
+[02:37:34] nesse caso específico, que é o HTML e o JavaScript, eu não tenho necessariamente
+[02:37:40] base dados. Então aqui não é minha preocupação detalhada e direto na base de dados.
+[02:37:47] Mas é outras preocupações. Aqui o ataque, muito provavelmente, vai ser para que o site,
+[02:37:56] o JavaScript, ele faz informações, ele corre informa...
+[02:38:01] Ele corre ali...
+[02:38:04] Como é que eu posso dizer?
+[02:38:05] Ele executa funções que ele não espera.
+[02:38:10] Eu faço um site de busca.
+[02:38:12] Pensa aqui comigo, eu sou o Google.
+[02:38:14] Eu sou o Google.
+[02:38:15] Eu só estou fazendo ali um buscador.
+[02:38:17] Eu quero que a pessoa digita
+[02:38:19] e eu quero arranquear os sites
+[02:38:23] daquele tipo de palavra-chave.
+[02:38:26] uma pessoa coisa bem básica.
+[02:38:28] Esse é meu site.
+[02:38:29] Esse é o propósito da minha aplicação.
+[02:38:31] O que que eu faço quando eu faço...
+[02:38:36] Quando eu injeto código, quando eu faço ingessão de script, o cross-site scripting.
+[02:38:43] O que que eu estou fazendo?
+[02:38:45] Na hora que... Na minha busca, igual você está vendo aqui,
+[02:38:50] um injeto, um código que vai mandar requisição para outra pessoa.
+[02:38:56] Ou eu vou recuperar o que eu vou fazer uma requicição me passando pela pessoa que está usando um portal.
+[02:39:02] Eu vou fazer uma autenticação. Então, assim, eu injeto lá dentro todo um código JavaScript, percebe?
+[02:39:10] E aqui que é o problema. Agora, você foi no mundo.
+[02:39:14] Às vezes, a gente não se prolongar muito, porque eu não quero avançar, não quero se prender o tempo,
+[02:39:20] mas é você trabalhar no texto, o que nós chamamos de você fazer escape, da string.
+[02:39:27] Eu tenho um código aqui, vou mostrar pra vocês já antes de qualquer coisa,
+[02:39:32] esse que é um código que eu andei fazendo, que eu ia trabalhar com vocês, a gente vai voltar nisso na próxima aula.
+[02:39:37] Que... Cadê? É aqui. É aqui. Olha só.
+[02:39:41] Eu não vou executar o código aqui, ok?
+[02:39:45] Para...
+[02:39:46] É, porque...
+[02:39:49] Pronto.
+[02:39:50] Não quero...
+[02:39:52] Olha só.
+[02:39:55] Se a gente observar aqui o nosso código...
+[02:39:57] Olha, eu quero que você se preste atenção nisso.
+[02:40:00] Tanto que a situação é bem no que você disse.
+[02:40:03] Aqui, eu estou pegando. Aqui é um testvo...
+[02:40:06] Aqui é um vulnerável.
+[02:40:08] Observe.
+[02:40:09] Está chegando a string.
+[02:40:11] E do jeito que a Strict está fazendo, eu estou concatenando com o meu JavaScript.
+[02:40:18] Aqui se aqui tiver a script, se aqui tiver a HTML, o que ver aqui eu vou estar sujando
+[02:40:24] o meu site, vai estar criando problemas no meu site.
+[02:40:29] Se isso aqui for para a base de dados, não vai ter nenhum problema na base de dados,
+[02:40:35] mas toda vez que ele carregar a página, ele vai estar injetando aqui script.html.
+[02:40:41] Percebe a questão?
+[02:40:43] Então o que eu preciso fazer?
+[02:40:45] É fazer o escape de HTML, de JavaScript e impedir que aquela informação seja colocada
+[02:40:54] com uma HTML.
+[02:40:55] Ela vai ser tratada como string, vai ser tratada como texto.
+[02:40:59] Ela tem que ser tratada como texto.
+[02:41:00] não pode ser tratada como um JavaScript, como HTML.
+[02:41:06] Esse é o ponto.
+[02:41:07] Ok?
+[02:41:08] Então aqui você foi bem no mundo, parabéns por isso.
+[02:41:12] Eu vou correr esse...
+[02:41:13] A primeira coisa que a gente vai fazer na próxima aula é correr esse código,
+[02:41:16] e eu vou mostrar para vocês como ele funciona.
+[02:41:18] Está aqui como já está bem avançada a aula,
+[02:41:21] eu não quero avançar muito.
+[02:41:23] Então, gente,
+[02:41:25] obrigado pela aula,
+[02:41:26] obrigado pela presença,
+[02:41:27] obrigado pelas participações,
+[02:41:28] obrigado pelas câmaras,
+[02:41:29] desligadas, peço que continuem nesse sentido, bom descanso, voltamos na próxima aula sexta-feira,
+[02:41:37] nesse debate aqui, falar sobre outros ataques, outras questões que a gente precisa ver,
+[02:41:43] nós temos aí uma agenda bem cheia para falar nas próximas aulas, tá? Então eu vou publicar lá
+[02:41:49] para vocês na NMS, o trabalho e o plano de aula. Quando vocês puderem acessa, façam download,
+[02:41:55] a gente tem que entender o que está por trás, acessem os links e vejam preparados para a próxima aula para a gente ter mais aula imaginando.
+[02:42:04] Então, mais uma vez, muito descanso e até sexta-feira.
+[02:42:08] Valeu, professor.
+[02:42:09] Valeu, professor. Até sexta-feira.
+[02:42:11] Obrigado.
+[02:42:12] Até sexta-feira.

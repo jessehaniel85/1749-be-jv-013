@@ -1,0 +1,1162 @@
+Transcrição automática — Aula 2 · turma 1749 · BE-JV-013 Fundamentos de segurança para aplicações · Sex 30/10/2026
+Fonte: gravação do Teams (início da gravação às 15h00, horário de Brasília; duração 2h56). Marcas [hh:mm:ss] = posição no vídeo.
+Instrutor: Hagamenon Nicolau de Oliveira (conta Teams "Educacional 07").
+Gerada com Whisper (modelo small, pt) em 05/11/2026. Erra nomes próprios e termos técnicos; trechos de silêncio foram pulados.
+Resumo correspondente: ../passagem-de-turma.md. Documento de coordenação — não vai para os alunos.
+
+[00:00:00] includei o kau-aula na combined eduacion Ons,reader,
+[00:00:05] qliatek for a Spirit ofシ
+[00:00:15] Olá, boa tarde a todos.
+[00:00:29] Boa tarde.
+[00:00:35] Os aguardar aí o resto do pessoal chegar e já já a gente vai em início.
+[00:02:05] Sexta-feira.
+[00:02:07] Sexta-feira, não bom dia.
+[00:04:05] Eu acho que podemos dar início e como o pessoal vai chegando, a gente vai pronto.
+[00:04:23] É isso, então vamos lá para mais uma aula continuar aqui com o nosso tema de segurança
+[00:04:29] e desenvolvimento.
+[00:04:30] Vocês devem estar a par deixando organizar aqui.
+[00:04:34] Eu só para termos de conhecimento, eu deixei...
+[00:04:41] Obrigado pessoal, primeiro vamos abrir as câmaras para quem pode, é verdade.
+[00:04:45] E eu vejo que já tem algumas vezes com a câmera ligada, vamos ter assim, agradeço.
+[00:04:51] Eu deixei lá disponível para vocês o fazerem download do plano de aula e do projeto.
+[00:04:58] A gente vai falar ainda mais um pouco do projeto meio da aula para frente.
+[00:05:04] Então eu devo meu plano é quebrar vocês em uma sala de aulas e meio que começar a montar
+[00:05:10] os grupos.
+[00:05:11] Então vocês começarem a pensar no projeto e a gente já dá a iniciar esse trabalho,
+[00:05:16] o projeto que vocês precisam implementar.
+[00:05:18] Mas pronto, está tudo lá na pasta geral.
+[00:05:24] o pasta geral no curso de vocês na plataforma do LMS.
+[00:05:32] Então, por favor, quem puder já pode ir lá e visitar,
+[00:05:36] ser simples para todos, você consegue fazer download.
+[00:05:38] Tem lá o UMD, então API, para vocês com a especificação,
+[00:05:43] para vocês desenvolverem.
+[00:05:44] E é um PDF, que é o plano de ensino, tudo aquilo que a gente falou
+[00:05:48] na nossa primeira aula.
+[00:05:50] Tá bem. Então voltando aqui, a gente teve uma primeira interação muito bacana na parte
+[00:05:57] feira falando sobre segurança. E eu gostaria então de avançar, nós ficamos no caminho
+[00:06:06] com o material, né? O tipo de ataque a gente estava estudando, eu vou partilhar a tela
+[00:06:14] aqui. Então eu cometei com vocês que inclusive era aqui essa plataforma lá nos
+[00:06:24] tem uma plataforma de game que nos ajuda a fazer vários tipos de ataques da prêmio
+[00:06:29] é simular vários tipos de ataques a linda não explica como a tele funciona e aqui
+[00:06:34] você vai subindo mas pronto aqui o que nós estudamos que a gente começou a ver
+[00:06:42] Alexandre, tamo aqui...
+[00:06:50] powder, não é...
+[00:07:10] Para vocês changos que a melhorada não ㅋㅋㅋ
+[00:07:22] Cuidados com shutdown
+[00:07:34] Pronto, desculpe lá, é só que eu tava aqui com tanta coisa aberta.
+[00:07:49] Já está.
+[00:07:54] Pronto, então nós estávamos aqui vendo...
+[00:08:02] fazendo esse cross-site script, que é o tal do XSS, que é nada menos do que quando a gente não trata
+[00:08:11] o HTML e o código. E aí o que que acontece é que isso inserido no... quando isso não trata
+[00:08:24] e como já o script roda no navegador, a gente lheu aqui, o que ele faz, ele coloca...
+[00:08:32] Pronto, temos aqui até um exemplo.
+[00:08:34] Isso aqui é um script.
+[00:08:36] E com isso não é tratado, ele entende que isso é um código e corre dentro do código.
+[00:08:41] Eu queria mostrar aqui para vocês o código que eu tenho.
+[00:08:51] É isso aqui. Eu preparei para mostrar para vocês.
+[00:08:54] Esse aqui é um código muito simples, mas é mais ou menos a ideia do que é o que é.
+[00:09:00] quando nós não existe um tratamento, a gente está recebendo uma string e essa string
+[00:09:06] está sendo ali para algum motivo, está sendo cocatelada com nossa HTML.
+[00:09:10] Imagine que você é um blog e você vai inserir um comentário, como você vai escrever um
+[00:09:18] comentário e vai submetendo um comentário, é uma qualificação, você vai qualificar
+[00:09:22] alguma coisa, vai inserir um produto, pode ser qualquer coisa.
+[00:09:26] A questão é você vai inserir um stringer,
+[00:09:29] é que você insere uma stringer ali no texto.
+[00:09:31] Só que em vez de você passar um texto,
+[00:09:33] você vai passar um código de HTML ou um código JavaScript.
+[00:09:36] E se isso não estiver tratado,
+[00:09:38] ele vai entender que aquilo é um...
+[00:09:43] parte do seu código
+[00:09:45] e vai executar como se fosse o código do próprio site.
+[00:09:48] Deixa eu mostrar aqui para vocês.
+[00:09:50] Eu tenho aqui...
+[00:09:52] Esse nosso código está aqui.
+[00:09:54] Deixe eu ver aqui. Ele já está a correr.
+[00:10:04] Busca. Então, será que é essa? Busca.
+[00:10:12] Acho que eu estarei testando aqui. Acho que isso aqui já está aqui. Isso mesmo.
+[00:10:16] Pronto, aqui é até um exemplo. Exatamente o que eu busco. Vou tirar a segura.
+[00:10:21] E pronto, isso aqui é um ambiente XSS, né?
+[00:10:28] Ou seja, eu estou fazendo um ataque de cross-site script, né?
+[00:10:35] Então, que é o que eu estou fazendo, estou injetando o script malicioso e também serve de HTML.
+[00:10:43] o cng e a cng ataque onde a temel agora o que a gente faz aqui o seguro né e vocês observam
+[00:10:52] que já não aconteceu ele já não entendeu que você quer um ataque script né o ataque dele não
+[00:10:59] foi realizado o que aconteceu aqui vocês vocês entenderam o que eu fiz é fazer um escape do
+[00:11:05] É só isso. Então, claro, que é...
+[00:11:09] Me imagina que esse nosso cenário é muito entre aspas bobo, que é só uma alerta,
+[00:11:15] dizendo que eu não injetei qualquer coisa, não saio também algum muito simples.
+[00:11:18] Mas imagina que eu posso inserir ali um comentário, um script.
+[00:11:27] Toda vez que ele carrega, ele vai capturar o Tolkien, e vai me enviar o Tolkien do usuário,
+[00:11:31] e eu consigo ali com toque e simular que eu sou uma pessoal autenticada.
+[00:11:35] Ou posso lá recuperar no GED, no header, uma pessoal autenticada,
+[00:11:39] e ele faz um post para um outro site enviando para um lugar, enfim.
+[00:11:44] Vou dar aqui um exemplo.
+[00:11:46] Mas ou eu posso simular até uma questão de ataque de ADLS.
+[00:11:50] Imagina que eu tenho lá 100 blogs que estão ali com cross-site, com cross-site scripting,
+[00:11:58] que eu tenho ali um get no site qualquer,
+[00:12:02] até toda vez que alguém entra,
+[00:12:04] ele vai ficar fazendo requisição para esse outro site.
+[00:12:06] Isso é um exemplo de um ataque de da S que a gente vai vir daqui a pouco,
+[00:12:10] que é esse negação do serviço.
+[00:12:12] Mas só para vocês entenderem,
+[00:12:15] um tipo de ataque muito simples,
+[00:12:17] que ele é muito facilmente resolvido,
+[00:12:20] que é esse...
+[00:12:22] E esse inject,
+[00:12:24] esse inject a gente vai perceber que tem vários tipos
+[00:12:27] de você injetar alguma coisa. Outra coisa muito famosa, eu não sei se vocês conhecem,
+[00:12:33] o Skelenject. O Skelenject é um outro tipo de ataque, na hora que eu vou inserir alguma
+[00:12:43] coisa, pensem que eu vou fazer uma autenticação. Eu estou ali, login, ensenha, onde ele tem
+[00:12:52] fazer, fazer match, verificar, assistir o meu login, a minha password, ela coincide com
+[00:12:59] o que está na base de dados.
+[00:13:01] Só que ao invés de eu tratar e não deixar ali que tenha qualquer tipo de código HTML,
+[00:13:08] se for, por exemplo, se for JPA, isso já está tratado.
+[00:13:12] Qualquer, se você usar direto do JPA ou a especificação, ou usar o Spring JPA, Spring
+[00:13:19] Data, isso já está resolvido.
+[00:13:20] Vamos dizer que você tem uma aplicação mais simples e você quer usar o JDBC simples,
+[00:13:26] né, fazer toda a estrutura por você mesmo.
+[00:13:29] Se você não usa o Prepareded Stainment e simplesmente pega o que está vindo lá de login
+[00:13:36] semia e tenta fazer o match daquilo, ele pode colocar ali um comando SQL e ele vai
+[00:13:45] estar correndo esse comando SQL no seu base de dados.
+[00:13:49] E aí, você dá autorização para aquele...
+[00:13:52] Ele pode, por exemplo, dar autorização para algum tipo de usuário,
+[00:13:55] inserir um novo usuário na sua base de dados,
+[00:13:58] permitindo que uma pessoa de fora consiga acessar...
+[00:14:00] Enfim, percebam que nós temos que...
+[00:14:03] Vocês têm... É muito importante vocês perceberem
+[00:14:06] que todo tipo de ataque é possível,
+[00:14:08] e você pode ter supo que existe o pior cenário.
+[00:14:11] Então, as pessoas vão tentar inserir ali um...
+[00:14:14] Diga lá, Brigê, pode falar.
+[00:14:16] Não é só que, você falou do SQL injection, isso é uma dúvida que eu tinha.
+[00:14:22] Como é que eles conseguem, por exemplo, num campo de input, de texto?
+[00:14:27] Como que se eles passarem um query, como que o sistema entende que isso é um query?
+[00:14:32] E não for um texto qualquer?
+[00:14:34] Então, se você está trabalhando com o preparado, se você está com algum tipo de tratamento disso,
+[00:14:40] tipo, preparado de sentimentos, é uma exemplo que eu não tenho nada pronto para te mostrar.
+[00:14:45] O que eu posso, o que eu não vim preparado para falar, para sobre,
+[00:14:50] para ficar com um ataque de Skelethject.
+[00:14:52] Mas o que eu posso, uma ideia, uma demonstração que eu posso fazer aqui só de comunidade,
+[00:14:58] é, pronto, você tem uma Skeleth, select,
+[00:15:03] eu estou dando exemplo, select Asteris, do From, Scam, ponto, table.
+[00:15:10] Isso aqui é um exemplo simples de um select.
+[00:15:16] Mas aí você está querendo aqui fazer um...
+[00:15:23] Por exemplo, o keffos é uma autenticação.
+[00:15:25] Então provavelmente você vai ter aqui um exemplo.
+[00:15:28] Seramente vai ser assim.
+[00:15:30] Mas você select account.username
+[00:15:38] e peço, acho que é só username.
+[00:15:43] E aqui o que você vai fazer? Você vai fazer o er,
+[00:15:46] a ponto username igual.
+[00:15:51] E aqui é onde acontece o ataque.
+[00:15:54] Você vem aqui e você vai colocar aqui uma string,
+[00:16:01] onde você vai concatenar aqui direto.
+[00:16:05] o username, uma variável username.
+[00:16:13] E aí você fecha aqui.
+[00:16:15] Aí pronto, a gente pode fazer isso aqui direto.
+[00:16:18] Só um exemplo,
+[00:16:20] mas acho que eu vou conseguir explicar aqui o que eu quero explicar.
+[00:16:25] Está aqui, chama teste.
+[00:16:27] Pronto, acho que eu vou conseguir explicar isso.
+[00:16:33] Aí aqui eu vou ter um string username, username, e and pass, não sei, vou colocar é,
+[00:16:49] .pass igual a aqui vai ter uma coisa assim.
+[00:16:58] Coisa assim.
+[00:17:00] Isso aí.
+[00:17:03] Aí aqui pass.
+[00:17:07] Ah, é só um exemplo mesmo, só pra gente entender o que eu quero dizer,
+[00:17:21] por exemplo, vamos ter que ser que eu vou correr isso aqui no banco, né?
+[00:17:26] Acho que não tá bem não, tem que ver coisa que não tá bem, fecha, passa, abre.
+[00:17:35] Acho que é o return, não?
+[00:17:37] Você não colocou?
+[00:17:39] Ok, pronto. Eu vou colocar aqui void.
+[00:17:42] Deve ser. Não, não.
+[00:17:45] É o return na glia.
+[00:17:47] Ah, o 33SKL.
+[00:17:50] Pronto.
+[00:17:54] É você que tem isso aqui. Só que em vez de você trazer o seu username real,
+[00:17:58] você vai pular o seu username, sua password,
+[00:18:02] com o comando SQL, e você pode mandar alguma coisa assim, meio que fechando alguma coisa,
+[00:18:09] fechando a...
+[00:18:11] Abre aqui, aí você fecha o Aspas, porque, por exemplo, aqui nos engenharia o Aspas,
+[00:18:19] Você vai colocar aqui, and igual a um...
+[00:18:31] Alguma coisa assim.
+[00:18:34] De forma que ele vai interpretar aqui a sua query,
+[00:18:40] or, ou seja, ele vai ser aqui o or, um exemplo básico.
+[00:18:47] mas ele está ensinando aqui que ele vai te autenticar.
+[00:18:50] Ele vai perguntar se vai ter o username, and password, or isso aqui,
+[00:18:57] ou seja, verdadeiro igual verdadeiro, você está autenticado.
+[00:19:00] Tem alguma coisa nesse sentido.
+[00:19:02] Então, por isso você tem que fazer o escape do SQL.
+[00:19:06] Então, como se trata isso, as ferramentas já estão todas aí preparadas.
+[00:19:10] Hoje é muito difícil você fazer SQL Injection.
+[00:19:15] muito difícil, porque se você usa o JPA, se você usa o Preparedestatement, isso já está resolvido.
+[00:19:22] É mesmo se você for fazer um site, um projeto, uma aplicação muito, muito simples, e você pensar
+[00:19:32] não vou usar nada disso, porque algo realmente muito simples, eu só quero, não sei, um login, uma senha,
+[00:19:37] não sei, aí é um blog. Então, eu vou fazer alguma coisa, não vou usar aqui nem JPA,
+[00:19:42] spring, você tudo mesmo puro, Java puro. Então, cuidado. Se você procurar saber, pronto,
+[00:19:52] se você vai usar jdbc, tem a inconsciência que você vai ter que usar o preparador de
+[00:19:58] sentimento, que ali você tem como fazer escape e ler e ser injetar um SQL, não vai funcionar,
+[00:20:05] porque ele vai tratar a string como uma string e não entrar como um comando SQL. Tá? É mesmo um
+[00:20:12] um exemplo eu respondi veja mim respondi respondeu
+[00:20:17] não entendi boa boa boa boa aqui é um exemplo muito bobo mas é mais ou menos
+[00:20:22] assim tá você consegue colocar ali um war true true e ele te autentica
+[00:20:29] né mais ou menos isso mas pronto deixa ver aqui e temos como eu disse nós temos
+[00:20:36] esses tipos de você fazer injeção de coisas então por isso que é muito
+[00:20:40] importante você está preparado para isso e parte do preso que pode acontecer. Então
+[00:20:46] o seu projeto tem que ter pelo menos ali tratamento para a SQL Inject, tratamento para a XSS. Agora
+[00:20:53] nós temos, eu vou entrar aqui agora no outro tipo de ataque que é o Cross-site Request
+[00:21:02] Foreign Key. Esse não tem um código porque ele é um pouquinho mais complexo de fazer.
+[00:21:08] Eu pensei que eu tinha até aqui um portal que estava aberto com ele.
+[00:21:13] É isso aqui.
+[00:21:15] Eu estava pensando em como eu poderia fazer o teste para vocês, mas eu não consegui achar que nada assim tão trivial.
+[00:21:25] Porque hoje é também...
+[00:21:27] Não são ataques que é possível, que a gente está preocupado, mas isso é muito fácil de você configurar.
+[00:21:32] por exemplo, o Spring vem por default, vem de forma, vem enabled por default. Então,
+[00:21:43] para você sofrer um ataque de CSRF, você tem que lá deliberadamente colocar falso. Você tem
+[00:21:54] que desativar esse tratamento. Vamos ver o que é isso, mas para vocês entenderem que
+[00:21:59] esse tipo de ataque, a gente já está...
+[00:22:01] Diariamente não é por aqui que acontece os ataques.
+[00:22:03] Bom, a gente tem que comentar eles, é importante.
+[00:22:05] Mas vamos lá, vamos entender o que é isso.
+[00:22:08] O que é o cross-site quest foreign.
+[00:22:11] Eu deixei na documentação lá para vocês acessarem.
+[00:22:14] Eu vou jogar isso aqui no...
+[00:22:20] Esse site aqui, para vocês.
+[00:22:23] e chate
+[00:22:33] vocês dariam a nada, não sei se vocês tem acesso aí na caixa, nesse link, se tem ali
+[00:22:38] qualquer coisa, mas pronto, tentem, tentem se for possível, pronto, mas vamos lá, vamos ver o
+[00:22:45] que é esse tipo de ataque e o que a gente consegue, que esse aqui ele é um pouquinho mais
+[00:22:49] é um ataque que engana o usuário autenticado. Eu cometei com você isso no que o cross-site,
+[00:22:58] esse script cross-site você conseguir ali, pegar o Tolkien, pegar o Cook e aqui é para
+[00:23:09] isso o propósito. Pensa o seguinte, você é um usuário autenticado e você está lá no site,
+[00:23:18] no portal, né? Aí você executa uma ação desejada em uma aplicação, né? Sem que você,
+[00:23:26] você que está usando perceba, né? O invasor não precisa roubar a senha, não vou roubar
+[00:23:31] seu login, sua senha. O que eu vou fazer é manipular a sua sessão, ok? Deixa... pensa,
+[00:23:40] pensa... eu tenho aqui um exemplo, pensa que você faz login no banco, você vai lá e faz login no seu banco.
+[00:23:46] e você abre o e-mail, um e-mail qualquer que tenha um link malicioso,
+[00:23:53] tem ali um link que vai fazer o ataque de cross-site request foring.
+[00:24:05] Você vai ter ali um get, um post, injetado ali dentro do link, da figura,
+[00:24:12] do ali dentro na hora que você clica, ele vai fazer uma request.
+[00:24:17] Aí o que acontece?
+[00:24:18] A página dispara uma requisição, probando que você está logado.
+[00:24:22] Então, se você já tem um login salvo ali, você já tem uma sessão cook,
+[00:24:27] você já tem um authorization code que está ali na sua sessão,
+[00:24:32] eu recupero essa informação e com essa informação salva,
+[00:24:36] eu faço uma request, uma alteração, um PUT, um POST, até um GET,
+[00:24:42] eu posso fazer até um get usando esses dados que você tem na sua sessão.
+[00:24:48] O banco acha que é você que está fazendo alteração, que é você que está realizando isso.
+[00:24:54] Não é uma pessoa mal intencionada, porque ele está roubando o seu, ele está fazendo uso da sua sessão ativa.
+[00:25:01] Se você conseguir entender aqui a dinâmica, por favor, que não está ficando clara, pergunte, porque isso é muito importante.
+[00:25:09] É, é, então assim, imagina, eu abri aqui uma sessão, imagina que você está no seu banco,
+[00:25:17] banco Lex Code, sei lá, e imagina que você recebeu o e-mail que vai ter lá, Lex Code, alguma coisa assim,
+[00:25:30] bank.
+[00:25:32] E imagina que você tem lá a operação PIX,
+[00:25:38] eu estou dando um exemplo claro.
+[00:25:40] E aqui você vai ter um CC,
+[00:25:46] por exemplo, valor 100.
+[00:25:50] Alguma coisa assim, claro. Não é tão simples assim,
+[00:25:52] é óbvio que você precisa de mais questões para autorizar,
+[00:25:56] mas aqui você pode estar fazendo um...
+[00:25:58] que pode ser até mais simples, pode ser até coisa menos, até mais básica, fazer um put onde eu altero
+[00:26:05] o seu usuário, o seu email. Se você tem nosso email eu quero fazer um put para inserir um email que não seja o seu,
+[00:26:12] quero inserir o teu email, fazer um put na sua conta, um exemplo, né? Então assim, aqui no caso eu estou usando
+[00:26:21] um get, né? Mas isso pode ser um post, você pode ter lá um post inserido no seu código
+[00:26:30] no momento que você chama lá no seu e-mail no momento que você é administrado por um
+[00:26:36] site e esse site você pode ir fazer um get para um site e nesse site você, por exemplo,
+[00:26:43] tem um post. Então, a questão é o seguinte, quem é importante que vocês entenderem, né?
+[00:26:50] vai ter uma sessão salva que você clica no link malicioso no botão banner e ali você
+[00:26:58] vai ser direto, você vai ser adicionado para um portal válido com a sua senha, com
+[00:27:03] seu token, né, com sua sessão válida, ele tenta fazer uso da sua sessão para poder
+[00:27:09] fazer uma request para o servidor. Mas aí, é tão simples fazer isso? Não, porque?
+[00:27:16] E a sessão hoje, quando você ativa a proteção de CSRF, você fica com uma string.
+[00:27:26] Eu estive a tentar procurar isso, por exemplo, aqui no site da ADA, provavelmente isso aqui
+[00:27:35] deve ter.
+[00:27:36] Eu estiver a procurar para eu deixar em uma sessão exemplo, talvez eu possa trazer depois
+[00:27:40] isso.
+[00:27:41] mas ele cria um quando você ativa isso e fica em neighborhood
+[00:27:47] Não significa que ainda não tenha proteção, ok?
+[00:28:08] Isso não precisa estar necessariamente no HTML para ser protecente.
+[00:28:13] Geralmente está, normalmente você tem ali uma tag token CSRF, que é ali um hash, que
+[00:28:21] ali é uma string aleatória que é conhecida pelo servidor, e ali ele valida se você
+[00:28:29] é uma reacquisição válida.
+[00:28:31] Então, ou seja, é uma string aleatória que é conhecida apenas pelo navegador do usuário
+[00:28:37] pela aplicação.
+[00:28:38] Então ele é enviado em toda a reacquisição que altera o estado.
+[00:28:42] você vai fazer um post, um post, você vai passar o CRS na request.
+[00:28:48] É esse token válido e aí ele vai validar se é que ele é válido.
+[00:28:52] O satchel invasor não consegue adivinhar esse token,
+[00:28:57] ele não é público, ele não é conhecido,
+[00:28:59] ele está ali entre o navegador e o servidor,
+[00:29:03] então ele não consegue forjar isso, ele não consegue forjar esse token.
+[00:29:08] Então, por isso que é uma proteção até muito válida.
+[00:29:11] Você também tem uma proteção do QQ que você pode configurar o QQ que eu falo é pronto, vocês...
+[00:29:26] Vou mostrar isso, vou mostrar isso que eu quero.
+[00:29:33] Não é no application, não? Que ele mostra?
+[00:29:35] Eu estava querendo abrir aqui, é aquela visão da lateral aqui na vertical, eu não gosto.
+[00:29:43] Era aqui que eu queria mostrar, mas pronto, aqui você tem toda a questão de cúquios e de validações.
+[00:29:49] E a gente pode mostrar aqui.
+[00:29:56] aqui aqui são algumas questões de segurança que tudo é segurança
+[00:30:02] isso aqui tudo que está sendo aqui ó cross-site
+[00:30:07] que acertar as informações então aqui você tem já isso aqui é tudo você faz esse set
+[00:30:15] do seu header da sua aplicação e ali você tem ali uma série de proteções ativadas
+[00:30:24] que vai impedir vários tipos de ataques na sua aplicação.
+[00:30:28] Pra casa aqui eu não tenho ele disponível, tá visível.
+[00:30:32] Deixa eu ver aqui.
+[00:30:39] É, não, não tenho.
+[00:30:42] Deixa eu ver aqui.
+[00:30:44] Então na minha application ele normalmente mostra o que ele registrou do site aí.
+[00:30:50] Aí ele tem os stories aí.
+[00:30:52] É isso que eu estava procurando, é verdade.
+[00:30:57] Então aqui nós temos, enfim, uma série de cookies, isso é o que ele acaba capturando.
+[00:31:04] Então é mesmo uma forma de você ter as suas informações alteradas sem perceber.
+[00:31:15] O outro tipo de ataque conhecido, esse realmente é muito conhecido porque ele é muito usado, é o DDOS, que é o Deny of Service.
+[00:31:27] O Deny of Service é a ideia de que você tire o sistema do ar, ele se torna indisponível.
+[00:31:33] Eu tenho aqui só uma coisa que você está bom para ver, é escuro, digamos lá.
+[00:31:41] É porque só para comentar aqui, eu também, esse eu tenho aqui uma proteção,
+[00:31:49] vamos a gente falar sobre ela daqui a pouco, mas pronto.
+[00:31:52] E qual que é a ideia disso que seja essa proteção?
+[00:31:55] Mas pronto, quando a gente fala de negação,
+[00:31:59] ataque de negação de serviço, é a ideia de o invasor tentar derrubar o sobrecargar
+[00:32:07] aplicação, né? Para que os demais usuários não consigam usá-la. Lembra-se que eu falei
+[00:32:13] pra vocês que um dos pilares da segurança era a disponibilidade? Então, os ataques eu deixaram
+[00:32:20] o serviço indisponível. É só uma curiosidade, né? Que é bem, eu sei que é bem out of box,
+[00:32:29] nada a ver que o primeiro ataque de DSE que se tem conhecimento foi em 1974,
+[00:32:35] foi um garoto de 13 anos que acabou escrevendo um comando, né, e forçou
+[00:32:41] vários computadores a se desligarem. Então, estava todo mundo usando,
+[00:32:48] aquela questão de terminal, né, bulgo, que a gente chama de terminal bulgo, que era
+[00:32:52] você tem um central que comanda várias máquinas ligadas e ele
+[00:32:58] Então, soltou o comando e saiu desligando todas as máquinas,
+[00:33:01] as máquinas internárias e inacessíveis.
+[00:33:02] Isso é uma forma, é um DDoS,
+[00:33:05] o primeiro que se tem conhecimento, né?
+[00:33:08] Então, a ideia é que o invasor sobrecarrega a aplicação
+[00:33:12] com mais aquisições do que ele...
+[00:33:14] E aí, a aplicação não consegue atender.
+[00:33:16] Vamos dizer que eu tenho... Pronto, a minha aplicação,
+[00:33:20] eu tenho um servidor disponível,
+[00:33:22] e ali eu consigo manter 100 mil requisições simultâneas.
+[00:33:27] eu faço 200 mil requisições, ou milhão de requisições.
+[00:33:30] E é tanta requisição chegando e eu passo a não conseguir responder cada uma delas,
+[00:33:35] eu vou criando uma fila de resposta,
+[00:33:37] em determinado momento eu simplesmente paro de entregar a minha aplicação,
+[00:33:40] meu serviço para que você entregue.
+[00:33:44] Uma outra forma, isso é a forma mais conhecida de ataque,
+[00:33:49] mas outra forma é quando o invasor viu uma entrada que...
+[00:33:53] é tentar derrubar o próprio servidor.
+[00:33:56] Qual forma é eu tentar atacar ali com vários acessos.
+[00:34:01] Mas isso, sinceramente, é só quando eu falo que o theDenialService,
+[00:34:06] theDenialService, o DDoS, é eu realmente deixar o serviço disponível.
+[00:34:10] Então, se eu derrubo o serviço de alguma forma,
+[00:34:14] derrubo as imagens, eu deixo as imagens disponíveis,
+[00:34:17] o servidor é atacado e aquilo é um tipo de DDoS.
+[00:34:21] Não seramente só isso, inclusive esse de ataque de massa,
+[00:34:28] de tentar derrubar por requisição, era chamado de inundação,
+[00:34:33] fluido e ataque.
+[00:34:35] E você tem um outro tipo, outra categoria, que é crash attack,
+[00:34:39] que é você realmente derrubar o serviço, deixar o serviço disponível.
+[00:34:43] Ok?
+[00:34:45] Pronto, é só mesmo aqui alguma... E questão.
+[00:34:49] Então, nós temos a nossa aplicação.
+[00:34:52] Ela é...
+[00:34:54] Nós estamos deixando a nossa aplicação disponível.
+[00:34:58] Estamos sofrendo ataque e a nossa aplicação fica disponível.
+[00:35:01] Como eu me protejo disso?
+[00:35:04] Essa é a pergunta que a gente tem que se fazer.
+[00:35:08] Nós temos várias formas, podemos configurar um trotlinho,
+[00:35:11] podemos... A nossa aplicação aqui, eu vou mostrar para vocês,
+[00:35:15] não é isso que eu queria.
+[00:35:17] Aqui nós temos uma configuração do Spring que é o Hate Limiter do Resilience4j,
+[00:35:33] que ele nos ajuda a definir a quantidade de requisições que eu quero.
+[00:35:37] E aqui eu paro de entregar, eu bloqueio aquela entrega,
+[00:35:42] A partir do momento que aquela pessoa começa a pedir muita requisição,
+[00:35:46] que explode essas requisições.
+[00:35:48] Para mostrar isso, eu tenho que fazer aqui o hate limiter aqui.
+[00:35:54] Eu defini esse nome, Alunoservice, aqui.
+[00:35:57] E aqui eu defini aqui a minha configuração.
+[00:36:01] Alunoservice.
+[00:36:03] Então, se eu vim aqui buscar seguro, só para vocês,
+[00:36:12] Não, ok, porque não está mostrando...
+[00:36:22] Ah não, é busca segura, não é isso que eu queria não.
+[00:36:30] É alunos, alunos.
+[00:36:34] Sempre que eu falei busca segura, viajei.
+[00:36:38] Então, temos aqui, se eu tentar de novo, ele dá um erro.
+[00:36:42] Se eu esperar aquele tempo que eu configurei lá, pronto.
+[00:36:47] Aí eu pergunto para vocês, isso é suficiente?
+[00:36:50] O que vocês acham?
+[00:36:51] Eu configurar aqui um Hate Limite, vamos ver que nós estamos aqui na aplicação,
+[00:36:57] num grupo que estamos definindo a arquitetura do nosso projeto.
+[00:37:02] E estamos definindo a segurança.
+[00:37:04] E pronto, acabei de mostrar aqui para vocês
+[00:37:07] que nosso site agora está seguro.
+[00:37:09] Primeira pergunta que eu pergunto para vocês.
+[00:37:12] O site está seguro?
+[00:37:13] E só isso aqui é suficiente?
+[00:37:15] Evitar um DDoS?
+[00:37:17] Agora eu...
+[00:37:20] Só com esse hate limit, com essa configuração que eu deixei aqui.
+[00:37:26] Isso vai proteger o nosso site de DDoS?
+[00:37:29] O que vocês acham?
+[00:37:31] E aí
+[00:37:37] É isso, é o suficiente porque de qualquer maneira as requisições ainda vão chegar
+[00:37:41] Não vão ser processadas
+[00:37:43] Boa
+[00:37:45] É, estamos, é isso mesmo, quem foi que disse? Eu não vi quem foi que falou?
+[00:37:50] Eu, o Diego
+[00:37:53] Diego, boa Diego, é isso mesmo, é isso mesmo
+[00:37:56] É porque ele tá no nosso servidor, ele tá na nossa aplicação
+[00:38:00] A aplicação, nós temos aqui uma certa, eu já tenho uma certa aqui, proteção, e é interessante que isso,
+[00:38:08] é importante que isso seja configurado, mas, mas não realmente é, é como digo falou, ele já está na nossa aplicação,
+[00:38:19] então aqui ele, ele pode ainda colocar toda aquela massa de zumbiço para atacar nosso, nosso site,
+[00:38:26] e ele vai em algum momento realmente continuar disponível.
+[00:38:29] Então, volta a pergunta, o que vocês acham?
+[00:38:32] Como que a gente pode resolver isso?
+[00:38:35] Alguém tem alguma sugestão?
+[00:38:37] Pode nos ajudar, o que vocês fariam?
+[00:38:42] Implementar alguma solução da Cloudflare,
+[00:38:46] que eu já vi no slide passado ali.
+[00:38:47] Pronto, você slide a decola, né?
+[00:38:49] Eu já mostrei spoiler.
+[00:38:51] É, pronto.
+[00:38:52] o cloud, mas antes de isso, o cloud é a última solução, a última camada.
+[00:38:57] Aqui se eu mostrar aqui pra vocês, eu vou, não era pra você
+[00:39:00] checar no slide, eu tava aqui.
+[00:39:02] Por que aqui tá o o internet, o cloud flyer, ele
+[00:39:07] ele é a primeira camada, mas isso pode ser pode vir dentro do
+[00:39:10] N, do N, dynx, N, dynx, na ex, os caras vão falar,
+[00:39:16] N, eu conheço como Nx, que ele também é lico,
+[00:39:21] ou um H-proxy. Você pode colocar um H-proxy antes, você pode ter que o Cloudflare,
+[00:39:27] e depois o Cloudflare você coloca um H-proxy, e ali você também faz o
+[00:39:31] você configura ali um proxy reverso, que você define a quantidade de acesso
+[00:39:37] daquele P. E a partir de 200 acessos daquele P, você bloqueia aquele P.
+[00:39:44] Então você tem a Cloudflare, que já tem várias configurações aqui feitas,
+[00:39:50] Então ela é uma camada e você pode fazer outras camadas de segurança.
+[00:39:56] Mas e o que é importante é que essa e aqui que eu quero deixar para vocês é que essa camada seja feita antes de chegar na nossa aplicação.
+[00:40:04] Porque se chegar na nossa aplicação você vai ter o negação de serviço na mesma.
+[00:40:08] Então por isso que aqui essa essa estrutura de camadas a gente vai ter internet que é o que está público.
+[00:40:15] Aí nós vamos ser a primeira camática,
+[00:40:17] o Cloudflare, que é o primeiro nível de bloqueio.
+[00:40:20] Aí você vai ter o Nginx, que ele é
+[00:40:22] nosso servidor de aplicação,
+[00:40:25] que vai no nosso servidor web,
+[00:40:27] que ele nós podemos fazer também,
+[00:40:29] fazer algumas configurações.
+[00:40:30] E pronto, aí vamos para dentro da nossa aplicação.
+[00:40:33] E aqui é o nível mais básico,
+[00:40:36] e aqui é o que deve estar protegido.
+[00:40:38] A gente tem que garantir que nesse nível,
+[00:40:40] a gente não tem nenhum tipo de ataque.
+[00:40:43] E para vocês entenderem um pouco aqui,
+[00:40:45] eu coloquei aqui o, mais ou menos, o que o CodeFlyer faz, que é meio que filtrar esses
+[00:40:52] códigos maliciosos aí.
+[00:40:55] Quando ele vê que é um ataque ou uma pessoa que está demasiado ataxa, muitas sequestras
+[00:41:01] ele bloqueia antes de chegar na nossa aplicação, antes de chegar na nossa estrutura.
+[00:41:07] E aqui é o caminho, e quando é um legítimo ele percebe que é uma pessoa de verdade, não
+[00:41:12] está vindo de um ataque e pronto ele caminha pro VPS, pro servidor pra máquina virtual
+[00:41:20] e o caminho segue, né? Eu tinha que montar a figura também que eu acabei não colocando.
+[00:41:26] Deixa eu ver o que eu acho. Deixa eu ver o que isso é.
+[00:41:42] 快o.
+[00:41:51] O mais por cabelha...
+[00:42:08] aqui.
+[00:42:09] Volta aqui, solta aqui.
+[00:42:15] Ah, era isso aqui, vamos estar pronto.
+[00:42:19] Eu não acabei não colocando essa figura, foi não vi.
+[00:42:23] Mas aqui, essa aqui é uma outra forma também que é você fazer o load balance aqui de novo,
+[00:42:28] que é na mesma.
+[00:42:29] O load balance ele acaba também não protegendo, que o load balance ele é para uma outra proposta.
+[00:42:36] que vem a internet e que vem o load balance e é que é ele mandar para os dois
+[00:42:40] porque de novo se a gente
+[00:42:42] e aqui é onde eu que a gente começa a debater o raciocínio, né?
+[00:42:48] Se o nosso site não está aguentando a requisição, as requisições legítimas,
+[00:42:53] por exemplo, temos 100 mil
+[00:42:56] reesquisições e não conseguimos levantar mais instâncias e configurar
+[00:43:02] um instituto load balancer que ele vai conseguir mandar,
+[00:43:06] dividir essas exições, organizar essas exições
+[00:43:09] de forma que você consiga ter escalados mentalmente
+[00:43:14] e você consiga mandar essas exições
+[00:43:16] para outras réplicas da sua aplicação.
+[00:43:20] Só que quando se trata de DDoS,
+[00:43:23] em algum momento ele vai derrubar seu serviço.
+[00:43:25] Você pode ir escalando, você percebe que se for ambiente docker
+[00:43:29] com o Bernat, você começa a escalando seus serviços, você começa a apresentar
+[00:43:34] mais em algum momento aquele não é suficiente, em algum momento seu sistema vai abaixo,
+[00:43:38] né, porque todos, por mais que você escala horizontalmente a sua estrutura
+[00:43:43] vertical não dá conta, ele acaba deulando mesmo o seu serviço, por isso que isso tem
+[00:43:49] que ser bloqueado antes de chegar na sua estrutura, ok?
+[00:43:53] Eu tenho aqui uma última questão que é só mesmo que existem desses três níveis de
+[00:44:05] bloqueio, que eu deixei aqui, que é o tecnologia, que você consegue proteger o formal BPS,
+[00:44:12] coloquei a traffic when chegando no Hproxy, você vê que eu coloquei aqui uma hierarquia
+[00:44:18] o Hproxy, bloqueia pedidos antes de chegar no Spring Boot e o Cloudfire,
+[00:44:24] ele bloqueia a traficação antes de chegar na infraestrutura de sua VPS.
+[00:44:28] Então você tem tipos de bloqueio e esse bloqueio vai te dar alguma segurança.
+[00:44:33] Em cada um desses níveis tem alguma proteção na sua estrutura, na sua arquitetura.
+[00:44:38] E você deve ter todos eles implementados.
+[00:44:41] Não é porque você não tem um, que você não deve ter outro,
+[00:44:45] porque eles têm propósitos e funções e exercem proteções diferentes.
+[00:44:50] Então, é importante que você tenha um proxy configurado na sua máquina,
+[00:44:55] importante que você tenha um load balancer configurado na sua máquina,
+[00:44:58] para que você tenha um load balancer configurado no seu projeto,
+[00:45:01] é importante que você tenha uma estrutura de...
+[00:45:05] pronto, um servidor web, o engine que está configurado na sua estrutura,
+[00:45:11] que seja um Tunket, apesar que não é o...
+[00:45:17] que tem um Tunket, mas dentro ali tem...
+[00:45:20] no nível mais alto tem a limone Jinx configurada.
+[00:45:24] E o Cloud Flyer, que é o mais externo para proteger,
+[00:45:30] e não só disso, mas de outros tipos de ataques.
+[00:45:33] Tá bem? Mesmo curiosidade.
+[00:45:36] Deixa eu ver aqui onde nós paramos.
+[00:45:39] Slett...
+[00:45:42] Ok...
+[00:46:39] aqui
+[00:46:46] a gente vai falar que agora ele está assunto, aí estou abrindo aqui o código, tá,
+[00:46:53] esse aqui já é extremamente cerramos, deixa eu fechar aqui
+[00:46:57] tem muita questão de...
+[00:47:04] A questão que você me explica.
+[00:47:09] Eu vou só mostrar aqui.
+[00:47:13] Então, nós temos aqui uma noção base,
+[00:47:18] que eu queria falar um pouquinho com vocês,
+[00:47:21] por alguns conceitos de definir alguns valores importantes para vocês.
+[00:47:29] Por exemplo, vocês sabem a diferença do hash e de fazer uma criptografia?
+[00:47:36] É a mesma coisa que vocês acham?
+[00:47:39] Já pararam para olhar.
+[00:47:44] Quando você salva na base de dados, vamos dizer que é um requisito
+[00:47:50] de segurança da nossa aplicação, que é a nossa senha, que é a nossa password.
+[00:47:55] Ela não pode estar em texto claro. O que é o texto claro? Ela não pode estar
+[00:47:59] visível. Eu não posso ir lá, fazer um select account e eu ver a minha senha
+[00:48:06] como eu escrevi, como eu vou escrever ela no input.
+[00:48:10] Então ela não pode, isso é um requisito de segurança, a senha, e geralmente isso é muito
+[00:48:15] básico mas a senha não pode estar em texto claro. Dito isso e agora eu quero a opinião de vocês.
+[00:48:20] O que eu faço? O que eu preciso fazer quando a minha senha não está em texto claro? O que vocês
+[00:48:31] acham? Qual é o processo que eu preciso colocar em prática? Acho que a criptografia, o resto está
+[00:48:38] para inserir no contexto de criptografia, né? Então você criptografa aquele valor que é o valor
+[00:48:46] correto, dentro utilizando até mesmo o hash ou o hash como uma forma de criptografia, ele vai
+[00:48:54] salvar isso, você tem uma chave, né, que pode ser esse hash aí, para descriptografar quando você
+[00:49:02] precisar dar informação correta. Eu entendo essa visão aí.
+[00:49:06] Tiago, você que falou certo?
+[00:49:11] Isso.
+[00:49:13] Ok, vamos lá Tiago, é isso, você foi no romo, mas tem algumas coisas que são importantes.
+[00:49:19] Nós precisamos de um hash e criptografia, são coisas diferentes e são usados em contênteses diferentes
+[00:49:30] É muito importante a gente definir cada um deles.
+[00:49:32] Quando a gente fala de criptografia, ela vai e volta.
+[00:49:39] Ou seja, o que é criptografia?
+[00:49:42] Eu quero escrever uma carta
+[00:49:44] e quero que somente o elo leia essa carta.
+[00:49:48] Então, nós vamos combinar aqui o segredo
+[00:49:54] entre nós.
+[00:49:55] tipo, todas as letras do alfabeto vão ser referidas a um número,
+[00:50:02] por exemplo, A é o número 1, B é o número 2, C é o número 3, D é o número 4,
+[00:50:10] então vamos definir uma chave e eu vou escrever uma carta, vou pôr no correio e ela vai chegar pro L.
+[00:50:17] Se alguma pessoa interceptar essa carta, ela não vai conseguir lei, porque ela tem que ter conhecimento da chave
+[00:50:22] chave para abrir o texto que não está em texto claro. Então percebam, aqui é eu vou
+[00:50:30] encryptar, eu vou decryptar, ou seja, eu vou encryptar e o hélio que tem a senha, ele
+[00:50:40] vai decryptar e vai ler a mensagem. Observem que nós temos o contexto de chave simétrica,
+[00:50:47] é uma chave, a chave que eu criptografei é a chave que ele vai usar para decriptar ele
+[00:50:54] a mensagem. Então, isso é chave simétrica, é a mesma chave que eu uso, é a mesma chave
+[00:50:58] que eu abro e ele vai abrir lá quando ele chegar, quando ela cai pra chegar ele vai
+[00:51:03] abrir, ele vai ler a mensagem. Mas isso, só qual que é o problema de eu trabalhar com
+[00:51:12] criptografia em senha. Eu não quero, eu não quero que a pessoa acesse a
+[00:51:21] aquela senha. Eu não quero que uma pessoa que tenha acesso ao base de dados, ele
+[00:51:29] consiga pegar aquilo, porque tudo que é incriptado, eu treinar a chave, eu consigo
+[00:51:34] decryptar. Então quando tudo aquilo que é chave
+[00:51:38] simétrica, por exemplo, é uma chave só. Eu tenho um conhecimento disso, eu tive a acessão código.
+[00:51:43] E tenho um poste lá, abri e ler aquela informação. Então, isso, se eu usar o MD5, se eu usar o AES, se eu usar o...
+[00:51:54] pronto, qualquer um desses algoritmos de encryptação. O que não é essa?
+[00:51:59] Essa é o que muda realmente o tamanho do número de bytes, o tamanho da segurança da aplicação.
+[00:52:05] mas no final das pontas eu consigo decryptar ou eu consigo decryptar. Então essa não é a
+[00:52:11] maior abordagem porque eu só vou uma senha abaixo de dados. Por que? Porque eu quero um caminho único
+[00:52:18] e aqui que é o que nós conhecemos do valor de hash. O que é hash? Hash é um caminho único. Eu vou
+[00:52:24] pegar a minha senha, meu comiacenha que é conhecimento meu, eu vou passar ela para o algoritmo e aquilo vai
+[00:52:34] com um valor, uma chave única.
+[00:52:38] Isso é, existe aquela chave e ela é de caminho único.
+[00:52:42] Então, como é que eu faço, então,
+[00:52:47] para saber se aquela minha senha é válida ou depois?
+[00:52:50] Porque eu criei minha senha.
+[00:52:51] Fiz o cadastro, criei minha senha.
+[00:52:53] O algoritmo foi lá, gerou um hash,
+[00:52:55] salvou o hash na base de dados.
+[00:52:56] Observem, não foi uma criptografia da minha senha.
+[00:53:00] Foi um hash da minha senha.
+[00:53:02] Segura esses valores, porque isso é importante
+[00:53:04] para a gente entender essa diferença. Então, o que eu vou fazer? Toda vez que eu tiver que usar
+[00:53:10] a minha senha, eu vou passar a minha senha em texto claro para a aplicação, a aplicação lá no input
+[00:53:16] de password, vai receber esse valor e ele vai encryptar essa informação e vai gerar o hash,
+[00:53:25] não é encryptar, ele vai gerar o hash da informação e vai fazer match de hash com hash. Aí você pode
+[00:53:31] perguntar mas não é não da colisão é impossível impossível eu ter cenas
+[00:53:43] diferentes no mesmo hash não não é impossível mas é muito difícil é muito
+[00:53:52] muito muito difícil né na casa de bilhões de possibilidades então por isso
+[00:53:59] que nós confiam e devem quanto maior algoritmo que você usa, mais a dificuldade, mais a
+[00:54:05] improbabilidade de você ter choque de hash.
+[00:54:09] Então, todo mundo entendeu que é diferença de hash, todo mundo entendeu que é diferença
+[00:54:13] de criptografia, correto?
+[00:54:15] Diga lá, Vinicius.
+[00:54:18] É, boa tarde, professor.
+[00:54:21] É uma dúvida.
+[00:54:23] O hash, ele não tem tão uma fórmula?
+[00:54:27] ele tem uma fórmula mas ele não tem uma volta, você não volta para trás.
+[00:54:32] E mesmo assim, tipo assim, palavras diferentes podem virar o mesmo hash?
+[00:54:40] Muito difícil, não é uma probabilidade, eu diria que você pode trabalhar confortavelmente com o hash
+[00:54:48] e os algoritmos que nós temos, porque não é algo provável, não é provável.
+[00:54:54] é provável. Então eu estou dizendo que é possível, porque é uma possibilidade de você em algum cenário,
+[00:55:01] você ter duas cenas na mesma rede, mas é muito difícil. É tipo, eu estou dizendo na fase de um em um trilhão,
+[00:55:09] assim, são números extremamente aleatórios, é difícil isso acontecer, mas pode acontecer também.
+[00:55:15] é só isso é beijamim é se o hash ele tem uma fórmula porque que a gente não consegue pegar um fazer o caminho
+[00:55:28] Então, ele usa o conceito lá de...
+[00:55:34] Eu tenho até aqui um exemplo, eu ia mostrar pra você do código.
+[00:55:37] Eu tenho aqui a função hash, que a gente vai chegar aqui.
+[00:55:42] É porque a forma como ele trabalha, ele gera lá um hexadecimal
+[00:55:49] em cima de um negócio de trabalho de curvilítica.
+[00:55:54] Tem tantos conceitos aqui que eu não vou saber te explicar.
+[00:55:57] A forma que o propósito dele é uma via única, o propósito hash é ter uma via única, sempre.
+[00:56:05] Então, que é diferente, por exemplo, se a gente abrir aqui, por exemplo, o criptográfico
+[00:56:12] simétrico, que é aquele que eu preciso da mesma chave, por exemplo, se eu abrir aqui
+[00:56:15] para vocês, aqui eu tenho aqui o Cricifrar, o Cifrar ou o Encryptar, ele vai usar uma
+[00:56:22] Khomach.
+[00:56:25] Caudei, cadê minha key.
+[00:56:31] é minha xave
+[00:56:32] ok
+[00:56:33] aqui vamos lá
+[00:56:38] cadê minha code?
+[00:56:41] Cifra
+[00:56:46] que Cifra que Cifra
+[00:56:48] Aqui chave, é isso que eu estava procurando, aqui está chave, não que...
+[00:56:53] Vou pôr em aqui de um lado, deixar para eu desculpular.
+[00:56:55] Bom, pronto.
+[00:56:56] Você tem essa chave.
+[00:56:58] E a chave que eu uso para encriptar é a mesma chave.
+[00:57:03] Vou mostrar aqui para vocês.
+[00:57:05] É a mesma chave que eu vou decryptar.
+[00:57:08] Então, como eu disse, você ou simétrica, você tem esse processo.
+[00:57:12] E o processo é diferente.
+[00:57:14] Ele não é o hash.
+[00:57:17] aqui o que você faz.
+[00:57:21] Ah, tá, tá, tá aqui.
+[00:57:24] Deixa eu ver aqui a parte.
+[00:57:26] Botando isso fisicamente aqui da função hash mesmo.
+[00:57:32] Então, eu vou ser muito sério.
+[00:57:34] Eu não vou saber explicar bem.
+[00:57:37] Aqui eu estou usando até uma chave pequena de 32 bits, porque...
+[00:57:41] Aqui eu estou usando de 32, está certo.
+[00:57:44] De 32, 54 bits.
+[00:57:45] aqui eu uso a, eu acabo aqui achando hash.
+[00:57:51] Eu vou falar o final que eu dei de, de uma expressão em meio.
+[00:58:04] Agora, por que, por que, por que toda, toda aquela gestina, é, como que funciona o processo?
+[00:58:10] Aí, quando a gente for dar uma olhada aqui com mais calma,
+[00:58:15] E aqui nós temos o algoritmo que a gente vai usar, tá? E aqui que diz o que eu fiz no tamanho do
+[00:58:33] hash, a dificuldade de você quebrar esse hash, etc. É que nós estamos usando o Chasun 56,
+[00:58:40] que é hoje um dos melhores,
+[00:58:42] mas ele até tem melhor do que isso.
+[00:58:45] Esse aqui realmente é muito pouco provável
+[00:58:48] desse tamanho de a gente ter ali,
+[00:58:50] por exemplo, o MD5, aqui ele até fala, né?
+[00:58:53] Aqui até o MD5, por exemplo,
+[00:58:56] ele já é muito velho, muito pequeno,
+[00:58:58] e pronto, quando ele fala aqui que já estão quebrados,
+[00:59:01] ele já fizeram a diária reversa em cima do ré,
+[00:59:04] e aqui é só para ter sua pergunta.
+[00:59:07] Aqui ele já fizeram a diária reversa em cima do MD5,
+[00:59:10] Já tem toda uma estrutura, então hoje eles conseguem devinhar o hash.
+[00:59:15] Porque qual é o problema?
+[00:59:17] Se o hash tem um caminho único, então a partir da minha senha, a partir do hash,
+[00:59:23] eu não posso chegar na minha senha, isso é importantíssimo.
+[00:59:27] Eu quero, da minha senha, chegar no meu hash. Pronto, é o caminho.
+[00:59:31] Mas eu não quero do hash voltar para a minha senha.
+[00:59:34] Será que hoje você tem esses mais simples, esses mais antigos, esses menores?
+[00:59:39] Isso já consegue.
+[00:59:41] Ele já aplica ele todo o dinheiro e a reversa.
+[00:59:44] E ele doeste, ele chega na sua senha.
+[00:59:47] Mas pronto.
+[00:59:48] E por isso que a gente usa esse maior e melhor.
+[00:59:51] E conforme vai sendo exigido da tecnologia,
+[00:59:54] a gente vai desenvolvendo melhor.
+[00:59:56] Mas pronto, a questão principal é essa.
+[00:59:59] Você acaba gerando...
+[01:00:04] Eu quero dizer, você acaba tendo esse processo
+[01:00:08] de a partir de qualquer texto, você gerar uma resta.
+[01:00:13] É o Gil, por favor, diga.
+[01:00:18] É só uma dúvida conceitual.
+[01:00:20] Você pode considerar que um arquivo compactado,
+[01:00:25] protegido por senha, é uma criptografia?
+[01:00:30] Um arquivo compactado, protegido por senha.
+[01:00:33] Ele pode estar encriptado.
+[01:00:35] Sim, se ele... Se você estiver passando o processo de encryptação, sim.
+[01:00:41] E ele exige depois que você tenha esse processo, geralmente sim.
+[01:00:44] Aquele WinRAR, por exemplo...
+[01:00:48] Pronto, aí você tem que ver como esses processos funcionam, essas aplicações.
+[01:00:53] Eu não me engano o próprio WinRAR.
+[01:00:54] Quando ele você põe senha, eu não tenho certeza se ele é encrypta ou se ele só protege.
+[01:01:00] Eu tenho a impressão que ele chega a encryptar mesmo.
+[01:01:02] O ZIP também acaba encryptando.
+[01:01:04] O que acho que chama becrypt do Windows ou até do Linux.
+[01:01:11] Se você faz lá a configuração pela Encrypta,
+[01:01:17] ele vai de fato deixar aquelas informações
+[01:01:19] e Encryptadas na sua máquina.
+[01:01:21] Enfim, você precisa do processo de decryptar
+[01:01:23] para poder deixar tudo em texto claro e acessível.
+[01:01:26] De depois.
+[01:01:28] Direi que sim. Direi que aquilo que está de fato encryptado
+[01:01:33] está protegido e você não consegue abrir aqui em outras aplicações.
+[01:01:37] É muito provável que isso seja encryptado.
+[01:01:41] Mas você falou de arquivo, eu lembrei de uma coisa que eu queria dizer e não falei ainda.
+[01:01:46] Pronto, nós estamos falando de chaves.
+[01:01:49] E eu não falei ainda do par de conceitos de chaves assimétricas.
+[01:01:54] Eu falei de chave simétrica, que é a chave que a gente encrypta.
+[01:02:02] é a mesma chave que a gente decrypta, ou seja, como eu comentei, eu e o Helio combinamos uma chave
+[01:02:09] de conhecimento mutuo, então quando ele tiver acesso ao conteúdo encryptado, ele, por meio dessa
+[01:02:18] mesma chave, ele consegue decryptar. O que eu mostrei aqui no código, né, do simétrica. Então,
+[01:02:24] nós temos aqui, por meio de uma chave, eu vou encryptar, então essa mesma chave eu vou decryptar,
+[01:02:30] e falo, né, para a pare, para desse fracão, a mesma chave.
+[01:02:34] Ok? Então, isso é semétrico.
+[01:02:37] Agora, o que é assimétrico?
+[01:02:39] Que essa é até algo mais seguro.
+[01:02:42] É o que nós chamamos de par de chaves.
+[01:02:44] É engenhar duas chaves.
+[01:02:46] Uma chave pública e uma chave privada.
+[01:02:50] E esse par de chaves tem propostas diferentes.
+[01:02:53] A chave pública é de conhecimento.
+[01:02:56] A gente todo mundo entrega ela
+[01:02:58] e eu fico com a minha chave privada.
+[01:03:02] Se eu quero assinar alguma coisa,
+[01:03:05] e que eu quero que só eu leio, o que eu faço?
+[01:03:09] Ele pode me fornecer a chave pública dele.
+[01:03:16] Aí depende, eu posso encriptar com a minha chave privada
+[01:03:20] e entregar para ele, ele vai conseguir abrir só com a minha chave pública.
+[01:03:24] Como eu entreguei para ele antes e, inclusive, se você escreve em meio encriptado, é assim que você funciona.
+[01:03:30] Por exemplo, eu quero escrever para você em meio encriptado, em meio criptografado.
+[01:03:34] Eu vou enviar minha chave pública primeiro, ou você me envia a sua chave pública, né?
+[01:03:39] Aí eu vou assinar com ela e vou te devolver.
+[01:03:44] Você só consegue ler com a outra chave.
+[01:03:47] Mas eu falei uma coisa que errada, desculpe lá, eu vou deixar corrigir.
+[01:03:52] que você tem dois, você tem o conceito de assinatura e o conceito de de
+[01:03:56] de e-criptar. Quando eu quero e-criptar para outra pessoa, eu
+[01:04:02] e-cripto usando a chave pública e a pessoa que tem a chave privada ela vai
+[01:04:05] conseguir abrir a informação. Quando eu quero assinar, eu quero assinar e eu
+[01:04:10] assino com a minha chave e com a minha chave entregue para pessoa.
+[01:04:13] Aí a pessoa ela tem condição de abrir e ver que foi eu que assinei.
+[01:04:17] E aqui é onde aconteceu a assinatura de documentos.
+[01:04:22] O conhecimento aleatório é quando a gente gera um hash do documento.
+[01:04:27] Então, como que a gente sabe que o documento é único?
+[01:04:31] Porque o possível do documento é alterar ele.
+[01:04:33] Eu posso gerar aqui um Word, inserir ali várias informações,
+[01:04:37] criar um contrato e salvei o Word.
+[01:04:42] Como é que eu sei que aquele documento vai ser o mesmo no amanhã?
+[01:04:47] daqui uma semana. O conceito de hash. Eu vou gerar um hash desse documento. Então, se eu alterar uma vírgula, se eu alterar um texto lá dentro, ele vai gerar um hash diferente.
+[01:04:59] E aquele documento, ele vai gerar sempre o mesmo hash. Se esse documento é sempre o mesmo, ou seja, se eu não alterei ele, se ele nunca foi alterado, se ele tem o mesmo conteúdo, ele vai ter o mesmo hash.
+[01:05:12] Agora, se eu de alguma forma terei qualquer coisa no documento,
+[01:05:16] se eu gerar ele, eu gerar um novo hash.
+[01:05:18] Então, isso que eu contexto de eu saber se um documento ele é alterado ou não.
+[01:05:23] É o conceito de que eu gero hash, eu assino um hash e tem aquele documento assinado.
+[01:05:28] Ok? Pronto, só mesmo no termos de curiosidade, para a gente ter que ter um pouco.
+[01:05:33] Tá. Eu falei muita coisa. Aqui nessa aplicação, eu criei aqui,
+[01:05:42] subir aqui algumas coisas que a gente poderia que eu queria mostrar para vocês. Deixa eu ver aqui.
+[01:05:49] Tá rodando.
+[01:05:56] Deixe primeiro eu só observar aqui se eu falei tudo que eu queria falar sobre esse assunto.
+[01:06:03] Pronto, mas deixa eu falar primeiro da criptografia simétrica, deixa eu mostrar isso funcionando.
+[01:06:18] E aí a gente...
+[01:06:40] Ah, uma coisa que eu esqueci.
+[01:06:42] Vocês me perguntaram a questão de criptografia.
+[01:06:45] A criptografia não gera sempre o mesmo texto também.
+[01:06:50] Acaba que quando eu inscrito uma informação, como eu tenho a chave para decryptar,
+[01:06:58] então o texto ali, a informação como ela fica incriptada, ela é diferente.
+[01:07:04] O meu filho é diferente do hash.
+[01:07:06] O hash se submita a mesma informação, ela sempre vai gerar o mesmo hash.
+[01:07:10] Já a criptografia gera conteúdo diferente.
+[01:07:16] É uma coisa que eu não comentei.
+[01:07:18] Deixa eu ver aqui.
+[01:07:22] Vou falar aqui que isso.
+[01:07:27] Agora eu gostaria.
+[01:07:40] Eu queria aqui uns testes.
+[01:07:45] Aqui do simétrico, eu só queria mostrar pra vocês.
+[01:07:51] Aqui aqui eu...
+[01:07:57] Eu vou encriptar.
+[01:08:01] Bom, eu queria...
+[01:08:04] Deixa eu fazer o diferente, deixa eu ver o primeiro aqui, o hash.
+[01:08:10] Eu queria que alguns testes, só para gente ver, isso aqui é um hash, só para vocês entenderem.
+[01:08:17] Eu queria que isso eu estava procurando.
+[01:08:19] Você tem uma string e a tendência é que todo texto gere a mesma string.
+[01:08:59] Eu coloquei aqui o hash ABC e ele vai gerar sempre esse.
+[01:09:16] O teste passou.
+[01:09:20] E se você muda alguma coisa, por exemplo, se você quer validar aqui, você tem 100 e aqui
+[01:09:25] você tem 900.
+[01:09:26] Isso aqui vai gerar dois restos diferentes.
+[01:09:29] Vamos lidar aqui.
+[01:09:38] Eu queria que vários testes para vocês poderem dar uma olhada.
+[01:09:44] Eu vou publicar esse código lá para vocês.
+[01:09:49] Vocês podem acessar.
+[01:09:50] Mas aqui é mesmo só algumas curiosidades que eu achei que valia, farei a sentido de mostrar.
+[01:09:57] Eu já estarei nesse conhecimento de ver como funciona.
+[01:10:01] Eu achei que um teste, se assim, vocês poderiam ver tudo funcionando.
+[01:10:10] Você quer só escrever?
+[01:10:12] Você quer escrever outra coisa?
+[01:10:14] Aqui está a cifrada da mesma chave.
+[01:10:33] Vocês observam que eu estou aqui cifrado, cifrado.
+[01:10:37] E depois o texto.
+[01:10:39] Eu falei ele vai voltar.
+[01:10:44] Acho que é mais que eu acho que seria interessante.
+[01:10:58] Aqui já é a simética, né?
+[01:11:02] Aminga a composite deHAHA
+[01:11:32] Ex bastards existentesぎ la провinco-pl 컬러 es
+[01:11:50] priar-los por sap
+[01:11:52] Isso eu vou mostrar aqui.
+[01:12:06] Aqui é a chave pública, a gente tem que demonstrar.
+[01:12:09] Tem um algoritmo, a RSA é 248, formato, x49, e aqui você tem uma chave pública.
+[01:12:22] leftovers.
+[01:12:31] Isso tá botado
+[01:12:38] ÉII
+[01:12:42] Só esse instante foi rápido.
+[01:12:48] deve ter sido qualquer coisa aqui. Desculpe lá, não sei, não sei o que aconteceu.
+[01:12:52] Depois, depois do chave pública que você falou e ficou mudo.
+[01:12:56] Eu não cliquei nada, mas ok. Então, o que eu ia comentar com vocês,
+[01:13:01] a pronta eu queria dizer é que, não sei, esqueci agora o contexto.
+[01:13:08] Mas deixa eu ver aqui, deixa eu ver aqui que eu posso mostrar.
+[01:13:13] a a a questão do aqui eu deixei muito documentado escrito deixei aqui bem claro
+[01:13:21] vocês poderem vir ainda uma olhada né eu deixei aqui né como eu falei a chave porque você pode
+[01:13:27] entregar para pessoa a chave privada não a chave privada ela tem que ficar só contigo
+[01:13:31] ela não pode ser passada para frente eu falei aqui da assinada a chave pública nunca sai do dom
+[01:13:35] pra assinária ao contrário a privada assina e qualquer um verifica com a pública porque com a
+[01:13:41] conhecimento, se eu quero validar que um documento foi assinado por alguém, né?
+[01:13:47] Eu pego a chave pública que eu tenho, vou lidar se a pessoa que assinou é ela mesmo,
+[01:13:52] se foi dela, veio dela, né?
+[01:13:59] Aí quando eu quero...
+[01:14:00] aqui tem tudo que deixa aqui tão bem descrito que vocês poderiam dar uma olhada
+[01:14:14] como um processo de cifra de decifrar acontece ok e vocês podem ser eles usam algumas algumas
+[01:14:30] as classes do próprio Java. Então, algumas coisas, a gente só...
+[01:14:35] Tipo, esse é o processo que se usa, essa ferramenta que se usa é o Cypher que você vai usar e pronto.
+[01:14:41] Porque ele já tem toda a parte de...
+[01:14:45] Esse aqui do Get Test.
+[01:14:48] E de trabalhar com os algoritmos.
+[01:14:51] E de trabalhar com os algoritmos de IES.
+[01:14:58] E inclusive, o quanto é importante... Aqui, esse é o conceito que não é muito...
+[01:15:05] O que eu posso dizer? As vezes eu não estou muito preocupado com isso.
+[01:15:09] Tipo, você usa uma curva elíptica pra gerar o conceito de parte de chaves, sabe? Isso não é importante.
+[01:15:16] O que é importante é você entender o conceito de parte de chaves, entender o que é uma chave simétrica,
+[01:15:21] uma chave... ou o conceito de chaves simétricas, e entender o que é um hash, de novo,
+[01:15:26] porque esse contexto que a gente acabou de falar,
+[01:15:28] é que ele vai ser aplicado nos projetos.
+[01:15:31] Você tem texto muito bem definido, tá bem?
+[01:15:34] Acho que essa é a parte importante
+[01:15:38] que acho que a gente tem que deixar para a aula.
+[01:15:40] Deixa eu ver aqui, se eu...
+[01:15:46] Agora, falando para a gente caminhar aqui, que já são 7,
+[01:15:50] 4 e 16, eu quero comentar com vocês aqui a parte do HTTPS. Pronto, tudo o que a gente falou,
+[01:16:02] claro, a gente usa criptografia, a gente usa hash em diversos momentos da nossa aplicação,
+[01:16:09] principalmente o conceito de hash, que quando a gente pronto vai trabalhar com password,
+[01:16:15] Nós vamos gerar o rege da nossa aplicação, da nossa chave, do nosso password,
+[01:16:22] e vamos deixar ela no contexto claro da base de dados.
+[01:16:24] Isso é um critério básico que a gente tem que se ater e tem que implementar.
+[01:16:28] Só que quando a gente fala de... o que é que isso é bom?
+[01:16:37] Principalmente para a gente ter um pouco o HTTPS.
+[01:16:40] Se a gente olhar aqui qualquer site desses que tem HTTPS,
+[01:16:46] vocês podem entrar aqui.
+[01:16:50] Se eu gostar de ter acesso aos dados de certificado da empresa, você tem como validar que aquela empresa,
+[01:17:08] E você tem aqui, você tem a chave pública que eu estava falando pra vocês, você tem o certificado.
+[01:17:14] E com essa chave pública aqui você tem como garantir, se é empresa, aqui você tem a questão de cadeia.
+[01:17:22] O que é cadeia? É porque o certificado digital ele tem um contexto de que ele vai assinando, você tem uma cadeia de conformação.
+[01:17:36] Você tem o seu certificado, que ele é assinado para uma autoridade certificadora,
+[01:17:40] que ele é autorizado até chegar na autoridade máxima,
+[01:17:46] caso da WebTrust, que é assinado certificados.
+[01:17:51] Mas isso é o que é esse certificado?
+[01:17:55] É pronto aquilo que a gente falou.
+[01:17:57] Imagina que você está no seu café, imagina que você está trocando informações no ambiente Wi-Fi.
+[01:18:04] Como é que você tem segurança de trocar informações, ele é seguro?
+[01:18:09] Https com TLS, que é o sucessor do SSL, quando você está no ambiente e é equilipitado, é seguro, é mais seguro.
+[01:18:19] Claro, SSL não é, o test do TLS não é intransponível, tem forma de você quebrar TLS, mas é muito difícil.
+[01:18:30] de novo, a gente volta para esse contexto. É muito difícil e é muito pouco provável que
+[01:18:34] vão fazer isso. Eles não vão tentar quebrar criptografia, eles vão tentar acessar a informação
+[01:18:39] do texto clara. Então o que a gtps garante? Garante confidencialidade, o conteúdo tráfega
+[01:18:47] é encriptado. Então o que eu estou conversando com o meu servidor? Só é de conhecimento
+[01:18:52] de meu servidor.
+[01:18:54] A autenticidade, eu estou falando com o servidor da ADA,
+[01:18:59] sabe que esse servidor é dada mesmo?
+[01:19:01] O que me garante que eu não estou falando com a ADA falsa
+[01:19:05] ou com um servidor falso certificado?
+[01:19:10] Na integridade, os dados não foram alterados no caminho,
+[01:19:14] porque se eu garanto que existe o conceito de criptografia,
+[01:19:18] os dados não foram acessados no meu caminho,
+[01:19:21] na rede dos meus pacotes, eles foram alterados.
+[01:19:24] Uma requerção HTTP, pronto, ela já é texto claro.
+[01:19:27] E você já consegue acessar, já consegue notificar,
+[01:19:34] você consegue acessar todas as informações que estão ali sendo trafegadas
+[01:19:38] e consegue alterar as informações como você quiser.
+[01:19:42] Quando a gente fala de autoridade atrificadora,
+[01:19:45] E pronto, é para provar que o servidor é quem diz que é.
+[01:19:53] Ele apresenta o certificado digital.
+[01:19:56] E eu como a da exemplo, eu como a da eu comprei o certificado digital
+[01:20:01] até sendo que aquelas informações são minhas.
+[01:20:03] Eu assinando, colocando as informações são minhas.
+[01:20:06] Então eu coloco o domínio, eu coloco a minha chave pública.
+[01:20:10] É o suscrito próprio.
+[01:20:12] são objetivos. Não é emissor, é autoridade
+[01:20:16] certificadora, o prazo, os certificados eles são, tem
+[01:20:19] prazos válidos, né? Eles valem geralmente por um ano, por
+[01:20:23] dois anos, não vale muito mais que isso, porque, porque eles
+[01:20:26] podem ser eh, fosificados, podem ser partidos, então eh, ele
+[01:20:32] tem um prazo muito curto. Geralmente o prazo é pra ele não
+[01:20:35] cair, né? Justamente pra ele o tempo que ele pode ser ter
+[01:20:39] ter qualquer tipo de falsidade em cima dele, ele já se torna inválido. Por isso que certificados
+[01:20:45] finalmente estalhessem, eles valem ali por um a dois anos no máximo. E você por fim
+[01:20:51] você tem a cadeia de, a OCA, a cadeia do que assina, você tem autoridade de certificador
+[01:21:00] e que assina e reconhece tudo ali que está ali abaixo daquele certificado. E quando,
+[01:21:06] e principalmente, vocês devem ter ouvido já falar por Handshake.
+[01:21:13] Esse nome, por quem já tabelou com o servidor,
+[01:21:15] ou quem já mexeu com o servidor,
+[01:21:16] que esse nome deve ser muito comum para vocês.
+[01:21:19] O que é o Handshake? É o aperto de mão.
+[01:21:22] O seu navegador está conversando com o servidor
+[01:21:25] e existe o que a gente chama de Handshake,
+[01:21:27] ou seja, os dois se reconhecem.
+[01:21:28] Então, podem trafegar naquele lugar de forma segura.
+[01:21:32] Quando você tem problema,
+[01:21:34] algum certificado tem algum defeito, ou ali tem qualquer problema nas chaves,
+[01:21:39] e ele tem problema de handshake, ele mostra o erro na hora.
+[01:21:44] Você vê os ali de handshake, dizendo ali que o certificado tem válido,
+[01:21:48] o certificado venceu, enfim, isso pode dar uma série de problemas.
+[01:21:52] Então, por isso que a questão de ser, de você trabalhar e configurar
+[01:21:59] o certificado do TLS da sua máquina é o que tem é obrigatório, eu presentei.
+[01:22:07] E vocês vão entender o que é um certificado auto assinado?
+[01:22:10] Já viram falar disso?
+[01:22:11] O que é um certificado auto assinado?
+[01:22:14] E que vocês acham que é um certificado auto assinado?
+[01:22:19] E qual é a diferença do certificado assinado para autoridade do certificador
+[01:22:23] e do certificado auto assinado para um certificado auto assinado?
+[01:22:29] Você tem alguma noção? Quer alguém que vai falar?
+[01:22:38] Vamos dar a chance, gente, para vocês eu falei tanto hoje,
+[01:22:41] vocês têm que falar quase nada.
+[01:22:45] Então...
+[01:22:46] Corriscain.
+[01:22:47] Digam.
+[01:22:49] O certificado auto assinado não tem valor nenhum legal,
+[01:22:53] você usa ele no ambiente controlado, de teste, né?
+[01:22:58] Você mesmo emite para instalar no seu servidor, fazer testes locais aqui, não tem valor nenhum
+[01:23:07] de uma aplicação comercial, por exemplo.
+[01:23:13] Isso, ele não tem assinatura na autoridade certificadora e ele pronto por conta disso,
+[01:23:21] é tudo que você disse. Eu posso gerar aqui na minha máquina um certificado,
+[01:23:26] Eu gera aqui um certe com Java, o Sikiru tijava, gera um certificado e gera um auto assinado
+[01:23:34] para eu rodar as minhas aplicações dockers aqui, minhas aplicações OpenShift, e eu vou
+[01:23:38] ter um certificado auto assinado.
+[01:23:40] Qual que é o problema?
+[01:23:42] Quando eu tentar fazer uma requissão com o CUR, ou eu tentar acessar pelo meu navegador,
+[01:23:49] ele vai na hora gritar dizendo que não é, não existe uma autoridade de Webtrust que
+[01:23:55] assinou aquele certificado. Então o navegador não reconhece aqueles
+[01:23:59] certificados. Você já deve ter visto isso de entrar no site e ele dizer
+[01:24:04] essa aplicação não é segura. Ele tem um certificado lá, ele mostra o certificado
+[01:24:09] mas ele não o navegador não consegue reconhecer aquele certificado. E aí você
+[01:24:14] fica parecendo que o ambiente não é seguro. É por conta disso, geralmente
+[01:24:19] o certificado autocinâmico.
+[01:24:21] E aí você navega por sua conta, você vai lá e dá a permissão e autoriza você navegar
+[01:24:28] no ambiente que existem ali algumas preocupações.
+[01:24:32] É só isso mesmo para vocês entenderem o que é um certificado autocinálico e a gente
+[01:24:37] usa muito.
+[01:24:38] A gente gera um certificado autocinálico, pronto, sobretudo, porque a gente tem ambiente
+[01:24:42] de teste, ambiente de desenvolvimento, a gente quer gerar um certificado para nós, para
+[01:24:47] a gente não precisar, é, gerar, pagar, porque os certificados são pagos.
+[01:24:54] Tem que ir lá na autoridade do certificador e comprar um certificado,
+[01:24:59] e você vai comprar um certificado para o ambiente de desenvolvimento,
+[01:25:02] para o ambiente de homologação, geralmente não.
+[01:25:05] Realmente, os ambientes de desenvolvimento
+[01:25:07] você trabalha com os certificados atassinados.
+[01:25:10] Pronto, eu acho que a gente chegou no final, assim, do que eu queria falar
+[01:25:17] criptografia, hash e...
+[01:25:23] Vou botar outra coisa também.
+[01:25:25] E HTTP, HTTPS, eu só não pimentei, mas eu acho que tudo está muito claro,
+[01:25:33] quando a gente fala de HTTP, o protocolo que existe de comunicação, de hipertesto na internet,
+[01:25:39] é o que os navegadores e a internet conversam mais basicamente,
+[01:25:44] E você usa ele para você trabalhar com o hipertesto?
+[01:25:47] Pronto, se tiver qualquer dúvida, me diga.
+[01:25:50] Mas eu pressupus que esse conhecimento já devia um T.
+[01:25:55] Poderia um T.
+[01:25:57] Não se não tem, não deveria, desculpe lá, poderiam.
+[01:26:00] Se não tiverem volta, que eu digam lá, tirem dúvidas que a gente pode voltar
+[01:26:04] e dar uma piscelada de alguma informação, talvez não seja claro.
+[01:26:08] Mas pronto, esse era o que a gente queria falar em termos disso.
+[01:26:12] Eu gostaria agora, agora nós temos que, é, eu gostaria de separar a próxima, a próxima
+[01:26:19] parte da aula, nós vamos agora para o intervalo.
+[01:26:21] Eu gostaria de separar a próxima parte da aula para vocês trabalharem em projeto.
+[01:26:26] Vocês irem tomarem conhecimento, dividir a turma.
+[01:26:28] Então, eu vou pedir que vocês não voltem dentro do intervalo, né?
+[01:26:32] Eu senti muita falta, muita gente foi embora logo depois do intervalo na aula anterior.
+[01:26:36] Então peço que vocês vão ser no nosso intervalo agora e vocês fiquem para a gente trabalhar nos
+[01:26:43] projetos. Eu quero dividir a turma, quero separar vocês dos grupos e a gente já começar,
+[01:26:48] vocês já acessarem lá o projeto, já conselem conversar entre si, a gente começar a conversar
+[01:26:53] entre os outros sobre isso. Então vamos lá, vamos com o nosso intervalo. Deixa eu preparar aqui.
+[01:27:06] Então, vamos para o nosso intervalo e a gente volta daqui a pouco e dá a quantidade de aula.
+[01:48:36] Olá, gestão?
+[01:48:47] Opa.
+[01:48:53] you lá, desvolta.
+[01:49:30] e aí
+[01:49:54] ok pessoal eu
+[01:49:57] dividir vocês em salas e a minha sugestão é fazermos sorteio.
+[01:50:02] Deixamos...
+[01:50:04] Eu tenho duas sugestões.
+[01:50:07] Uma é ser loteria e deixamos a própria aplicação aqui, o time,
+[01:50:12] dividir vocês em salas em 3, 4 salas, em grupos de 3, 4 pessoas.
+[01:50:18] E... Deixa eu só ver isso daqui.
+[01:50:24] E pronto, vocês começam a trabalhar.
+[01:50:28] Outra sugestão seria vocês mesmos montarem os grupos.
+[01:50:31] O que vocês preferem?
+[01:50:35] A gente já tem grupo da outra... da outra... do outro modo.
+[01:50:41] Se quiser, a gente pode até unir.
+[01:50:44] A gente já tem, pelo menos, alguns grupos de apreia estabelecido, se o pessoal quiser seguir nessa.
+[01:50:49] Só diria a quantidade, né, se vai ser compatível.
+[01:50:54] Olha, para mim não tem...
+[01:50:58] Para mim não tem nenhum problema.
+[01:51:02] Eu vou deletar aqui as salas, então, que a gente fez na aula passada.
+[01:51:06] Eu vou pedir, então, que vocês me montem os grupos chat
+[01:51:12] e eu vou montar e eu vou organizar vocês e criar salas aqui para vocês.
+[01:51:17] Então, passei no chat, né? Grupo Flano das Pessoas.
+[01:51:26] O projeto já está no LMS? Já.
+[01:51:31] O enunciado, tá, maravilha. Sim, sim.
+[01:51:35] Ó, já tem alguém aqui que já deixou o grupo. Deixa eu ver quem é.
+[01:51:41] 3, 4, 5. Eu não sei se 5 ou deixa eu ver se vai ser 5. Quantos nós somos?
+[01:51:56] Já vamos de 16 até agora, né? Deixa eu ver que isso é isso mesmo. Deixa eu entrar aqui na chamada.
+[01:52:03] acho. Vai ficar três grupos de cinco.
+[01:52:09] Então isso tá aqui.
+[01:52:19] São 18 pessoas, né?
+[01:52:30] Isso de 18.
+[01:52:32] Se o GAMF foram grupos de quatro e alguns ficaram com cinco.
+[01:52:41] Acho que pode ser, pode ser.
+[01:52:43] Só recebi dois grupos.
+[01:52:47] Grupo do Caio e o grupo do Edgar.
+[01:52:50] Cadê o resto pessoal?
+[01:52:52] Do grupo de vocês.
+[01:52:54] Vamos montar aqui.
+[01:53:02] Eu vou jogando vocês nas salas.
+[01:53:16] Hoje, vamos ch Junzi,
+[01:53:45] okay,
+[01:53:46] Então temos aqui 3.
+[01:53:53] 3. Então aqui está todo mundo,
+[01:53:56] 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 15.
+[01:54:01] Então temos aqui Kyle, Hélio, Iã, Paulo e Tiago.
+[01:54:06] Edgar, Carla, Hélio e Henrique.
+[01:54:08] Rima, Teus, Levi, Diego. Vinícius, Benjamin, Vanessa.
+[01:54:13] Então esses são os grupos.
+[01:54:15] É isso?
+[01:54:23] Acho que é isso aí, Priscil.
+[01:54:25] Pelo menos eu estou no grupo aí.
+[01:54:29] Vou por aqui no silencioso, que o pessoal está pronto.
+[01:54:34] Então, tá.
+[01:54:39] É Ed Newsom, ele está no grupo do Mateus e do Levi. É isso?
+[01:54:44] Isso aí? Isso, Gino. Tem um ativo.
+[01:54:48] Tem um ativo também para o pessoal, mas ele também está de férias, não sei. Quando ele volta aí mais.
+[01:54:53] É, quando ele voltar a gente organiza, não se preocupe. Vamos deixar. Então deixa eu...
+[01:54:59] Acho que já temos todo mundo. Vamos ver aqui, vamos separar salas, manual. Então, nós somos...
+[01:55:05] São quatro salas. Pronto.
+[01:55:10] Então.
+[01:55:14] Uh
+[01:55:36] Festeira
+[01:56:14] Então, pronto. Acho que está de bonica já da sua sala.
+[01:56:44] Então ficou Grupo 1, Caio, Hélio, Iã, Paulo e Tiago.
+[01:56:49] Grupo 1 que eu estou falando na sala, na sala 1.
+[01:56:51] Sala 2, Edgar, Carla, Hélio e Henrique.
+[01:56:55] Sala 3, Matheus, Levi, Diego e de Nilsson.
+[01:56:58] Sala 4, Benjamin, Vinícius e Vanessa.
+[01:57:01] Então acho que é isso.
+[01:57:03] Eu vou dividir suas salas.
+[01:57:05] Se algum ficou errado, eu falei aqui uma coisa e está acontecendo outra aqui na hora de selecionar,
+[01:57:10] você volta para a sala principal e a gente fala, a gente organiza.
+[01:57:15] Vinicius, diga lá.
+[01:57:17] Professor, essa sala é que nem daquela esquema que o senhor já fez, porque...
+[01:57:22] Isso.
+[01:57:24] É porque aí ela fica depois, é... inutilizada, né?
+[01:57:30] Fica aí inutilizada? Não percebi.
+[01:57:33] Sim, assim, não dá para enviar mais mensagem, né? Pelo menos aqui no meu...
+[01:57:37] Não, você pode mandar mensagem no chat porque eu vejo todos os chats.
+[01:57:42] Você vai ter lá um chat da sala.
+[01:57:45] Eu consigo ver todos os chats, então o que você escreve lá no chat da sala,
+[01:57:49] eu vejo todos os quatro chats. Pode escrever lá que eu vejo.
+[01:57:52] Não, sim, mas aqui depois sai. A gente não pode mais falar lá.
+[01:57:58] Quando eu fechar a sala, quando eu fechar a sala, você não pode usar ela,
+[01:58:02] mas eu não percebi o ponto.
+[01:58:04] É o ponto, Nicolau, é da gente usar esse chat fora da aula, entendeu?
+[01:58:12] Nos outros dias, para encontros, para tratar desse assunto, mas a gente resolve
+[01:58:17] criando uma sala aqui no nosso Teams.
+[01:58:20] A gente fez isso.
+[01:58:22] Sim, sim, sim, sim, sim.
+[01:58:23] É, pronto, vocês podem...
+[01:58:25] Seja a vontade.
+[01:58:27] Mas foi muito bom você ter comentado sobre isso.
+[01:58:29] Vamos lá, fiquem à vontade para vocês seguirem, então, com essa questão de chat,
+[01:58:33] WhatsApp, é uma critera de vocês. Como vocês vão se comunicar, como vocês vão
+[01:58:37] desenvolver o projeto, como vão dividir as tarefas.
+[01:58:39] Então muito por conta de vocês. A minha sugestão é vocês criarem um quadro
+[01:58:43] Kambam e vocês definirem as atividades como que cada um vai desenvolver,
+[01:58:49] que vocês trabalham ali no quadro Kambam, que você vai ter lá, tu, du, du,
+[01:58:53] você monta todo o backlog do que vocês precisam desenvolver e vocês vão
+[01:58:58] com gerenciar essas tarefas e o que cada um vai fazendo.
+[01:59:01] Importante, a entrega é um zip, ok? Vocês vão gerar um zip sem a pasta target,
+[01:59:10] para não ficar muito grande, vocês vão remover, vão excluir a pasta target,
+[01:59:14] vai ter só o código e as arquivos de configuração,
+[01:59:17] vocês vão gerar esse zip e vão fazer o upload dele no LMS, no último dia de aula, tá bem?
+[01:59:24] Então, como vocês vão gerenciar a versionamento?
+[01:59:28] Olha, teve alguns colegas, teve um curso que eles estavam conseguindo mexer com um
+[01:59:33] GitHub interno de vocês da caixa, por meio de uma VPN, alguma coisa assim.
+[01:59:40] Meio de uma... é uma coisa assim.
+[01:59:43] Eu não me lembro bem, eles não me deram muitos detalhes.
+[01:59:46] Só disseram que eles estavam conseguiram usar o GitHub ou o GitLab para esse projeto.
+[01:59:53] Pronto.
+[01:59:55] Eu sei que a dificuldade para a GNCA é esse personamento de código, porque infelizmente vocês não podem usar o GitHub,
+[02:00:03] ou público, porque vocês não tem acesso aí de dentro. Então eu não consigo ajudar nessa parte.
+[02:00:11] Veja lá se alguns de seus colegas podem te ajudar, mas eu sei que alguns conseguiram acessar o GitHub interno.
+[02:00:19] No mais, é, vocês vão ter que sair versando o código mesmo na mão que eu ando de cabeça.
+[02:00:25] Pronto, Mísio? Eu não consigo ajudar muito nisso.
+[02:00:28] Eu só vou reforçar que no dia da apresentação todos devem ter presentes,
+[02:00:35] mesmo que você tenha participado, se você não está presente no dia da apresentação, você vai ficar sem nota.
+[02:00:40] Então no dia da apresentação você precisa estar presente falando...
+[02:00:44] Não falando, você não é todo mundo que precisa apresentar.
+[02:00:48] Uma pessoa só precisa apresentar, mas eu quero todos presentes
+[02:00:52] para estar ali vendo o seu colega apresentando.
+[02:00:56] É por isso que se você não tiver, você pode ficar sem nota.
+[02:01:00] Tá bem?
+[02:01:01] Tira que é isso.
+[02:01:02] Eu vou dividir vocês em salas.
+[02:01:04] Acho que ninguém tem dúvida, não vejo nenhuma mão levantada.
+[02:01:07] Então eu vou dividir vocês em salas e vocês podem seguir trabalhando.
+[02:01:10] Eu vou dar alguns minutos para vocês se inteirarem do projeto,
+[02:01:15] leem toda a especificação,
+[02:01:18] Veja qualquer dúvida que vocês têm, veja aquilo que não está claro.
+[02:01:22] Eu vou daqui a pouco visitar as salas, entrar em cada um das salas e vou discutir com vocês.
+[02:01:28] Qualquer ponto que vocês têm, pode falar.
+[02:01:31] Não gostei disso, isso aqui não está claro, quer para fazer aqui.
+[02:01:35] Então, façam isso, se organizem no grupo de vocês e separem e vejam a lei um documento
+[02:01:41] e veja se está tudo claro para vocês implementarem.
+[02:01:45] Tá bem? Você para aqui então.
+[02:53:45] A gente vai fazendo o paralelo.
+[02:53:57] Beleza.
+[02:53:59] Fechou.
+[02:54:01] Voltou, voltou.
+[02:54:03] Já voltando.
+[02:54:05] O time zero não tem.
+[02:54:07] Eu tenho impressão que o time zero não tem um...
+[02:54:11] O que eu posso dizer, um pedido, né?
+[02:54:13] Vamos te mover passada principal.
+[02:54:15] Não, apareceu uma mensagem aqui.
+[02:54:17] Que em 10 segundos ia mover a gente em sala.
+[02:54:21] Então pelo menos tem alguma coisa.
+[02:54:23] Achei que nem tinha.
+[02:54:25] Prazer avisar.
+[02:54:27] Bom, vou fazer a chamada aqui rapidamente. Veja mim.
+[02:54:33] Aqui.
+[02:54:35] Caio.
+[02:54:36] Opa, aqui.
+[02:54:39] Diego.
+[02:54:42] Aqui.
+[02:54:43] Edgar.
+[02:54:45] Presidente.
+[02:54:47] Ed Nielson.
+[02:54:49] Presente.
+[02:54:50] Hélio.
+[02:54:51] Presente.
+[02:54:53] Hélio.
+[02:54:55] Eu aqui presente.
+[02:54:57] Henrique.
+[02:54:59] Presente.
+[02:55:01] Ia.
+[02:55:03] Presente.
+[02:55:05] João Pedro.
+[02:55:07] Carla.
+[02:55:09] Presente.
+[02:55:11] Levi.
+[02:55:13] Aqui professor.
+[02:55:15] Mateus.
+[02:55:17] Presente.
+[02:55:19] Paulo.
+[02:55:53] bom descanso, voltamos na quarta-feira porque vocês vão estar um feriado então bom
+[02:55:59] inclusive o bom feriado para vocês é bom final de semana prolongado descansem e nós
+[02:56:05] falamos na quarta-feira. Valeu. Bom feriado. Valeu galera, bom feriado. Tchau tchau.

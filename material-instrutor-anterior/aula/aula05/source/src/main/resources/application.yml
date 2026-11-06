@@ -1,0 +1,22 @@
+# Configuração COMUM aos três processos. O que muda em cada um está em
+# application-idp.yml, application-notas.yml e application-biblioteca.yml
+# (escolhidos com --spring.profiles.active=idp | notas | biblioteca).
+spring:
+  application:
+    name: sso-escola
+  thymeleaf:
+    cache: false
+
+server:
+  servlet:
+    session:
+      timeout: 30m
+      cookie:
+        # HttpOnly: o JavaScript da página não lê o cookie de sessão (aula 02).
+        http-only: true
+        # Lax: o cookie acompanha a volta do provedor (navegação de topo por GET) mas não
+        # requisições disparadas por outro site. "Strict" QUEBRARIA este fluxo: ao voltar do
+        # provedor para a aplicação, o navegador não enviaria o cookie da sessão (e o state se perderia).
+        same-site: lax
+        # Em produção: secure: true (somente HTTPS). Aqui o ambiente é HTTP local.
+        secure: false

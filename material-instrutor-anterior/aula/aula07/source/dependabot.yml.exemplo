@@ -1,0 +1,8 @@
+# Exemplo mostrado na aula 07 (seção 04 do roteiro).
+# Para ativar em um repositório do GitHub, salve como .github/dependabot.yml
+version: 2
+updates:
+  - package-ecosystem: "maven"
+    directory: "/"
+    schedule:
+      interval: "weekly"

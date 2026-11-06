@@ -1,0 +1,34 @@
+# Perfil "idp": o PROVEDOR DE IDENTIDADE (porta 9000).
+server:
+  port: 9000
+  servlet:
+    session:
+      cookie:
+        # Nome próprio para não colidir com outras aplicações no mesmo host.
+        name: IDP_SESSAO
+
+sso:
+  idp:
+    # Endereço PÚBLICO do provedor (o que o navegador acessa). Também é o "iss" das asserções.
+    # Usamos *.localhost: cada nome é um "site" diferente para o navegador (cookies separados),
+    # mas todos apontam para a sua própria máquina.
+    emissor: http://idp.localhost:9000
+    # A RELAÇÃO DE CONFIANÇA: as aplicações que o provedor conhece, cadastradas de antemão.
+    # Só estes endereços de retorno são aceitos (o cliente NÃO escolhe para onde voltar:
+    # isso evitaria o ataque de "open redirect").
+    aplicacoes:
+      notas:
+        nome: Notas
+        url-retorno: http://notas.localhost:8081/sso/callback
+        # endereço INTERNO (servidor para servidor) usado no logout único
+        url-logout: http://localhost:8081/sso/logout-backchannel
+        url-pos-logout: http://notas.localhost:8081/
+        # Segredo da aplicação (ela se identifica ao trocar o código). Em produção vem do
+        # ambiente, nunca do código. Os valores padrão abaixo são SÓ para a demonstração.
+        segredo: ${SSO_SEGREDO_NOTAS:segredo-de-demonstracao-notas-0001}
+      biblioteca:
+        nome: Biblioteca
+        url-retorno: http://biblioteca.localhost:8082/sso/callback
+        url-logout: http://localhost:8082/sso/logout-backchannel
+        url-pos-logout: http://biblioteca.localhost:8082/
+        segredo: ${SSO_SEGREDO_BIBLIOTECA:segredo-de-demonstracao-biblioteca-0002}

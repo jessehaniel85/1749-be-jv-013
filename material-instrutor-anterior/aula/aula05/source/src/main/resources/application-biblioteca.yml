@@ -1,0 +1,19 @@
+# Perfil "biblioteca": a aplicação BIBLIOTECA (porta 8082).
+server:
+  port: 8082
+  servlet:
+    session:
+      cookie:
+        name: BIBLIOTECA_SESSAO
+
+sso:
+  cliente:
+    id: biblioteca
+    nome: Biblioteca
+    cor: "#15803d"
+    segredo: ${SSO_SEGREDO_BIBLIOTECA:segredo-de-demonstracao-biblioteca-0002}
+    idp-url-publica: http://idp.localhost:9000
+    idp-url-interna: http://localhost:9000
+    menu:
+      - { rotulo: "Meus empréstimos", caminho: "/meus-emprestimos" }
+      - { rotulo: "Gerenciar acervo (só bibliotecário)", caminho: "/acervo/gerenciar" }

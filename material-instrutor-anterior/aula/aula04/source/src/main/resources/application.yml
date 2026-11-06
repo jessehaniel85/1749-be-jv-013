@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: auth-jwt
+
+  # H2 em MEMÓRIA: o banco nasce quando a aplicação sobe e some quando ela para.
+  # DB_CLOSE_DELAY=-1 mantém o banco vivo enquanto a JVM existir.
+  datasource:
+    url: jdbc:h2:mem:authdb;DB_CLOSE_DELAY=-1
+    username: sa
+    password:
+
+  jpa:
+    hibernate:
+      # validate = o Hibernate NÃO cria nem altera tabelas, só CONFERE se o que a entidade espera
+      # existe no banco. Quem cria as tabelas é o Flyway (pasta db/migration).
+      ddl-auto: validate
+    # Evita consultas "escondidas" ao banco durante a resposta HTTP.
+    open-in-view: false
+
+  flyway:
+    enabled: true
+    # db/migration = estrutura das tabelas (vai para qualquer ambiente).
+    # db/seed      = usuários de DEMONSTRAÇÃO. Em um sistema real, esta pasta NÃO entra em produção.
+    locations: classpath:db/migration,classpath:db/seed
+
+app:
+  jwt:
+    # A chave NUNCA fica no código nem neste arquivo: defina a variável de ambiente JWT_SECRET
+    # antes de subir a aplicação (mínimo de 32 caracteres para o HS256). Veja o README.
+    secret: ${JWT_SECRET}
+    issuer: ada-auth
+    # Access token: vida CURTA. Se for roubado, vale pouco.
+    access-ttl: 15m
+    # Refresh token: vida LONGA, mas guardado no banco para poder ser revogado.
+    refresh-ttl: 7d

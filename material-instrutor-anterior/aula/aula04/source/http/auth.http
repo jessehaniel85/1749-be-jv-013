@@ -1,0 +1,90 @@
+### Aula 04 - auth-jwt. Requisições para o HTTP Client do IntelliJ.
+### Selecione o ambiente "dev" no "Run with" (arquivo http-client.env.json) e rode na ordem.
+### A aplicação precisa estar de pé (veja o README: variável de ambiente JWT_SECRET).
+
+### 1. Rota pública (não pede token)
+GET {{host}}/publico/ping
+
+### 2. Cadastro (validação: 3-30 caracteres no usuário; senha de 8+ com letra e número)
+POST {{host}}/auth/register
+Content-Type: application/json
+
+{"username": "bia", "password": "Senha@12345"}
+
+### 3. Cadastro INVÁLIDO: espera 400 com a lista de campos
+POST {{host}}/auth/register
+Content-Type: application/json
+
+{"username": "a b", "password": "123"}
+
+### 4. Login: guarda os dois tokens nas variáveis {{access}} e {{refresh}}
+POST {{host}}/auth/login
+Content-Type: application/json
+
+{"username": "ana", "password": "Senha@12345"}
+
+> {%
+    client.global.set("access", response.body.accessToken);
+    client.global.set("refresh", response.body.refreshToken);
+%}
+
+### 5. Login com senha errada: 401 (a mesma resposta de "usuário não existe")
+POST {{host}}/auth/login
+Content-Type: application/json
+
+{"username": "ana", "password": "Errada@123"}
+
+### 6. Rota protegida COM o access token: 200
+GET {{host}}/me
+Authorization: Bearer {{access}}
+
+### 7. Rota protegida SEM token: 401
+GET {{host}}/me
+
+### 8. Rota de admin com o token da "ana" (USER): 403
+GET {{host}}/admin/painel
+Authorization: Bearer {{access}}
+
+### 9. Refresh: troca o refresh token por um NOVO par (o antigo morre)
+### Antes de enviar, guarda o refresh token ATUAL em {{refreshAntigo}} (para o passo 10).
+< {%
+    client.global.set("refreshAntigo", client.global.get("refresh"));
+%}
+POST {{host}}/auth/refresh
+Content-Type: application/json
+
+{"refreshToken": "{{refresh}}"}
+
+> {%
+    client.global.set("access", response.body.accessToken);
+    client.global.set("refresh", response.body.refreshToken);
+%}
+
+### 10. REUSO: apresenta de novo o refresh token que o passo 9 acabou de gastar (espera 401).
+###     O servidor entende que o token foi roubado e revoga TODOS os do usuário.
+###     Depois rode o 9 outra vez: o refresh token NOVO também foi revogado (401).
+###     Para continuar a demonstração, faça o login de novo (passo 4).
+POST {{host}}/auth/refresh
+Content-Type: application/json
+
+{"refreshToken": "{{refreshAntigo}}"}
+
+### 11. Logout: revoga o refresh token (204). Depois o 9 devolve 401.
+POST {{host}}/auth/logout
+Content-Type: application/json
+
+{"refreshToken": "{{refresh}}"}
+
+### 12. Login do administrador (admin / Admin@12345) e acesso ao painel
+POST {{host}}/auth/login
+Content-Type: application/json
+
+{"username": "admin", "password": "Admin@12345"}
+
+> {%
+    client.global.set("accessAdmin", response.body.accessToken);
+%}
+
+###
+GET {{host}}/admin/painel
+Authorization: Bearer {{accessAdmin}}
